@@ -1,10 +1,12 @@
 package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "students")
-public class Student {
+public class Students {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,42 +14,46 @@ public class Student {
     private int student_id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Имя не может быть пустым!")
+    @Size(min = 2, max = 25, message = "Имя должно содержать от 2 до 25 символов!")
     private String name;
 
     @Column(name = "surname")
+    @NotEmpty(message = "Фамилия не может быть пустой!")
+    @Size(min = 2, max = 35, message = "Фамилия должна содержать от 2 до 35 символов!")
     private String surname;
 
     @Column(name = "middle_name")
     private String middle_name;
 
-    @Column(name = "group_id")
-    private int group_id;
-
-    @Column(name = "department_id")
-    private int department_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_id")
+    private Groups group;
 
     @Column(name = "login")
+    @NotEmpty(message = "Логин не должен быть пустым!")
+    @Size(min = 5, max = 50, message = "Логин должен содержать от 5 до 50 символов!")
     private String login;
 
     @Column(name = "password")
+    @NotEmpty(message = "Пароль не должен быть пустым!")
     private String password;
 
     @Column(name = "work_room")
+    @NotEmpty(message = "Кабинет не должен быть пустым!")
     private String work_room;
 
     @Column(name = "access")
-    private boolean access;
+    private boolean access = true;
 
-    public Student() {
+    public Students() {
     }
 
-    public Student(int student_id, String name, String surname, String middle_name, int group_id, int department_id, String login, String password, String work_room, boolean access) {
+    public Students(int student_id, String name, String surname, String middle_name, String login, String password, String work_room, boolean access) {
         this.student_id = student_id;
         this.name = name;
         this.surname = surname;
         this.middle_name = middle_name;
-        this.group_id = group_id;
-        this.department_id = department_id;
         this.login = login;
         this.password = password;
         this.work_room = work_room;
@@ -86,20 +92,12 @@ public class Student {
         this.middle_name = middle_name;
     }
 
-    public int getGroup_id() {
-        return group_id;
+    public Groups getGroup() {
+        return group;
     }
 
-    public void setGroup_id(int group_id) {
-        this.group_id = group_id;
-    }
-
-    public int getDepartment_id() {
-        return department_id;
-    }
-
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
+    public void setGroup(Groups group) {
+        this.group = group;
     }
 
     public String getLogin() {
@@ -136,13 +134,11 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Students{" +
                 "student_id=" + student_id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", middle_name='" + middle_name + '\'' +
-                ", group_id=" + group_id +
-                ", department_id=" + department_id +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", work_room='" + work_room + '\'' +

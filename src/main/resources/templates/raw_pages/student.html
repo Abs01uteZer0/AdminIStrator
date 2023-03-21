@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminIStrator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
+    <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
+    <script>$(function(){ $('select').chosen(); })</script>
+    <!--Библиотки для поиска в dropdown list (jquery + jquery css)-->
+</head>
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="#" class="nav-link px-2 link-dark">Главная страница</a></li>
+            <li><a href="#" class="nav-link px-2 link-secondary">Добавление/Удаление</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Администрирование</a></li>
+            <li><a href="#" class="nav-link px-2 link-dark">Мониторинг</a></li>
+        </ul>
+
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2">Авторизация</button>
+            <button type="button" class="btn btn-primary">Выход</button>
+        </div>
+    </header>
+</div>
+
+<h1>1)</h1>
+<h5>Добавление/изменение одного пользователя:</h5>
+<form th:method="PATCH" th:action="@{/success-student}" th:object="${student}">
+
+    <input type="number" th:field="*{student_id}" id="id" th:hidden="true">
+    Имя: <input type="text" th:field="*{name}" id="name" placeholder="Имя "/>
+    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br>
+    Фамилия: <input type="text" th:field="*{surname}" id="surname" placeholder="Фамилия "/>
+    <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+    <br>
+    Отчество: <input type="text" th:field="*{middle_name}" id="middle_name" placeholder="Отчество "/>
+    <br>
+    Группа:
+    <select th:field="*{group}">
+        <option value="" label="" th:if="not ${change_flag}"></option>
+        <option th:each="groups : ${groups}"
+                th:value="${groups.group_id}"
+                th:text="${groups.group_name}">
+        </option>
+    </select>
+    <br>
+    Логин: <input type="text" th:field="*{login}" id="login" placeholder="Логин "/>
+    <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
+    <br>
+    Пароль: <input type="text" th:field="*{password}" id="password" placeholder="Пароль "/>
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br>
+    Кабинет: <input type="text" th:field="*{work_room}" id="work_room" placeholder="Кабинет "/>
+    <div th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
+    <br>
+    <div th:if="${change_flag}">
+        Доступ:
+        <input type="radio" id="true" th:value="true" th:field="*{access}">
+        <label class="custom-control-label" for="true">True</label>
+        <input type="radio" id="false" th:value="false" th:field="*{access}">
+        <label class="custom-control-label" for="false">False</label>
+        <br>
+    </div>
+    <input type="submit" value="OK">
+</form>
+
+
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <span class="mb-3 mb-md-0 text-muted">© 2023 Пшеничный А.И., ИС-Б19</span>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
