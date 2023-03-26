@@ -1,8 +1,8 @@
 package com.andreypshenichnyj.iate.administrator.configuration;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
-import com.andreypshenichnyj.iate.administrator.service.MasterServiceImpl;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,30 +19,34 @@ import java.util.Collection;
 @Component("AuthenticationProvider")
 public class MyAuthenticationProvider implements AuthenticationProvider{
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    private UserDetailsService users;
+    public MyAuthenticationProvider(PasswordEncoder passwordEncoder, @Qualifier("userDetailServiceImpl") UserDetailsService userDetailsService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        Masters master = (Masters) users.loadUserByUsername(username);
+        User user = (User) userDetailsService.loadUserByUsername(username);
 
-        if (master == null || !master.getUsername().equalsIgnoreCase(username)) {
+        if (user == null || !user.getUsername().equalsIgnoreCase(username)) {
             throw new BadCredentialsException("Username not found.");
         }
 
-        if (!password.equals(passwordEncoder.encode(master.getPassword()))) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("Wrong password.");
         }
 
-        Collection<? extends GrantedAuthority> authorities = master.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
-        return new UsernamePasswordAuthenticationToken(master, password, authorities);
+        return new UsernamePasswordAuthenticationToken(user, password, authorities);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Groups {
     private int group_id;
 
     @Column(name = "group_name")
+    @NotEmpty(message = "Название не должно быть пустым!")
     private String group_name;
 
     @ManyToOne(cascade = CascadeType.ALL)

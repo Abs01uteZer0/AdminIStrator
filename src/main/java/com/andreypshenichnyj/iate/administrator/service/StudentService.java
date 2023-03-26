@@ -2,7 +2,6 @@ package com.andreypshenichnyj.iate.administrator.service;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
 import com.andreypshenichnyj.iate.administrator.entity.Students;
 
 import java.util.List;

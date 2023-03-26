@@ -1,19 +1,14 @@
 package com.andreypshenichnyj.iate.administrator.controller;
 
 
-import com.andreypshenichnyj.iate.administrator.entity.Departments;
-import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping

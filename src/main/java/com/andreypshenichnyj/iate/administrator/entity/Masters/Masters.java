@@ -1,6 +1,8 @@
-package com.andreypshenichnyj.iate.administrator.entity;
+package com.andreypshenichnyj.iate.administrator.entity.Masters;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,41 +10,58 @@ import java.util.*;
 
 @Entity
 @Table(name = "masters")
-public class Masters implements UserDetails {
+public class Masters{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "master_id")
     private int master_id;
 
     @Column(name = "name")
+    @NotEmpty(message = "Имя не может быть пустым!")
+    @Size(min = 2, max = 25, message = "Имя должно содержать от 2 до 25 символов!")
     private String name;
 
     @Column(name = "surname")
+    @NotEmpty(message = "Фамилия не может быть пустой!")
+    @Size(min = 2, max = 25, message = "Фамилия должна содержать от 2 до 35 символов!")
     private String surname;
 
     @Column(name = "middle_name")
     private String middle_name;
 
     @Column(name = "login")
+    @NotEmpty(message = "Логин не должен быть пустым!")
+    @Size(min = 5, max = 50, message = "Логин должен содержать от 5 до 50 символов!")
     private String login;
 
     @Column(name = "password")
+    @NotEmpty(message = "Пароль не должен быть пустым!")
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL)    //Ставим все, кроме Remove - Для того, чтобы удалять не все роли и связанных с ними преподавателей.
-    @JoinColumn(name = "role_id")
-    private Roles role;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private Status status = Status.ACTIVE;
 
     public Masters() {
     }
 
-    public Masters(int master_id, String name, String surname, String middle_name, String login, String password) {
+    public Masters(int master_id, String name, String surname, String middle_name, String login, String password, Role role, Status status) {
         this.master_id = master_id;
         this.name = name;
         this.surname = surname;
         this.middle_name = middle_name;
         this.login = login;
         this.password = password;
+        this.role = role;
+        this.status = status;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getMaster_id() {
@@ -85,53 +104,24 @@ public class Masters implements UserDetails {
         this.login = login;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        HashSet<Roles> set = new HashSet<>();
-        set.add(getRole());
-        return set;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return login;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Roles getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

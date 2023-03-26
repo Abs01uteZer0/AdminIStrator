@@ -32,7 +32,7 @@ public class Students {
 
     @Column(name = "login")
     @NotEmpty(message = "Логин не должен быть пустым!")
-    @Size(min = 5, max = 50, message = "Логин должен содержать от 5 до 50 символов!")
+    @Size(min = 2, max = 50, message = "Логин должен содержать от 2 до 50 символов!")
     private String login;
 
     @Column(name = "password")

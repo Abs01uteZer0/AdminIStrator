@@ -2,6 +2,7 @@ package com.andreypshenichnyj.iate.administrator.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Departments {
     private int department_id;
 
     @Column(name = "department_name")
+    @NotEmpty(message = "Название не должно быть пустым!")
     private String department_name;
 
     @OneToMany(cascade = CascadeType.ALL,

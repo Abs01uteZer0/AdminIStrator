@@ -1,6 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.dao.master;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
 
 import java.util.List;
 

@@ -180,7 +180,7 @@
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Роль</th>
-                <th width="100"></th>
+                <th>Статус</th>
                 <th width="100"></th>
             </tr>
             </thead>
@@ -190,6 +190,7 @@
                 <td th:utext="${mstr.name}"></td>
                 <td th:utext="${mstr.middle_name}"></td>
                 <td th:utext="${mstr.role}"></td>
+                <td th:utext="${mstr.status}"></td>
                 <td><a th:href="@{/edit-master/{id}(id=${mstr.master_id})}" th:method="get"
                        class="btn btn-success custom-width">изменить</a></td>
             </tr>

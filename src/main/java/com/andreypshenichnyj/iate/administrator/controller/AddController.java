@@ -2,17 +2,20 @@ package com.andreypshenichnyj.iate.administrator.controller;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.entity.Students;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping

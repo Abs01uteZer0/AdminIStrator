@@ -1,7 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.dao.master;
 
-import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

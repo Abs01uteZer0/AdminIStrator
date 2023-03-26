@@ -37,6 +37,8 @@
     <form th:method="PATCH" th:action="@{/success-master}" th:object="${master}">
 
         <input type="number" th:field="*{master_id}" id="m_id" th:hidden="true">
+        <input type="text" th:field="*{status}" id="m_status" th:hidden="true">
+
         Имя: <input type="text" th:field="*{name}" id="m_name" placeholder="Имя "/>
         <br>
         Фамилия: <input type="text" th:field="*{surname}" id="m_surname" placeholder="Фамилия "/>
@@ -47,8 +49,8 @@
         <select th:field="*{role}">
             <option value="" label="" th:if="not ${change_flag}"></option>
             <option th:each="role : ${roles}"
-                    th:value="${role.role_id}"
-                    th:text="${role.role_name}">
+                    th:value="${role}"
+                    th:text="${role.name()}">
             </option>
         </select>
         <br>
