@@ -47,7 +47,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         query.setParameter("name", name);
         List result = query.getResultList();
         if (result.isEmpty()) {           //Если такого отделения не было найдено, то
-            deps.setDepartment_name(name);
+            return null;
         } else {
             deps = (Departments) result.get(0);    //Однако, если нашли, то присвоим департаменту его значение
         }

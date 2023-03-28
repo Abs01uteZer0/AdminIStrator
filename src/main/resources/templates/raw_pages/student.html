@@ -46,12 +46,13 @@
     <br>
     Группа:
     <select th:field="*{group}">
-        <option value="" label="" th:if="not ${change_flag}"></option>
+        <option value=null label="Выберите группу" th:if="not ${change_flag}"></option>
         <option th:each="groups : ${groups}"
                 th:value="${groups.group_id}"
                 th:text="${groups.group_name}">
         </option>
     </select>
+    <div style="color: red" th:if="${#fields.hasErrors('group')}" th:errors="*{group}">Group Error</div>
     <br>
     Логин: <input type="text" th:field="*{login}" id="login" placeholder="Логин "/>
     <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>

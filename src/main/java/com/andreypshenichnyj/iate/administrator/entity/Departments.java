@@ -3,6 +3,7 @@ package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Departments {
     private int department_id;
 
     @Column(name = "department_name")
-    @NotEmpty(message = "Название не должно быть пустым!")
+    @Pattern(regexp = "[А-Я]+", message = "Название отделения должно соответствовать следующему шаблону: [А-Я]+")
     private String department_name;
 
     @OneToMany(cascade = CascadeType.ALL,

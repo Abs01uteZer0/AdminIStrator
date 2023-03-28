@@ -47,7 +47,7 @@ public class GroupDAOImpl implements GroupDAO {
         query.setParameter("name", name);
         List result = query.getResultList();
         if (result.isEmpty()) {           //Если такая группа не было найдено, то
-            group.setGroup_name(name);
+            return null;
         } else {
             group = (Groups) result.get(0);    //Однако, если нашли, то присвоим группе ее значение
         }

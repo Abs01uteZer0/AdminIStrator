@@ -2,6 +2,8 @@ package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
@@ -17,11 +19,13 @@ public class Groups {
     private int group_id;
 
     @Column(name = "group_name")
-    @NotEmpty(message = "Название не должно быть пустым!")
+    @Pattern(regexp = "[А-Я]+_[Б|С|М]\\d{2}"
+            , message = "Название группы должно соответствовать следующему шаблону: [А-Я]+_[Б|С|М]\\d{2}")
     private String group_name;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")
+    @NotNull(message = "Пожалуйста, выберите отделение!")
     private Departments department;
 
     @OneToMany(cascade = CascadeType.ALL,

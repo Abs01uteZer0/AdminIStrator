@@ -33,7 +33,8 @@
     <form th:method="PATCH" th:action="@{/success-department}" th:object="${department}">
 
         <input type="number" th:field="*{department_id}" id="id" th:hidden="true">
-        Введите название отделения: <input type="text" th:field="*{department_name}" id="d_name" placeholder="Имя "/>
+        Введите название отделения: <input type="text" th:field="*{department_name}" id="department_name" placeholder="Имя "/>
+        <div style="color: red" th:if="${#fields.hasErrors('department_name')}" th:errors="*{department_name}">Name Error</div>
         <br>
         <input type="submit" value="OK">
 

@@ -38,7 +38,8 @@
     <form th:method="PATCH" th:action="@{/success-group}" th:object="${group}">
 
         <input type="number" th:field="*{group_id}" id="id" th:hidden="true">
-        Введите название группы: <input type="text" th:field="*{group_name}" id="g_name" placeholder="Имя "/>
+        Введите название группы: <input type="text" th:field="*{group_name}" id="group_name" placeholder="Имя "/>
+        <div style="color: red" th:if="${#fields.hasErrors('group_name')}" th:errors="*{group_name}">Name Error</div>
         <br>
         Отделение:
         <select th:field="*{department}" class="dropdown">

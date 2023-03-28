@@ -2,6 +2,7 @@ package com.andreypshenichnyj.iate.administrator.entity.Masters;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,10 +41,12 @@ public class Masters{
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
+    @NotNull
     private Role role;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
+    @NotNull
     private Status status = Status.ACTIVE;
 
     public Masters() {

@@ -73,6 +73,7 @@ public class AddController {
     public String successStudent(@Validated @ModelAttribute("student") Students student,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+
             return "raw_pages/student";
         }
         studentService.saveStudent(student);
@@ -82,7 +83,11 @@ public class AddController {
     }
 
     @PatchMapping(value = "/success-group")
-    public String successGroup(@ModelAttribute("group") Groups group, Model model) {
+    public String successGroup(@Validated @ModelAttribute("group") Groups group,
+                               BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            return "raw_pages/group";
+        }
         studentService.saveGroup(group);
         model.addAttribute("message", "Добавление/изменение группы прошло успешно!");
 
@@ -90,7 +95,11 @@ public class AddController {
     }
 
     @PatchMapping(value = "/success-department")
-    public String successDepartment(@ModelAttribute("department") Departments department, Model model) {
+    public String successDepartment(@Validated @ModelAttribute("department") Departments department,
+                                    BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            return "raw_pages/department";
+        }
         studentService.saveDepartment(department);
         model.addAttribute("message", "Добавление/изменение отделения прошло успешно");
 
@@ -98,7 +107,11 @@ public class AddController {
     }
 
     @PatchMapping(value = "/success-master")
-    public String successMaster(@ModelAttribute("master") Masters master, Model model) {
+    public String successMaster(@Validated @ModelAttribute("master") Masters master,
+                                BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            return "raw_pages/master";
+        }
         masterService.saveMaster(master);
         model.addAttribute("message", "Добавление/изменение преподавателя/администратора прошло успешно");
 
