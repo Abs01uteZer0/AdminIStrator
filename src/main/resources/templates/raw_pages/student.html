@@ -42,9 +42,10 @@
     <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
     <br>
     Фамилия: <input type="text" th:field="*{surname}" id="surname" placeholder="Фамилия "/>
-    <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
     <br>
     Отчество: <input type="text" th:field="*{middle_name}" id="middle_name" placeholder="Отчество "/>
+    <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{middle_name}">Middle_name Error</div>
     <br>
     Группа:
     <select th:field="*{group}">
@@ -57,13 +58,13 @@
     <div style="color: red" th:if="${#fields.hasErrors('group')}" th:errors="*{group}">Group Error</div>
     <br>
     Логин: <input type="text" th:field="*{login}" id="login" placeholder="Логин "/>
-    <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
     <br>
     Пароль: <input type="text" th:field="*{password}" id="password" placeholder="Пароль "/>
-    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br>
     Кабинет: <input type="text" th:field="*{work_room}" id="work_room" placeholder="Кабинет "/>
-    <div th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
+    <div style="color: red" th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
     <br>
     <div th:if="${change_flag}">
         Доступ:

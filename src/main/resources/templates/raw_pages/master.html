@@ -45,10 +45,10 @@
         <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
         <br>
         Фамилия: <input type="text" th:field="*{surname}" id="surname" placeholder="Фамилия "/>
-        <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{name}">Surname Error</div>
+        <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
         <br>
         Отчество: <input type="text" th:field="*{middle_name}" id="middle_name" placeholder="Отчество "/>
-        <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{name}">Middle_name Error</div>
+        <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{middle_name}">Middle_name Error</div>
         <br>
         Роль:
         <select th:field="*{role}">

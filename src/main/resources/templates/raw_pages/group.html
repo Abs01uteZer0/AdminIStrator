@@ -32,6 +32,7 @@
         </header>
     </div>
 </header>
+
 <h1>1)</h1>
 <h5>Добавление/изменение группы:</h5>
 
@@ -50,15 +51,12 @@
                     th:utext="${dep.department_name}">
             </option>
         </select>
+        <div style="color: red" th:if="${#fields.hasErrors('department')}" th:errors="*{department}">Department Error</div>
         <br>
         <input type="submit" value="OK">
 
     </form>
 </div>
-
-<br>
-<br>
-<br>
 
 <!--Добавить удаление из базы насовсем, заполнять пустой группой!!!!-->
 

@@ -2,6 +2,7 @@ package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class Students {
     private String surname;
 
     @Column(name = "middle_name")
+    @Max(value = 30, message = "Отчество не должно привышать 30 символов")
     private String middle_name;
 
     @ManyToOne(cascade = CascadeType.ALL)
