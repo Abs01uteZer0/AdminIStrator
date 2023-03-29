@@ -28,11 +28,6 @@ public class AddController {
 
     private final boolean CHANGE_FLAG = false;
 
-    @RequestMapping(value = "/main")
-    public String mainPage() {
-        return "sticky_friend";
-    }
-
     @GetMapping(value = "/add-student")
     public String addStudent(Model model) {
         model.addAttribute("change_flag", CHANGE_FLAG);
