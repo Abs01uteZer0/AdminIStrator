@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.List;
 
@@ -54,11 +56,15 @@ public class WebSecurityConfig{
                 .csrf().disable()
                 .authorizeHttpRequests()
                     .requestMatchers("/login").permitAll()
-                    .requestMatchers("/main").hasAuthority(Permission.ADMINS_READ.getPermission())
-                    .requestMatchers("/management").hasAuthority(Permission.ADMINS_READ.getPermission())
-                    .requestMatchers("/administration").hasAuthority(Permission.ADMINS_READ.getPermission())        //С помощью permission
+                    .requestMatchers("/**").hasAuthority(Permission.ADMINS_READ.getPermission())
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and().formLogin()
+                .defaultSuccessUrl("/main")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID");
 
         return http.build();
     }
