@@ -27,12 +27,11 @@ public class Students {
     private String surname;
 
     @Column(name = "middle_name")
-    @Max(value = 30, message = "Отчество не должно привышать 30 символов")
     private String middle_name;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
-    @NotNull(message = "Пожалуйста, выберите группу!")
+//    @NotNull(message = "Пожалуйста, выберите группу!")
     private Groups group;
 
     @Column(name = "login")

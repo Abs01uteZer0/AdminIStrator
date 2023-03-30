@@ -46,7 +46,6 @@
     <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
     <br>
     Отчество: <input type="text" th:field="*{middle_name}" id="middle_name" placeholder="Отчество "/>
-    <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{middle_name}">Middle_name Error</div>
     <br>
     Группа:
     <select th:field="*{group}">

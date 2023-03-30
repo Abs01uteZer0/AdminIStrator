@@ -29,14 +29,10 @@ public class AppConfig implements WebMvcConfigurer{
     @Autowired
     DepartmentIdToDepartmentConverter departmentIdToDepartmentConverter;
 
-    @Autowired
-    GroupNameToGroupOrNullConverter groupNameToGroupOrNullConverter;
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(groupIdToGroupConverter);
         registry.addConverter(departmentIdToDepartmentConverter);
-        registry.addConverter(groupNameToGroupOrNullConverter);
     }
 
     @Bean

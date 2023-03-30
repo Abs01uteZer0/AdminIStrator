@@ -29,7 +29,6 @@ public class Masters{
     private String surname;
 
     @Column(name = "middle_name")
-    @Max(value = 30, message = "Отчество не должно привышать 30 символов")
     private String middle_name;
 
     @Column(name = "login")
@@ -43,7 +42,7 @@ public class Masters{
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-    @NotNull
+//    @NotNull
     private Role role;
 
     @Enumerated(value = EnumType.STRING)
