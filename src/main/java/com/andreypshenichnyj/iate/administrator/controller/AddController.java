@@ -8,6 +8,7 @@ import com.andreypshenichnyj.iate.administrator.entity.Students;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,16 @@ public class AddController {
         model.addAttribute("groups", studentService.getGroups());
 
         return "raw_pages/student";
+    }
+
+    @GetMapping(value = "/add-group-of-students")
+    public String addGroupOfStudents(Model model){
+        model.addAttribute("rawString", "");
+        model.addAttribute("work_room", "");
+        model.addAttribute("groups", studentService.getGroups());
+        model.addAttribute("group", new Groups());
+
+        return "raw_pages/group_of_students";
     }
 
     @GetMapping(value = "/add-group")

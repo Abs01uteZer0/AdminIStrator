@@ -42,8 +42,8 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public void deleteAccessListOfStudents(List<Students> list) {
-        for (Students student: list) {
-            deleteAccessOfStudent(student);
+        for (int i = 0; i < list.size(); i++) {
+            deleteAccessOfStudent(list.get(i));
         }
     }
 

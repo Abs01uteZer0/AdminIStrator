@@ -27,6 +27,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void saveStudent(Students students) {
+
         studentDAO.addStudent(students);
     }
 
@@ -90,8 +91,8 @@ public class StudentServiceImpl implements StudentService {
     public void deleteAccessDepartmentOfStudents(int id) {
         Departments department = departmentDAO.getDepartment(id);
         List<Groups> list = department.getGroups();
-        for (Groups group : list) {
-            studentDAO.deleteAccessListOfStudents(group.getStudents());
+        for (int i = 0; i < list.size(); i++) {
+            studentDAO.deleteAccessListOfStudents(list.get(i).getStudents());
         }
     }
 

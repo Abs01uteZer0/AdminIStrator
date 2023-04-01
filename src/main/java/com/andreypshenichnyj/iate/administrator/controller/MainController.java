@@ -1,7 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.controller;
 
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ public class MainController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping(value = "/management")
-    public String getManagementPage(Model model){
+    @GetMapping(value = "/management_main")
+    public String getManagementMainPage(Model model){
         //Добавляем в модель необходимые параметры
         model.addAttribute("students", studentService.getStudents());
         model.addAttribute("groups", studentService.getGroups());
@@ -29,7 +28,14 @@ public class MainController {
         model.addAttribute("roles", masterService.getRoles());
         model.addAttribute("masters", masterService.getMasters());
 
-        return "management_page";
+        return "management_main_page";
+    }
+
+    @GetMapping(value = "/management_recovery")
+    public String getManagementRecoveryPage(Model model){
+
+
+        return "management_recovery_page";
     }
 
     @GetMapping(value = "/main")
