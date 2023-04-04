@@ -53,4 +53,10 @@ public class StudentDAOImpl implements StudentDAO{
         entityManager.merge(student);
     }
 
+    @Override
+    public void addGroupOfStudents(List<Students> list) {
+        for (Students student: list) {
+            addStudent(student);
+        }
+    }
 }

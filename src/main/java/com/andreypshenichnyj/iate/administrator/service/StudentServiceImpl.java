@@ -100,4 +100,9 @@ public class StudentServiceImpl implements StudentService {
     public void deleteAccessOfStudent(Students student) {
         studentDAO.deleteAccessOfStudent(student);
     }
+
+    @Override
+    public void addGroupOfStudents(List<Students> list) {
+        studentDAO.addGroupOfStudents(list);
+    }
 }

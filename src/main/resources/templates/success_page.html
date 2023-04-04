@@ -13,10 +13,11 @@
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="#" class="nav-link px-2 link-dark">Главная страница</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Добавление/Удаление</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Администрирование</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Мониторинг</a></li>
+            <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
+            <li><a th:href="@{/management_main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
+            <li><a th:href="@{/management_recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
+            <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
+            <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
@@ -28,7 +29,7 @@
     </header>
 </div>
 
-<h1 th:value="${message}"></h1>     <!--Отредачить и сделать красиво-->
+<span th:value="${message}"><span/>     <!--Отредачить и сделать красиво-->
 <a th:href="@{/main}" th:method="get"
    class="btn btn-success custom-width">На главную</a>
 

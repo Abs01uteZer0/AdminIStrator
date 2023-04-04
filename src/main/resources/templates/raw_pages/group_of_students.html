@@ -21,6 +21,7 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
                 <li><a th:href="@{/management}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
+                <li><a th:href="@{/management_recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
                 <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
             </ul>
@@ -39,22 +40,26 @@
 <h6>Внимание, Необходимо вводить студентов в точности так, как показано ниже!
 Имя:Фамилия:Отчество:login:password
 Имя:Фамилия:Отчество:login:password...</h6>
-<form th:method="PATCH" th:action="@{/success-student}" th:object="${student}">
+<form th:method="POST" th:action="@{/success-student-group}" th:object="${StParser}">
 
-    Строка для ввода: <input type="text" th:field="${rawString}" id="rawString" placeholder="Введите список студентов в указанном выше формате"/>
+    Строка для ввода: <input type="text" th:field="*{data}" id="data" placeholder="Введите список студентов в указанном выше формате"/>
+    <div style="color: red" th:if="${#fields.hasErrors('data')}" th:errors="*{data}">Data Error</div>
     <br>
     Группа:
-    <select th:field="${group}">
-        <option value=null label="Выберите группу"></option>
+    <select th:field="*{group}">
+<!--        <option value=null label="Выберите группу"></option>-->
         <option th:each="groups : ${groups}"
                 th:value="${groups.group_id}"
                 th:text="${groups.group_name}">
         </option>
     </select>
     <br>
-    Кабинет: <input type="text" th:field="${work_room}" id="work_room" placeholder="Кабинет "/>
+    Кабинет: <input type="text" th:field="*{work_room}" id="work_room" placeholder="Кабинет "/>
+    <div style="color: red" th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
+
     <br>
     <input type="submit" value="OK">
+
 </form>
 
 

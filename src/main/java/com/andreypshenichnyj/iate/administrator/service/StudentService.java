@@ -36,4 +36,6 @@ public interface StudentService {
 
     void deleteAccessOfStudent(Students student);
 
+    void addGroupOfStudents(List<Students> list);
+
 }

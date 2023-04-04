@@ -5,6 +5,7 @@ import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
 import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.parser.StudentsParser;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,8 @@ public class AddController {
 
     @GetMapping(value = "/add-group-of-students")
     public String addGroupOfStudents(Model model){
-        model.addAttribute("rawString", "");
-        model.addAttribute("work_room", "");
+        model.addAttribute("StParser", new StudentsParser());
         model.addAttribute("groups", studentService.getGroups());
-        model.addAttribute("group", new Groups());
 
         return "raw_pages/group_of_students";
     }
@@ -120,6 +119,21 @@ public class AddController {
         }
         masterService.saveMaster(master);
         model.addAttribute("message", "Добавление/изменение преподавателя/администратора прошло успешно");
+
+        return "success_page";
+    }
+
+    @PostMapping(value = "/success-student-group")
+    public String successStudentGroup(@Validated @ModelAttribute("StParser") StudentsParser studentsParser,
+                                      BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            return "raw_pages/group_of_students";
+        }
+        List<Students> studentsList = studentsParser.parsing();
+//        System.out.println(studentsList);
+        studentService.addGroupOfStudents(studentsList);
+
+        model.addAttribute("message", "Добавление группы студентов прошло успешно");
 
         return "success_page";
     }

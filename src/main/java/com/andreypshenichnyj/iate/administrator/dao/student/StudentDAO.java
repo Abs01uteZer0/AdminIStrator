@@ -15,4 +15,6 @@ public interface StudentDAO {
     void deleteAccessListOfStudents(List<Students> list);
 
     void deleteAccessOfStudent(Students student);
+
+    void addGroupOfStudents(List<Students> list);
 }
