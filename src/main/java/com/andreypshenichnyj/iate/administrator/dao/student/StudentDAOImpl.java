@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO{
@@ -57,6 +58,30 @@ public class StudentDAOImpl implements StudentDAO{
     public void addGroupOfStudents(List<Students> list) {
         for (Students student: list) {
             addStudent(student);
+        }
+    }
+
+    @Override
+    public List<Students> getAllActiveStudents() {
+        return getAllStudents().stream().filter((student -> student.isAccess())).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<Students> getAllNonActiveStudents() {
+        return getAllStudents().stream().filter((student -> !student.isAccess())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void recoveryAccessOfStudent(Students student) {
+        student.setAccess(true);
+        entityManager.merge(student);
+    }
+
+    @Override
+    public void recoveryAccessListOfStudents(List<Students> list) {
+        for (int i = 0; i < list.size(); i++) {
+            recoveryAccessOfStudent(list.get(i));
         }
     }
 }

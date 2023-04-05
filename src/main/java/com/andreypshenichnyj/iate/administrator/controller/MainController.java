@@ -22,7 +22,7 @@ public class MainController {
     @GetMapping(value = "/management_main")
     public String getManagementMainPage(Model model){
         //Добавляем в модель необходимые параметры
-        model.addAttribute("students", studentService.getStudents());
+        model.addAttribute("students", studentService.getAllActiveStudents());
         model.addAttribute("groups", studentService.getGroups());
         model.addAttribute("departments", studentService.getDepartments());
         model.addAttribute("roles", masterService.getRoles());
@@ -33,7 +33,10 @@ public class MainController {
 
     @GetMapping(value = "/management_recovery")
     public String getManagementRecoveryPage(Model model){
-
+        model.addAttribute("groups", studentService.getGroups());
+        model.addAttribute("departments", studentService.getDepartments());
+        model.addAttribute("students", studentService.getAllNonActiveStudents());
+        //Добавлять в модель всех студентов, у кого доступ false
 
         return "management_recovery_page";
     }

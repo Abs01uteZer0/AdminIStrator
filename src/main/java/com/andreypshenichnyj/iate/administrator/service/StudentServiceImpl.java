@@ -97,12 +97,42 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteAccessOfStudent(Students student) {
-        studentDAO.deleteAccessOfStudent(student);
+    public void deleteAccessOfStudent(int id) {
+        studentDAO.deleteAccessOfStudent(studentDAO.getStudent(id));
     }
 
     @Override
     public void addGroupOfStudents(List<Students> list) {
         studentDAO.addGroupOfStudents(list);
+    }
+
+    @Override
+    public List<Students> getAllActiveStudents() {
+        return studentDAO.getAllActiveStudents();
+    }
+
+    @Override
+    public List<Students> getAllNonActiveStudents() {
+        return studentDAO.getAllNonActiveStudents();
+    }
+
+    @Override
+    public void recoveryAccessGroupOfStudents(int id) {
+        Groups group = groupDAO.getGroup(id);
+        studentDAO.recoveryAccessListOfStudents(group.getStudents());
+    }
+
+    @Override
+    public void recoveryAccessDepartmentOfStudents(int id) {
+        Departments department = departmentDAO.getDepartment(id);
+        List<Groups> list = department.getGroups();
+        for (int i = 0; i < list.size(); i++) {
+            studentDAO.recoveryAccessListOfStudents(list.get(i).getStudents());
+        }
+    }
+
+    @Override
+    public void recoveryAccessOfStudent(int id) {
+        studentDAO.recoveryAccessOfStudent(studentDAO.getStudent(id));
     }
 }

@@ -29,8 +29,7 @@ public class RemoveController {
 
     @PatchMapping(value = "/delete-student/{id}")
     public String deleteStudent(Model model, @PathVariable int id){
-        Students student = studentService.getStudentById(id);
-        studentService.deleteAccessOfStudent(student);
+        studentService.deleteAccessOfStudent(id);
         model.addAttribute("message", "Удаление доступа студента прошло успешно");
 
         return "success_page";

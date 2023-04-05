@@ -17,4 +17,12 @@ public interface StudentDAO {
     void deleteAccessOfStudent(Students student);
 
     void addGroupOfStudents(List<Students> list);
+
+    List<Students> getAllActiveStudents();
+
+    List<Students> getAllNonActiveStudents();
+
+    void recoveryAccessOfStudent(Students student);
+
+    void recoveryAccessListOfStudents(List<Students> list);
 }

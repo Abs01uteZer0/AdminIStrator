@@ -34,8 +34,18 @@ public interface StudentService {
 
     void deleteAccessDepartmentOfStudents(int id);
 
-    void deleteAccessOfStudent(Students student);
+    void deleteAccessOfStudent(int id);
 
     void addGroupOfStudents(List<Students> list);
+
+    List<Students> getAllActiveStudents();
+
+    List<Students> getAllNonActiveStudents();
+
+    void recoveryAccessGroupOfStudents(int id);
+
+    void recoveryAccessDepartmentOfStudents(int id);
+
+    void recoveryAccessOfStudent(int id);
 
 }
