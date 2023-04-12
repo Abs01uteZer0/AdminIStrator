@@ -41,7 +41,8 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
                 <li><a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
-                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-secondary">Восстановление пользователей</a></li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-secondary">Восстановление
+                    пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
                 <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
             </ul>
@@ -86,7 +87,8 @@
                 <td th:utext="${std.login}"></td>
                 <td th:utext="${std.access}"></td>
                 <td>
-                    <form th:method="PATCH" th:action="@{/management/recovery/recovery-student/{id}(id=${std.student_id})}">
+                    <form th:method="PATCH"
+                          th:action="@{/management/recovery/recovery-student/{id}(id=${std.student_id})}">
                         <input type="submit" value="Восстановить" class="btn btn-success custom-width">
                     </form>
                 </td>
@@ -144,16 +146,14 @@
             <tr th:each="dep : ${departments}">
                 <td th:utext="${dep.department_name}"></td>
                 <td>
-                    <form th:method="PATCH" th:action="@{/management/recovery/recovery-department/{id}(id=${dep.department_id})}">
+                    <form th:method="PATCH"
+                          th:action="@{/management/recovery/recovery-department/{id}(id=${dep.department_id})}">
                         <input type="submit" value="Восстановить" class="btn btn-success custom-width">
                     </form>
                 </td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <div class="well">
-        <a th:href="@{/add-department}">Добавить отделение</a>
     </div>
 </div>
 

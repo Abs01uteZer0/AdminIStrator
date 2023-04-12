@@ -3,6 +3,7 @@ package com.andreypshenichnyj.iate.administrator.controller.management.main;
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.entity.Students;
 import com.andreypshenichnyj.iate.administrator.parser.StudentsParser;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
@@ -60,11 +61,20 @@ public class ManagementAddController {
         return "raw_pages/department";
     }
 
-    @GetMapping(value = "/add-master")
-    public String addMaster(Model model) {
+    @GetMapping(value = "/add-teacher")
+    public String addTeacher(Model model) {
         model.addAttribute("change_flag", CHANGE_FLAG);
         model.addAttribute("master", new Masters());
-        model.addAttribute("roles", masterService.getRoles());
+        model.addAttribute("roles", Role.TEACHER);
+
+        return "raw_pages/master";
+    }
+
+    @GetMapping(value = "/add-admin")
+    public String addAdmin(Model model) {
+        model.addAttribute("change_flag", CHANGE_FLAG);
+        model.addAttribute("master", new Masters());
+        model.addAttribute("roles", Role.ADMIN);
 
         return "raw_pages/master";
     }

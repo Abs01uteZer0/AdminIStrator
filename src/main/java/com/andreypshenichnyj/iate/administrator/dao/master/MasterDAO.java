@@ -6,11 +6,15 @@ import java.util.List;
 
 public interface MasterDAO {
 
-    public List<Masters> getAllMasters();
+    List<Masters> getAllMasters();
 
-    public void addMaster(Masters master);
+    List<Masters> getTeachers();
 
-    public Masters getMaster(int id);
+    List<Masters> getAdmins();
+
+    void addMaster(Masters master);
+
+    Masters getMaster(int id);
 
     Masters getMasterByLogin(String login);
 }

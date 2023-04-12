@@ -47,7 +47,7 @@
         <br>
         Отделение:
         <select th:field="*{department}" class="dropdown">
-            <option value=null th:if="not ${change_flag}">Выберите отделение</option>
+            <option value="" label="Выберите отделение" th:if="not ${change_flag}"></option>
             <option th:each="dep : ${departments}"
                     th:value="${dep.department_id}"
                     th:utext="${dep.department_name}">

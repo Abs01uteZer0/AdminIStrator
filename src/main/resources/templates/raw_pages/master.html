@@ -53,7 +53,7 @@
         <br>
         Роль:
         <select th:field="*{role}">
-            <option value="" label="" th:if="not ${change_flag}"></option>
+            <option value="" label="Выберите роль" th:if="not ${change_flag}"></option>
             <option th:each="role : ${roles}"
                     th:value="${role}"
                     th:text="${role.name()}">

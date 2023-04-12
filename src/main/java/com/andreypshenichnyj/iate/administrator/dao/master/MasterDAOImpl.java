@@ -7,6 +7,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class MasterDAOImpl implements MasterDAO {
@@ -21,6 +22,16 @@ public class MasterDAOImpl implements MasterDAO {
         List<Masters> allMasters = query.getResultList();
 
         return allMasters;
+    }
+
+    @Override
+    public List<Masters> getTeachers() {
+        return getAllMasters().stream().filter((master -> master.getRole().name().equals("TEACHER"))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Masters> getAdmins() {
+        return getAllMasters().stream().filter((master -> master.getRole().name().equals("ADMIN"))).collect(Collectors.toList());
     }
 
     //Добавляем или изменяем преподавателя/администратора

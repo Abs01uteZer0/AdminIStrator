@@ -52,6 +52,16 @@ public class MasterServiceImpl implements MasterService{
     }
 
     @Override
+    public List<Masters> getTeachers() {
+        return masterDAO.getTeachers();
+    }
+
+    @Override
+    public List<Masters> getAdmins() {
+        return masterDAO.getAdmins();
+    }
+
+    @Override
     public Masters getMasterById(int id) {
         return masterDAO.getMaster(id);
     }

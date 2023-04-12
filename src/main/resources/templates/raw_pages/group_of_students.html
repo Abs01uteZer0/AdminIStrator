@@ -47,7 +47,7 @@
     <br>
     Группа:
     <select th:field="*{group}">
-<!--        <option value=null label="Выберите группу"></option>-->
+        <option value="" label="Выберите группу" th:if="not ${change_flag}"></option>
         <option th:each="groups : ${groups}"
                 th:value="${groups.group_id}"
                 th:text="${groups.group_name}">

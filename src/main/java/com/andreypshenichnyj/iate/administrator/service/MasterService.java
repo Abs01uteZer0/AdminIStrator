@@ -13,5 +13,9 @@ public interface MasterService {
 
     List<Masters> getMasters();
 
+    List<Masters> getTeachers();
+
+    List<Masters> getAdmins();
+
     Masters getMasterById(int id);
 }

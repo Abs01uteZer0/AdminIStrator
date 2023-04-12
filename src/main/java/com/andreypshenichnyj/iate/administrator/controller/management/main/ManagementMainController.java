@@ -25,7 +25,8 @@ public class ManagementMainController {
         model.addAttribute("groups", studentService.getGroups());
         model.addAttribute("departments", studentService.getDepartments());
         model.addAttribute("roles", masterService.getRoles());
-        model.addAttribute("masters", masterService.getMasters());
+        model.addAttribute("teachers", masterService.getTeachers());
+        model.addAttribute("admins", masterService.getAdmins());
 
         return "management_main_page";
     }
