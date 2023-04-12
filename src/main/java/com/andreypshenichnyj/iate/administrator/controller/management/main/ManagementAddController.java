@@ -1,15 +1,13 @@
-package com.andreypshenichnyj.iate.administrator.controller;
+package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
 import com.andreypshenichnyj.iate.administrator.entity.Students;
 import com.andreypshenichnyj.iate.administrator.parser.StudentsParser;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +15,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
-@RequestMapping
-public class AddController {
+@RequestMapping(value = "/management/main")
+public class ManagementAddController {
     @Autowired
     private MasterService masterService;
 
@@ -130,37 +127,9 @@ public class AddController {
             return "raw_pages/group_of_students";
         }
         List<Students> studentsList = studentsParser.parsing();
-//        System.out.println(studentsList);
         studentService.addGroupOfStudents(studentsList);
 
         model.addAttribute("message", "Добавление группы студентов прошло успешно");
-
-        return "success_page";
-    }
-
-    @PatchMapping(value = "/recovery-student/{id}")
-    public String recoveryStudent(Model model, @PathVariable int id){
-        studentService.recoveryAccessOfStudent(id);
-
-        model.addAttribute("message", "Восстановление студента прошло успешно");
-
-        return "success_page";
-    }
-
-    @PatchMapping(value = "/recovery-group/{id}")
-    public String recoveryGroupOfStudents(Model model, @PathVariable int id){
-        studentService.recoveryAccessGroupOfStudents(id);
-
-        model.addAttribute("message", "Восстановление студента прошло успешно");
-
-        return "success_page";
-    }
-
-    @PatchMapping(value = "/recovery-department/{id}")
-    public String recoveryDepartmentOfStudents(Model model, @PathVariable int id){
-        studentService.recoveryAccessDepartmentOfStudents(id);
-
-        model.addAttribute("message", "Восстановление студента прошло успешно");
 
         return "success_page";
     }

@@ -1,4 +1,4 @@
-package com.andreypshenichnyj.iate.administrator.controller;
+package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
-public class ChangeController {
-
+@RequestMapping(value = "/management/main")
+public class ManagementChangeController {
     @Autowired
     private MasterService masterService;
 

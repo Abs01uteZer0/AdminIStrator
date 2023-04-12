@@ -4,7 +4,9 @@ public enum Permission {
     ADMINS_WRITE("admins:write"),
     ADMINS_READ("admins:read"),
     TEACHERS_WRITE("teachers:write"),
-    TEACHERS_READ("teachers:read");
+    TEACHERS_READ("teachers:read"),
+    SUPERUSER_READ("super:read"),
+    SUPERUSER_WRITE("super:write");
 
     private final String permission;
 

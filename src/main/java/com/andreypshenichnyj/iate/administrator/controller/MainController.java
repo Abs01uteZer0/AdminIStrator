@@ -5,7 +5,6 @@ import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,28 +17,6 @@ public class MainController {
 
     @Autowired
     private StudentService studentService;
-
-    @GetMapping(value = "/management_main")
-    public String getManagementMainPage(Model model){
-        //Добавляем в модель необходимые параметры
-        model.addAttribute("students", studentService.getAllActiveStudents());
-        model.addAttribute("groups", studentService.getGroups());
-        model.addAttribute("departments", studentService.getDepartments());
-        model.addAttribute("roles", masterService.getRoles());
-        model.addAttribute("masters", masterService.getMasters());
-
-        return "management_main_page";
-    }
-
-    @GetMapping(value = "/management_recovery")
-    public String getManagementRecoveryPage(Model model){
-        model.addAttribute("groups", studentService.getGroups());
-        model.addAttribute("departments", studentService.getDepartments());
-        model.addAttribute("students", studentService.getAllNonActiveStudents());
-        //Добавлять в модель всех студентов, у кого доступ false
-
-        return "management_recovery_page";
-    }
 
     @GetMapping(value = "/main")
     public String getMainPage(){
@@ -57,5 +34,11 @@ public class MainController {
     public String getAdministrationPage(){
 
         return "administration_page";
+    }
+
+    @GetMapping(value = "/role-checker")
+    public String getRoleChecker(){
+
+        return "Role_checker";
     }
 }

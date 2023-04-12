@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
@@ -20,8 +20,8 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-                <li><a th:href="@{/management}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
-                <li><a th:href="@{/management_recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
+                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
                 <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
             </ul>
@@ -40,7 +40,7 @@
 <h6>Внимание, Необходимо вводить студентов в точности так, как показано ниже!
 Имя:Фамилия:Отчество:login:password
 Имя:Фамилия:Отчество:login:password...</h6>
-<form th:method="POST" th:action="@{/success-student-group}" th:object="${StParser}">
+<form th:method="POST" th:action="@{/management/main/success-student-group}" th:object="${StParser}">
 
     Строка для ввода: <input type="text" th:field="*{data}" id="data" placeholder="Введите список студентов в указанном выше формате"/>
     <div style="color: red" th:if="${#fields.hasErrors('data')}" th:errors="*{data}">Data Error</div>

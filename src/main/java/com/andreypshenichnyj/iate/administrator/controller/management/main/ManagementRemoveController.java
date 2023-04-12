@@ -1,31 +1,19 @@
-package com.andreypshenichnyj.iate.administrator.controller;
+package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
-
-import com.andreypshenichnyj.iate.administrator.entity.Departments;
-import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
-import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
-public class RemoveController {
-
-    @Autowired
-    private MasterService masterService;
+@RequestMapping(value = "/management/main")
+public class ManagementRemoveController {
 
     @Autowired
     private StudentService studentService;
-
-    //----------------------------------------------------------
-    //Удаление доступа у студентов
 
     @PatchMapping(value = "/delete-student/{id}")
     public String deleteStudent(Model model, @PathVariable int id){

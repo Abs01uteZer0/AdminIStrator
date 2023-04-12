@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
@@ -14,8 +14,8 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-            <li><a th:href="@{/management_main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
-            <li><a th:href="@{/management_recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
+            <li><a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
+            <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
             <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
             <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
         </ul>
