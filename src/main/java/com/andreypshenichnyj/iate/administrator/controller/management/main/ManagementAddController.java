@@ -2,9 +2,10 @@ package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
+import com.andreypshenichnyj.iate.administrator.entity.students.Students;
+import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
 import com.andreypshenichnyj.iate.administrator.parser.StudentsParser;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -30,6 +32,7 @@ public class ManagementAddController {
 
     @GetMapping(value = "/add-student")
     public String addStudent(Model model) {
+        model.addAttribute("WorkRooms", studentService.getAllWorkRooms());
         model.addAttribute("change_flag", CHANGE_FLAG);
         model.addAttribute("student", new Students());
         model.addAttribute("groups", studentService.getGroups());
@@ -39,6 +42,7 @@ public class ManagementAddController {
 
     @GetMapping(value = "/add-group-of-students")
     public String addGroupOfStudents(Model model){
+        model.addAttribute("WorkRooms", studentService.getAllWorkRooms());
         model.addAttribute("StParser", new StudentsParser());
         model.addAttribute("groups", studentService.getGroups());
 

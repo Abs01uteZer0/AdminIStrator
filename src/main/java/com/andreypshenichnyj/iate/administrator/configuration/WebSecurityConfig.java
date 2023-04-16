@@ -1,6 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.configuration;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Permission;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Permission;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,8 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +26,7 @@ public class WebSecurityConfig{
                 .csrf().disable()
                 .authorizeHttpRequests()
                     .requestMatchers("/login").permitAll()
-                    .requestMatchers("/management/main/add-student").hasAuthority(Permission.TEACHERS_WRITE.getPermission())
+                    .requestMatchers("/management/main/add-student").hasAnyAuthority(Permission.TEACHERS_WRITE.getPermission(), Permission.ADMINS_WRITE.getPermission(), Permission.SUPERUSERS_WRITE.getPermission())
                     .requestMatchers("/management/main/*").hasAuthority(Permission.ADMINS_READ.getPermission())
                     .requestMatchers("/management/main/add-admin").hasAuthority(Permission.SUPERUSERS_WRITE.getPermission())
                     .requestMatchers("/management/recovery**").hasAuthority(Permission.ADMINS_READ.getPermission())

@@ -1,6 +1,5 @@
 package com.andreypshenichnyj.iate.administrator.configuration;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;

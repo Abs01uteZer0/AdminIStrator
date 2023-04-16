@@ -2,10 +2,12 @@ package com.andreypshenichnyj.iate.administrator.service;
 
 import com.andreypshenichnyj.iate.administrator.dao.departments.DepartmentDAO;
 import com.andreypshenichnyj.iate.administrator.dao.groups.GroupDAO;
-import com.andreypshenichnyj.iate.administrator.dao.student.StudentDAO;
+import com.andreypshenichnyj.iate.administrator.dao.students.StudentDAO;
+import com.andreypshenichnyj.iate.administrator.dao.work_rooms.Work_roomDAO;
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
+import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private GroupDAO groupDAO;
+
+    @Autowired
+    private Work_roomDAO work_roomDAO;
 
     @Autowired
     private DepartmentDAO departmentDAO;
@@ -134,5 +139,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void recoveryAccessOfStudent(int id) {
         studentDAO.recoveryAccessOfStudent(studentDAO.getStudent(id));
+    }
+
+    @Override
+    public List<Work_rooms> getAllWorkRooms() {
+        return work_roomDAO.getAllWorkRooms();
+    }
+
+    @Override
+    public Work_rooms getWorkRoomById(int id) {
+        return work_roomDAO.getWorkRoomById(id);
     }
 }

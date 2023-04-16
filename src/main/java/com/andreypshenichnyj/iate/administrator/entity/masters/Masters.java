@@ -1,20 +1,17 @@
-package com.andreypshenichnyj.iate.administrator.entity;
+package com.andreypshenichnyj.iate.administrator.entity.masters;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "students")
-public class Students {
-
+@Table(name = "masters")
+public class Masters{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
-    private int student_id;
+    @Column(name = "master_id")
+    private int master_id;
 
     @Column(name = "name")
     @NotEmpty(message = "Имя не может быть пустым!")
@@ -23,53 +20,55 @@ public class Students {
 
     @Column(name = "surname")
     @NotEmpty(message = "Фамилия не может быть пустой!")
-    @Size(min = 2, max = 35, message = "Фамилия должна содержать от 2 до 35 символов!")
+    @Size(min = 2, max = 25, message = "Фамилия должна содержать от 2 до 35 символов!")
     private String surname;
 
     @Column(name = "middle_name")
     private String middle_name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id")
-//    @NotNull(message = "Пожалуйста, выберите группу!")
-    private Groups group;
-
     @Column(name = "login")
     @NotEmpty(message = "Логин не должен быть пустым!")
-    @Size(min = 2, max = 50, message = "Логин должен содержать от 2 до 50 символов!")
+    @Size(min = 5, max = 50, message = "Логин должен содержать от 5 до 50 символов!")
     private String login;
 
     @Column(name = "password")
     @NotEmpty(message = "Пароль не должен быть пустым!")
     private String password;
 
-    @Column(name = "work_room")
-    @NotEmpty(message = "Кабинет не должен быть пустым!")
-    private String work_room;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
+//    @NotNull
+    private Role role;
 
-    @Column(name = "access")
-    private boolean access = true;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    @NotNull
+    private Status status = Status.ACTIVE;
 
-    public Students() {
+    public Masters() {
     }
 
-    public Students(int student_id, String name, String surname, String middle_name, String login, String password, String work_room, boolean access) {
-        this.student_id = student_id;
+    public Masters(int master_id, String name, String surname, String middle_name, String login, String password, Role role, Status status) {
+        this.master_id = master_id;
         this.name = name;
         this.surname = surname;
         this.middle_name = middle_name;
         this.login = login;
         this.password = password;
-        this.work_room = work_room;
-        this.access = access;
+        this.role = role;
+        this.status = status;
     }
 
-    public int getStudent_id() {
-        return student_id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStudent_id(int student_id) {
-        this.student_id = student_id;
+    public int getMaster_id() {
+        return master_id;
+    }
+
+    public void setMaster_id(int master_id) {
+        this.master_id = master_id;
     }
 
     public String getName() {
@@ -96,14 +95,6 @@ public class Students {
         this.middle_name = middle_name;
     }
 
-    public Groups getGroup() {
-        return group;
-    }
-
-    public void setGroup(Groups group) {
-        this.group = group;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -112,41 +103,35 @@ public class Students {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getWork_room() {
-        return work_room;
+    public Role getRole() {
+        return role;
     }
 
-    public void setWork_room(String work_room) {
-        this.work_room = work_room;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public boolean isAccess() {
-        return access;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setAccess(boolean access) {
-        this.access = access;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Students{" +
-                "student_id=" + student_id +
+        return "Masters{" +
+                "master_id=" + master_id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", middle_name='" + middle_name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", work_room='" + work_room + '\'' +
-                ", access=" + access +
                 '}';
     }
 }

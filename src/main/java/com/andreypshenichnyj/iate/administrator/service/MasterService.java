@@ -1,7 +1,7 @@
 package com.andreypshenichnyj.iate.administrator.service;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
 
 import java.util.List;
 

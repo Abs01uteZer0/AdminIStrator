@@ -87,7 +87,7 @@
                 <td th:utext="${std.group.department.department_name}"></td>
                 <td th:utext="${std.login}"></td>
                 <td th:utext="${std.access}"></td>
-                <td><a th:href="@{/edit-student/{id}(id=${std.student_id})}" th:method="get"
+                <td><a th:href="@{/management/main/edit-student/{id}(id=${std.student_id})}" th:method="get"
                        class="btn btn-success custom-width">изменить</a></td>
                 <td>
                     <form th:method="PATCH" th:action="@{/management/main/delete-student/{id}(id=${std.student_id})}">

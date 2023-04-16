@@ -1,6 +1,6 @@
-package com.andreypshenichnyj.iate.administrator.dao.student;
+package com.andreypshenichnyj.iate.administrator.dao.students;
 
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 
 import java.util.List;
 

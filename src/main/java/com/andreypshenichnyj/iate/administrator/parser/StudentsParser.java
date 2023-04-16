@@ -1,7 +1,9 @@
 package com.andreypshenichnyj.iate.administrator.parser;
 
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
+import com.andreypshenichnyj.iate.administrator.entity.students.Students;
+import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
@@ -17,10 +19,10 @@ public class StudentsParser {
     private String data;
     private Groups group;
     @NotEmpty
-    private String work_room;
+    private Work_rooms work_room;
     List<Students> studentsList;
 
-    public StudentsParser(String data, Groups group, String work_room) {
+    public StudentsParser(String data, Groups group, Work_rooms work_room) {
         this.data = data;
         this.group = group;
         this.work_room = work_room;
@@ -47,11 +49,11 @@ public class StudentsParser {
         this.group = group;
     }
 
-    public String getWork_room() {
+    public Work_rooms getWork_room() {
         return work_room;
     }
 
-    public void setWork_room(String work_room) {
+    public void setWork_room(Work_rooms work_room) {
         this.work_room = work_room;
     }
 
@@ -83,6 +85,4 @@ public class StudentsParser {
 
         return studentsList;
     }
-    //Создать методы парса: Берем строку, делаем для нее паттерн, матчером собираем все по строкам, Со строк разбиваем
-    //На данные, создаем по ним студента, затем Сохраняем в базу
 }

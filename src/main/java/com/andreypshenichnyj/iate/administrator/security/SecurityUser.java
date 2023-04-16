@@ -1,7 +1,7 @@
 package com.andreypshenichnyj.iate.administrator.security;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Status;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class SecurityUser implements UserDetails {
 

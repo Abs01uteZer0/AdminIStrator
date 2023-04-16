@@ -2,7 +2,8 @@ package com.andreypshenichnyj.iate.administrator.service;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
-import com.andreypshenichnyj.iate.administrator.entity.Students;
+import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
+import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 
 import java.util.List;
 
@@ -47,5 +48,9 @@ public interface StudentService {
     void recoveryAccessDepartmentOfStudents(int id);
 
     void recoveryAccessOfStudent(int id);
+
+    List<Work_rooms> getAllWorkRooms();
+
+    Work_rooms getWorkRoomById(int id);
 
 }

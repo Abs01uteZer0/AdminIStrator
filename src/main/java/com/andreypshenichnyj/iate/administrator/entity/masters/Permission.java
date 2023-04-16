@@ -1,4 +1,4 @@
-package com.andreypshenichnyj.iate.administrator.entity.Masters;
+package com.andreypshenichnyj.iate.administrator.entity.masters;
 
 public enum Permission {
     ADMINS_WRITE("admins:write"),

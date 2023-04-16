@@ -1,4 +1,4 @@
-package com.andreypshenichnyj.iate.administrator.entity.Masters;
+package com.andreypshenichnyj.iate.administrator.entity.masters;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

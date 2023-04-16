@@ -34,7 +34,51 @@
 
 
 
-<h1>Описание возможностей каждой дополнительной страницы...</h1>
+<h3>Проверка компьютеров</h3>
+<div class="generic-container m-5 ">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">List of Users:</span></div>   <!--Вот сюда добавить поиск-->
+        <input class="form-control" type="text" placeholder="Введите фамилию, имя, группу или отделение" id="search-text" onkeyup="tableSearchStudents()">
+        <table class="table table-striped table-hover" id="students-table">
+            <thead>
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Группа</th>
+                <th>Отделение</th>
+                <th>Логин</th>
+                <th>Доступ</th>
+                <th width="100"></th>
+                <th width="100"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="std : ${students}">
+                <td th:utext="${std.surname}"></td>
+                <td th:utext="${std.name}"></td>
+                <td th:utext="${std.middle_name}"></td>
+                <td th:utext="${std.group.group_name}"></td>
+                <td th:utext="${std.group.department.department_name}"></td>
+                <td th:utext="${std.login}"></td>
+                <td th:utext="${std.access}"></td>
+                <td><a th:href="@{/management/main/edit-student/{id}(id=${std.student_id})}" th:method="get"
+                       class="btn btn-success custom-width">изменить</a></td>
+                <td>
+                    <form th:method="PATCH" th:action="@{/management/main/delete-student/{id}(id=${std.student_id})}">
+                        <input type="submit" value="Удалить" class="btn btn-danger custom-width">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="well">
+        <a th:href="@{/management/main/add-student}">Добавить студента</a>
+        &emsp;&emsp;
+        <a th:href="@{/management/main/add-group-of-students}">Добавить группу студентов</a>
+    </div>
+</div>
 
 
 <footer class="footer mt-auto py-3 bg-light d-flex border-top">

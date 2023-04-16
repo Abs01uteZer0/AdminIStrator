@@ -54,7 +54,14 @@
         </option>
     </select>
     <br>
-    Кабинет: <input type="text" th:field="*{work_room}" id="work_room" placeholder="Кабинет "/>
+    Кабинет:
+    <select th:field="*{work_room}">
+        <option value="" label="Выберите кабинет" th:if="not ${change_flag}"></option>
+        <option th:each="wr : ${WorkRooms}"
+                th:value="${wr}"
+                th:text="${wr.name()}">
+        </option>
+    </select>
     <div style="color: red" th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
 
     <br>

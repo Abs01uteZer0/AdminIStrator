@@ -1,6 +1,7 @@
 package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
+import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/management/main")
@@ -23,6 +26,7 @@ public class ManagementChangeController {
 
     @GetMapping(value = "/edit-student/{id}")
     public String addStudent(Model model, @PathVariable int id){
+        model.addAttribute("WorkRooms", studentService.getAllWorkRooms());
         model.addAttribute("change_flag", CHANGE_FLAG);
         model.addAttribute("student", studentService.getStudentById(id));
         model.addAttribute("groups", studentService.getGroups());

@@ -1,15 +1,13 @@
 package com.andreypshenichnyj.iate.administrator.service;
 
-import com.andreypshenichnyj.iate.administrator.configuration.WebSecurityConfig;
-import com.andreypshenichnyj.iate.administrator.dao.master.MasterDAO;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Masters;
-import com.andreypshenichnyj.iate.administrator.entity.Masters.Role;
+import com.andreypshenichnyj.iate.administrator.dao.masters.MasterDAO;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Masters;
+import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
