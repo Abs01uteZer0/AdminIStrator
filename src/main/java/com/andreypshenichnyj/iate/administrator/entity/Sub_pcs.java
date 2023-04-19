@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "sub_pcs")
 public class Sub_pcs {
+    //Добавить имя
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

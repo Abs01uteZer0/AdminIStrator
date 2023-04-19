@@ -59,4 +59,20 @@ public class Work_rooms {
     public void setMain_pc_id(String main_pc_id) {
         this.main_pc_id = main_pc_id;
     }
+
+    public List<Students> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Students> students) {
+        this.students = students;
+    }
+
+    public List<Sub_pcs> getSub_pcs() {
+        return sub_pcs;
+    }
+
+    public void setSub_pcs(List<Sub_pcs> sub_pcs) {
+        this.sub_pcs = sub_pcs;
+    }
 }
