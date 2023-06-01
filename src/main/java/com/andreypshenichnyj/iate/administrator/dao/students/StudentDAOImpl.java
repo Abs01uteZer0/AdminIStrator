@@ -1,5 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.dao.students;
 
+import com.andreypshenichnyj.iate.administrator.entity.students.State;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -50,7 +51,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public void deleteAccessOfStudent(Students student) {
-        student.setAccess(false);
+        student.setState(State.R_TO_DELETE);
         entityManager.merge(student);
     }
 
@@ -62,19 +63,33 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public List<Students> getAllActiveStudents() {
-        return getAllStudents().stream().filter((student -> student.isAccess())).collect(Collectors.toList());
-
+    public List<Students> getAllCreatedStudents() {
+        return getAllStudents().stream().filter((student -> student.getState().equals(State.CREATED))).collect(Collectors.toList());
     }
 
     @Override
-    public List<Students> getAllNonActiveStudents() {
-        return getAllStudents().stream().filter((student -> !student.isAccess())).collect(Collectors.toList());
+    public List<Students> getAllRToDeleteStudents() {
+        return getAllStudents().stream().filter((student -> student.getState().equals(State.R_TO_DELETE))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Students> getAllRToWorkStudents() {
+        return getAllStudents().stream().filter((student -> student.getState().equals(State.R_TO_WORK))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Students> getAllInWorkStudents() {
+        return getAllStudents().stream().filter((student -> student.getState().equals(State.IN_WORK))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Students> getAllDeletedStudents() {
+        return getAllStudents().stream().filter((student -> student.getState().equals(State.DELETED))).collect(Collectors.toList());
     }
 
     @Override
     public void recoveryAccessOfStudent(Students student) {
-        student.setAccess(true);
+        student.setState(State.CREATED);
         entityManager.merge(student);
     }
 

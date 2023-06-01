@@ -23,7 +23,6 @@ public class Groups {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_id")
-//    @NotNull(message = "Пожалуйста, выберите отделение!")
     private Departments department;
 
     @OneToMany(cascade = CascadeType.ALL,

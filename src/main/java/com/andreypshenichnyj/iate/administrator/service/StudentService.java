@@ -39,9 +39,15 @@ public interface StudentService {
 
     void addGroupOfStudents(List<Students> list);
 
-    List<Students> getAllActiveStudents();
+    List<Students> getAllCreatedStudents();
 
-    List<Students> getAllNonActiveStudents();
+    List<Students> getAllRToDeleteStudents();
+
+    List<Students> getAllRToWorkStudents();
+
+    List<Students> getAllInWorkStudents();
+
+    List<Students> getAllDeletedStudents();
 
     void recoveryAccessGroupOfStudents(int id);
 

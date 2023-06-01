@@ -3,10 +3,7 @@ package com.andreypshenichnyj.iate.administrator.entity.students;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -33,12 +30,9 @@ public class Students {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
-//    @NotNull(message = "Пожалуйста, выберите группу!")
     private Groups group;
 
     @Column(name = "login")
-    @NotEmpty(message = "Логин не должен быть пустым!")
-    @Size(min = 2, max = 50, message = "Логин должен содержать от 2 до 50 символов!")
     private String login;
 
     @Column(name = "password")
@@ -52,10 +46,14 @@ public class Students {
     @Column(name = "access")
     private boolean access = true;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "state")
+    private State state;
+
     public Students() {
     }
 
-    public Students(int student_id, String name, String surname, String middle_name, String login, String password, Work_rooms work_room, boolean access) {
+    public Students(int student_id, String name, String surname, String middle_name, String login, String password, Work_rooms work_room, boolean access, State state) {
         this.student_id = student_id;
         this.name = name;
         this.surname = surname;
@@ -64,6 +62,7 @@ public class Students {
         this.password = password;
         this.work_room = work_room;
         this.access = access;
+        this.state = state;
     }
 
     public int getStudent_id() {
@@ -138,6 +137,14 @@ public class Students {
         this.access = access;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "Students{" +
@@ -148,7 +155,8 @@ public class Students {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", work_room='" + work_room + '\'' +
-                ", access=" + access +
+                ", access=" + access + '\'' +
+                ", state=" + state +
                 '}';
     }
 }

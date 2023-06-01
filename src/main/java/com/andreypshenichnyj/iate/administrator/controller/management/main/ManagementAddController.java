@@ -89,7 +89,6 @@ public class ManagementAddController {
     public String successStudent(@Validated @ModelAttribute("student") Students student,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-
             return "raw_pages/student";
         }
         studentService.saveStudent(student);

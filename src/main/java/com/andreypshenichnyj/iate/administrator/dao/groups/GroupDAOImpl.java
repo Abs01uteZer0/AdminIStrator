@@ -14,7 +14,6 @@ public class GroupDAOImpl implements GroupDAO {
     @PersistenceContext
     EntityManager entityManager;
 
-    //Получаем все группы
     @Override
     public List<Groups> getAllGroups() {
         Query query = entityManager.createQuery("from Groups", Groups.class);
@@ -23,7 +22,6 @@ public class GroupDAOImpl implements GroupDAO {
         return allGroups;
     }
 
-    //Добавляем или изменяем группу
     @Override
     public void addGroup(Groups group) {
         if (group.getGroup_id() == 0){
@@ -33,7 +31,6 @@ public class GroupDAOImpl implements GroupDAO {
         }
     }
 
-    //Получаем группу по id
     @Override
     public Groups getGroup(int id) {
         Groups group = entityManager.find(Groups.class, id);
@@ -43,13 +40,13 @@ public class GroupDAOImpl implements GroupDAO {
     @Override
     public Groups getGroupByName(String name) {
         Groups group = new Groups();
-        Query query = entityManager.createQuery("from Groups where group_name = :name", Groups.class);    //Попытка достать группу по имени
+        Query query = entityManager.createQuery("from Groups where group_name = :name", Groups.class);
         query.setParameter("name", name);
         List result = query.getResultList();
-        if (result.isEmpty()) {           //Если такая группа не было найдено, то
+        if (result.isEmpty()) {
             return null;
         } else {
-            group = (Groups) result.get(0);    //Однако, если нашли, то присвоим группе ее значение
+            group = (Groups) result.get(0);
         }
         return group;
     }

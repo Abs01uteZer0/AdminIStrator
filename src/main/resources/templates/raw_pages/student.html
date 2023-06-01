@@ -50,38 +50,22 @@
     <br>
     Группа:
     <select th:field="*{group}">
-        <option value="" label="Выберите группу" th:if="not ${change_flag}"></option>
+<!--        <option th:label="" label="Выберите группу" th:if="not ${change_flag}"></option>-->
         <option th:each="groups : ${groups}"
                 th:value="${groups.group_id}"
                 th:text="${groups.group_name}">
         </option>
     </select>
-    <div style="color: red" th:if="${#fields.hasErrors('group')}" th:errors="*{group}">Group Error</div>
-    <br>
-    Логин: <input type="text" th:field="*{login}" id="login" placeholder="Логин "/>
-    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
-    <br>
-    Пароль: <input type="text" th:field="*{password}" id="password" placeholder="Пароль "/>
-    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
     <br>
     Кабинет:
     <select th:field="*{work_room}">
-        <option value="" label="Выберите кабинет" th:if="not ${change_flag}"></option>
+<!--        <option value="" label="Выберите кабинет" th:if="not ${change_flag}"></option>-->
         <option th:each="wr : ${WorkRooms}"
                 th:value="${wr.work_room_id}"
                 th:text="${wr.name}">
         </option>
     </select>
-    <div style="color: red" th:if="${#fields.hasErrors('work_room')}" th:errors="*{work_room}">Work_room Error</div>
     <br>
-    <div th:if="${change_flag}">
-        Доступ:
-        <input type="radio" id="true" th:value="true" th:field="*{access}">
-        <label class="custom-control-label" for="true">True</label>
-        <input type="radio" id="false" th:value="false" th:field="*{access}">
-        <label class="custom-control-label" for="false">False</label>
-        <br>
-    </div>
     <input type="submit" value="OK">
 </form>
 

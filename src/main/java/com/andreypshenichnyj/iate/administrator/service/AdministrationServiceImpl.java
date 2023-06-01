@@ -17,8 +17,20 @@ public class AdministrationServiceImpl implements AdministrationService{
         Map<String, Boolean> map = new HashMap<>();
         for (Sub_pcs sub: list) {
             String ip = sub.getSub_pc_ip();
-            map.put(ip, new Connector("ping -w 1 -c 1 " + ip).getInfo());
+            Connector connector = new Connector("ping -w 1 " + ip);         //Для Линукс: "ping -w 1 -c 1 " + ip
+            boolean b = connector.getBoolean();
+            map.put(ip, b);
         }
+        return map;
+    }
+
+    public Map<String, Boolean> fakeFunction(){
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("vk.com", true);
+        map.put("google.com", true);
+        map.put("192.168.0.1", false);
+        map.put("1.1.1.1", false);
+        map.put("yandex.ru", true);
         return map;
     }
 }

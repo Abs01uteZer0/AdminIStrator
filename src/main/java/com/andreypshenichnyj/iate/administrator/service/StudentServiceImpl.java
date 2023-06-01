@@ -7,7 +7,9 @@ import com.andreypshenichnyj.iate.administrator.dao.work_rooms.Work_roomDAO;
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
+import com.andreypshenichnyj.iate.administrator.entity.students.State;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
+import com.andreypshenichnyj.iate.administrator.service.generators.LoginGenerator;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,9 +32,17 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private DepartmentDAO departmentDAO;
 
+    private LoginGenerator loginGenerator;
+
+    {
+        loginGenerator = new LoginGenerator();
+    }
+
     @Override
     public void saveStudent(Students students) {
-
+        students.setLogin(loginGenerator.getLogin(students.getName(), students.getSurname(), students.getMiddle_name()));
+        students.setState(State.CREATED);
+        students.setPassword("12345");
         studentDAO.addStudent(students);
     }
 
@@ -112,13 +122,28 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Students> getAllActiveStudents() {
-        return studentDAO.getAllActiveStudents();
+    public List<Students> getAllCreatedStudents() {
+        return studentDAO.getAllCreatedStudents();
     }
 
     @Override
-    public List<Students> getAllNonActiveStudents() {
-        return studentDAO.getAllNonActiveStudents();
+    public List<Students> getAllRToDeleteStudents() {
+        return studentDAO.getAllRToDeleteStudents();
+    }
+
+    @Override
+    public List<Students> getAllRToWorkStudents() {
+        return studentDAO.getAllRToWorkStudents();
+    }
+
+    @Override
+    public List<Students> getAllInWorkStudents() {
+        return studentDAO.getAllInWorkStudents();
+    }
+
+    @Override
+    public List<Students> getAllDeletedStudents() {
+        return studentDAO.getAllDeletedStudents();
     }
 
     @Override

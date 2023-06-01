@@ -8,7 +8,7 @@
     <title>AdminIStrator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<!--    <script type="text/javascript" src="scripts/tableSearches.js"></script>     &lt;!&ndash;Ошибка: No mapping for GET /scripts/tableSearsec.js&ndash;&gt;-->
+    <!--    <script type="text/javascript" src="scripts/tableSearches.js"></script>     &lt;!&ndash;Ошибка: No mapping for GET /scripts/tableSearsec.js&ndash;&gt;-->
 
     <script>
         function tableSearchStudents() {
@@ -31,6 +31,127 @@
         }
     </script>
 
+    <!--    <style>-->
+    <!--        .wrapper {-->
+    <!--        min-height: 100%;-->
+    <!--        position: relative;-->
+    <!--        overflow: hidden;-->
+    <!--    }-->
+
+    <!--    .content {-->
+    <!--        max-width: 100%;-->
+    <!--        margin: 0px auto;-->
+    <!--    }-->
+    <!--    /*.tabs {*/-->
+    <!--    /*    margin: 0px 0px 0px 0px;*/-->
+    <!--    /*}*/-->
+    <!--    .tabs__items {-->
+    <!--        display: flex;-->
+    <!--        background-color: gold;-->
+    <!--    }-->
+    <!--    .tabs__item {-->
+    <!--        flex: 0 1 33.333%;-->
+    <!--        height: 50px;-->
+    <!--        display: flex;-->
+    <!--        justify-content: center;-->
+    <!--        align-items: center;-->
+    <!--        text-transform: uppercase;-->
+    <!--        text-decoration: none;-->
+    <!--    }-->
+    <!--    .tabs__item span {-->
+    <!--        position: relative;-->
+    <!--        z-index: 2;-->
+    <!--    }-->
+
+    <!--    .tabs__body {-->
+    <!--    }-->
+    <!--    .tabs__block {-->
+    <!--        position: relative;-->
+    <!--        padding: 20px;-->
+    <!--        font-size: 18px;-->
+    <!--        line-height: 24px;-->
+    <!--        display: none;-->
+    <!--    }-->
+    <!--    .tabs__block:before {-->
+    <!--        content: "";-->
+    <!--        height: 50px;-->
+    <!--        width: 33.333%;-->
+    <!--        position: absolute;-->
+    <!--        top: -50px;-->
+    <!--    }-->
+    <!--    .tabs__block:nth-child(1):before {-->
+    <!--        left: 0;-->
+    <!--    }-->
+    <!--    .tabs__block:nth-child(2):before {-->
+    <!--        left: 33.333%;-->
+    <!--    }-->
+    <!--    .tabs__block:nth-child(3):before {-->
+    <!--        right: 33.333%;-->
+    <!--    }  -->
+    <!--    .tabs__block:nth-child(4):before {-->
+    <!--        right: 0;-->
+    <!--    }-->
+
+    <!--    .tabs__block:target {-->
+    <!--        display: block;-->
+    <!--    }-->
+
+    <!--    .text {-->
+    <!--        font-size: 18px;-->
+    <!--        line-height: 24px;-->
+    <!--    }-->
+    <!--    </style>-->
+
+
+    <style>
+        .tabs {
+            font-size: 0;
+            margin: 0px 0px 0px 0px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tabs > input[type="radio"] {
+            display: none;
+        }
+
+        .tabs > div {
+            display: none;
+            font-size: 16px;
+        }
+
+        #Created:checked ~ #content-1,
+        #In_Work:checked ~ #content-2,
+        #R_To_Work:checked ~ #content-3,
+        #R_To_Delete:checked ~ #content-4 {
+            display: block;
+        }
+
+        .tabs > label {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 2px 8px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            top: 1px;
+        }
+
+        .tabs > label:not(:first-of-type) {
+            border-left: none;
+        }
+
+        .tabs > input[type="radio"]:checked + label {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+    </style>
 
 
 </head>
@@ -41,15 +162,17 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
-                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
+                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a>
+                </li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
+                    пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
                 <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
                 <form th:method="POST" th:action="@{/logout}">
-                    <input type="submit" class="btn btn-primary" th:value="Выход"\>
+                    <input type="submit" class="btn btn-primary" th:value="Выход" \>
                 </form>
             </div>
         </header>
@@ -58,51 +181,200 @@
 
 
 <h1>1)</h1>
-<h5>Список активных пользователей с функциями добавления и изменения, а также удаления доступа:</h5>
+<h5>Студенты:</h5>
 
-<div class="generic-container m-5 ">
-    <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">List of Users:</span></div>   <!--Вот сюда добавить поиск-->
-        <input class="form-control" type="text" placeholder="Введите фамилию, имя, группу или отделение" id="search-text" onkeyup="tableSearchStudents()">
-        <table class="table table-striped table-hover" id="students-table">
-            <thead>
-            <tr>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>Группа</th>
-                <th>Отделение</th>
-                <th>Логин</th>
-                <th>Доступ</th>
-                <th width="100"></th>
-                <th width="100"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="std : ${students}">
-                <td th:utext="${std.surname}"></td>
-                <td th:utext="${std.name}"></td>
-                <td th:utext="${std.middle_name}"></td>
-                <td th:utext="${std.group.group_name}"></td>
-                <td th:utext="${std.group.department.department_name}"></td>
-                <td th:utext="${std.login}"></td>
-                <td th:utext="${std.access}"></td>
-                <td><a th:href="@{/management/main/edit-student/{id}(id=${std.student_id})}" th:method="get"
-                       class="btn btn-success custom-width">изменить</a></td>
-                <td>
-                    <form th:method="PATCH" th:action="@{/management/main/delete-student/{id}(id=${std.student_id})}">
-                        <input type="submit" value="Удалить" class="btn btn-danger custom-width">
+<div class="wrapper">
+    <div class="content">
+        <div class="tabs">
+            <input type="radio" name="tab-btn" id="Created" value="" checked>
+            <label for="Created">Созданные</label>
+            <input type="radio" name="tab-btn" id="In_Work" value="">
+            <label for="In_Work">В работе</label>
+            <input type="radio" name="tab-btn" id="R_To_Work" value="">
+            <label for="R_To_Work">Готовы к работе</label>
+            <input type="radio" name="tab-btn" id="R_To_Delete" value="">
+            <label for="R_To_Delete">Готовы к удалению</label>
+
+            <div id="content-1">
+                <div class="generic-container m-5 ">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><span class="lead">List of Created students:</span></div>
+                            <input class="form-control" type="text"
+                                   placeholder="Введите фамилию, имя, группу или отделение"
+                                   id="created-search-text" onkeyup="tableSearchStudents()">
+                            <table class="table table-striped table-hover" id="created-students-table">
+                                <thead>
+                                <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Группа</th>
+                                    <th>Отделение</th>
+                                    <th>Логин</th>
+                                    <th>Доступ</th>
+                                    <th width="100"></th>
+                                    <th class="text-center">Скрипт?</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="std : ${createdStudents}">
+                                    <td th:utext="${std.surname}"></td>
+                                    <td th:utext="${std.name}"></td>
+                                    <td th:utext="${std.middle_name}"></td>
+                                    <td th:utext="${std.group.group_name}"></td>
+                                    <td th:utext="${std.group.department.department_name}"></td>
+                                    <td th:utext="${std.login}"></td>
+                                    <td th:utext="${std.access}"></td>
+                                    <td><a th:href="@{/management/main/edit-student/{id}(id=${std.student_id})}"
+                                           th:method="get" class="btn btn-success custom-width">изменить</a></td>
+                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
+                                                                   th:value="${std.student_id}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--Расположить в нужном месте кнопку-->
+                        <input type="submit" value="Создать скрипт добавления" th:method="POST">
                     </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+
+            <div id="content-2">
+                <div class="generic-container m-5 ">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><span class="lead">List of Worked students:</span></div>
+                            <input class="form-control" type="text"
+                                   placeholder="Введите фамилию, имя, группу или отделение"
+                                   id="worked-search-text" onkeyup="tableSearchStudents()">
+                            <table class="table table-striped table-hover" id="worked-students-table">
+                                <thead>
+                                <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Группа</th>
+                                    <th>Отделение</th>
+                                    <th>Логин</th>
+                                    <th>Доступ</th>
+                                    <th class="text-center">Скрипт?</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="std : ${inWorkStudents}">
+                                    <td th:utext="${std.surname}"></td>
+                                    <td th:utext="${std.name}"></td>
+                                    <td th:utext="${std.middle_name}"></td>
+                                    <td th:utext="${std.group.group_name}"></td>
+                                    <td th:utext="${std.group.department.department_name}"></td>
+                                    <td th:utext="${std.login}"></td>
+                                    <td th:utext="${std.access}"></td>
+                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
+                                                                   th:value="${std.student_id}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--Расположить в нужном месте кнопку-->
+                        <input type="submit" value="Создать скрипт удаления" th:method="POST">
+                    </form>
+                </div>
+            </div>
+
+            <div id="content-3">
+                <div class="generic-container m-5 ">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><span class="lead">List of ready to work students:</span></div>
+                            <input class="form-control" type="text"
+                                   placeholder="Введите фамилию, имя, группу или отделение"
+                                   id="r-to-work-search-text" onkeyup="tableSearchStudents()">
+                            <table class="table table-striped table-hover" id="r-to-work-students-table">
+                                <thead>
+                                <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Группа</th>
+                                    <th>Отделение</th>
+                                    <th>Логин</th>
+                                    <th>Доступ</th>
+                                    <th class="text-center">Выбрать</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="std : ${rToWorkStudents}">
+                                    <td th:utext="${std.surname}"></td>
+                                    <td th:utext="${std.name}"></td>
+                                    <td th:utext="${std.middle_name}"></td>
+                                    <td th:utext="${std.group.group_name}"></td>
+                                    <td th:utext="${std.group.department.department_name}"></td>
+                                    <td th:utext="${std.login}"></td>
+                                    <td th:utext="${std.access}"></td>
+                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
+                                                                   th:value="${std.student_id}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <input type="submit" value="Подтвердить добавление выбранных студентов" th:method="POST">
+                        <a th:href="@{/management/main/edit-student}"
+                           th:method="get" class="btn custom-width">Подтвердить всех</a>
+                    </form>
+                </div>
+            </div>
+
+            <div id="content-4">
+                <div class="generic-container m-5 ">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><span class="lead">List of ready to delete students:</span></div>
+                            <input class="form-control" type="text"
+                                   placeholder="Введите фамилию, имя, группу или отделение"
+                                   id="r-to-delete-search-text" onkeyup="tableSearchStudents()">
+                            <table class="table table-striped table-hover" id="r-to-delete-students-table">
+                                <thead>
+                                <tr>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                    <th>Группа</th>
+                                    <th>Отделение</th>
+                                    <th>Логин</th>
+                                    <th>Доступ</th>
+                                    <th class="text-center">Выбрать</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="std : ${rToDeleteStudents}">
+                                    <td th:utext="${std.surname}"></td>
+                                    <td th:utext="${std.name}"></td>
+                                    <td th:utext="${std.middle_name}"></td>
+                                    <td th:utext="${std.group.group_name}"></td>
+                                    <td th:utext="${std.group.department.department_name}"></td>
+                                    <td th:utext="${std.login}"></td>
+                                    <td th:utext="${std.access}"></td>
+                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
+                                                                   th:value="${std.student_id}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <input type="submit" value="Подтвердить удаление выбранных студентов" th:method="POST">
+                        <!--Добавить нужную ссылку!-->
+                        <a th:href="@{/management/main/edit-student}"
+                           th:method="get" class="btn custom-width">Подтвердить всех</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="well">
-        <a th:href="@{/management/main/add-student}">Добавить студента</a>
-        &emsp;&emsp;
-        <a th:href="@{/management/main/add-group-of-students}">Добавить группу студентов</a>
-    </div>
+</div>
+<div class="well">
+    <a th:href="@{/management/main/add-student}">Добавить студента</a>
+    &emsp;&emsp;
+    <a th:href="@{/management/main/add-group-of-students}">Добавить группу студентов</a>
 </div>
 
 
@@ -160,7 +432,8 @@
                 <td><a th:href="@{/management/main/edit-department/{id}(id=${dep.department_id})}" th:method="get"
                        class="btn btn-success custom-width">изменить</a></td>
                 <td>
-                    <form th:method="PATCH" th:action="@{/management/main/delete-department/{id}(id=${dep.department_id})}">
+                    <form th:method="PATCH"
+                          th:action="@{/management/main/delete-department/{id}(id=${dep.department_id})}">
                         <input type="submit" value="Удалить" class="btn btn-danger custom-width">
                     </form>
                 </td>

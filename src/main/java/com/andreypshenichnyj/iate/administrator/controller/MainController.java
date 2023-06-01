@@ -59,9 +59,15 @@ public class MainController {
     public String addStudent(Model model, @PathVariable int id){
         Work_rooms wr = studentService.getWorkRoomById(id);
         List<Sub_pcs> list = wr.getSub_pcs();
-        Map<String, Boolean> map = administrationService.getIpWithInfo(list);
-        model.addAttribute("computers", map);
+//        Map<String, Boolean> map = administrationService.getIpWithInfo(list);
+        Map<String, Boolean> fakeMap = administrationService.fakeFunction();
+        model.addAttribute("computers", fakeMap);
 
         return "show_pcs_info";
+    }
+
+    @GetMapping(value = "/test")
+    public String test(){
+        return "index";
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,7 +26,6 @@ public class WebSecurityConfig{
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                    .requestMatchers("/login").permitAll()
                     .requestMatchers("/management/main/add-student").hasAnyAuthority(Permission.TEACHERS_WRITE.getPermission(), Permission.ADMINS_WRITE.getPermission(), Permission.SUPERUSERS_WRITE.getPermission())
                     .requestMatchers("/management/main/*").hasAuthority(Permission.ADMINS_READ.getPermission())
                     .requestMatchers("/management/main/add-admin").hasAuthority(Permission.SUPERUSERS_WRITE.getPermission())
@@ -41,5 +41,10 @@ public class WebSecurityConfig{
                 .deleteCookies("JSESSIONID");
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/css/**", "/templates/**");
     }
 }

@@ -18,7 +18,7 @@ public class RecoveryMainController {
     public String getManagementRecoveryPage(Model model){
         model.addAttribute("groups", studentService.getGroups());
         model.addAttribute("departments", studentService.getDepartments());
-        model.addAttribute("students", studentService.getAllNonActiveStudents());
+        model.addAttribute("students", studentService.getAllDeletedStudents());
         //Добавлять в модель всех студентов, у кого доступ false
 
         return "management_recovery_page";

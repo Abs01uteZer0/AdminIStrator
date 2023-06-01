@@ -23,7 +23,7 @@ class Con implements Callable<Boolean>{
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
         while ((str = inputReader.readLine()) != null) {
-            if (str.contains("0 received")) {
+            if (str.contains("получено 0")) {
                 return false;
             }
         }

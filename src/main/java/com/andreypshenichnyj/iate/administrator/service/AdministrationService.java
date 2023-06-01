@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface AdministrationService {
     Map<String, Boolean> getIpWithInfo(List<Sub_pcs> list);
+
+    Map<String, Boolean> fakeFunction();
 }
