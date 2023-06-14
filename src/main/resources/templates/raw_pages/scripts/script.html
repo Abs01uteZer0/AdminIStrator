@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
@@ -8,21 +7,24 @@
     <title>AdminIStrator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
+    <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
+    <script>$(function(){ $('select').chosen(); })</script>
+    <!--Библиотки для поиска в dropdown list (jquery + jquery css)-->
 </head>
 <body class="d-flex flex-column h-100">
-
 <header class="p-1 m-1 border-bottom bg-light">
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a th:href="@{/main}" class="nav-link px-2 link-secondary">Главная страница</a></li>
+                <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
                 <li><a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
                 <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
-                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-dark">Скрипты</a></li>
+                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">Скрипты</a></li>
                 <li><a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Активные скрипты</a></li>
-
             </ul>
 
             <div class="col-md-3 text-end">
@@ -34,11 +36,19 @@
     </div>
 </header>
 
-<main class="flex-shrink-0">
+<h1>1)</h1>
+<h5>Добавление скрипта:</h5>
+<form th:method="POST" th:action="@{/monitoring/scripts/success-script}" th:object="${script}">
 
-    <p>Главная страница</p>
-
-</main>
+    <input type="number" th:field="*{script_id}" id="id" th:hidden="true">
+    Название: <input type="text" th:field="*{label}" id="label" placeholder="Название "/>
+    <div style="color: red" th:if="${#fields.hasErrors('label')}" th:errors="*{label}">Label Error</div>
+    <br>
+    Код скрипта: <input type="text" th:field="*{script_code}" id="script_code" placeholder="Код скрипта "/>
+    <div style="color: red" th:if="${#fields.hasErrors('script_code')}" th:errors="*{script_code}">Script_code Error</div>
+    <br>
+    <input type="submit" value="OK">
+</form>
 
 
 <footer class="footer mt-auto py-3 bg-light d-flex border-top">

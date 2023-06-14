@@ -16,16 +16,15 @@ public class Students {
     private int student_id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Имя не может быть пустым!")
     @Size(min = 2, max = 25, message = "Имя должно содержать от 2 до 25 символов!")
     private String name;
 
     @Column(name = "surname")
-    @NotEmpty(message = "Фамилия не может быть пустой!")
     @Size(min = 2, max = 35, message = "Фамилия должна содержать от 2 до 35 символов!")
     private String surname;
 
     @Column(name = "middle_name")
+    @Size(min = 2, max = 35, message = "Отчество должно содержать от 2 до 30 символов!")
     private String middle_name;
 
     @ManyToOne(cascade = CascadeType.ALL)

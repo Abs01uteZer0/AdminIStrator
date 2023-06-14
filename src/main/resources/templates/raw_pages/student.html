@@ -10,65 +10,85 @@
     <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
     <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
     <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
-    <script>$(function(){ $('select').chosen(); })</script>
+    <script>$(function () {
+        $('select').chosen();
+    })</script>
     <!--Библиотки для поиска в dropdown list (jquery + jquery css)-->
 </head>
 <body class="d-flex flex-column h-100">
-<header class="p-1 m-1 border-bottom bg-light">
-    <div class="container">
+<header class="border-bottom" style="background-color: #0053bc">
+    <div class="container" >
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
-                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
-                <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
-                <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
+                <li><a th:href="@{/main}" class="nav-link px-2 link-light">Главная страница</a></li>
+                <li><a th:href="@{/management/main}" class="nav-link px-2 link-info">Управление пользователями</a>
+                </li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-light">Восстановление
+                    пользователей</a></li>
+                <li><a th:href="@{/administration}" class="nav-link px-2 link-light">Администрирование</a></li>
+                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-light">Скрипты</a></li>
+                <li><a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-light">Активные скрипты</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
                 <form th:method="POST" th:action="@{/logout}">
-                    <input type="submit" class="btn btn-primary" th:value="Выход"\>
+                    <input type="submit" class="btn" style="background-color: #00bcef; color: whitesmoke" th:value="Выход" \>
                 </form>
             </div>
         </header>
     </div>
 </header>
 
-<h1>1)</h1>
-<h5>Добавление/изменение одного пользователя:</h5>
-<form th:method="PATCH" th:action="@{/management/main/success-student}" th:object="${student}">
+<p>Форма добавления студента </p>
+<div class="w-50 align-self-center m-3">
+    <form th:method="PATCH" th:action="@{/management/main/success-student}" th:object="${student}">
 
-    <input type="number" th:field="*{student_id}" id="id" th:hidden="true">
-    Имя: <input type="text" th:field="*{name}" id="name" placeholder="Имя "/>
-    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br>
-    Фамилия: <input type="text" th:field="*{surname}" id="surname" placeholder="Фамилия "/>
-    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
-    <br>
-    Отчество: <input type="text" th:field="*{middle_name}" id="middle_name" placeholder="Отчество "/>
-    <br>
-    Группа:
-    <select th:field="*{group}">
-<!--        <option th:label="" label="Выберите группу" th:if="not ${change_flag}"></option>-->
-        <option th:each="groups : ${groups}"
-                th:value="${groups.group_id}"
-                th:text="${groups.group_name}">
-        </option>
-    </select>
-    <br>
-    Кабинет:
-    <select th:field="*{work_room}">
-<!--        <option value="" label="Выберите кабинет" th:if="not ${change_flag}"></option>-->
-        <option th:each="wr : ${WorkRooms}"
-                th:value="${wr.work_room_id}"
-                th:text="${wr.name}">
-        </option>
-    </select>
-    <br>
-    <input type="submit" value="OK">
-</form>
+        <input type="number" th:field="*{student_id}" id="id" th:hidden="true">
+        <div class="mb-3">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" class="form-control" th:field="*{name}" id="name"
+                   placeholder="Введите от 2 до 25 символов"/>
+            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+        </div>
 
+        <div class="mb-3">
+            <label for="surname" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" th:field="*{surname}" id="surname"
+                   placeholder="Введите от 2 до 35 символов"/>
+            <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="middle_name" class="form-label">Отчество</label>
+            <input type="text" class="form-control" th:field="*{middle_name}" id="middle_name"
+                   placeholder="Введите от 2 до 30 символов"/>
+            <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{middle_name}">Middle_name Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="group" class="form-label">Группа</label>
+            <select th:field="*{group}" class="form-select" id="group">
+                <option th:each="groups : ${groups}"
+                        th:value="${groups.group_id}"
+                        th:text="${groups.group_name}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="work_room" class="form-label">Кабинет</label>
+            <select th:field="*{work_room}" class="form-select" id="work_room">
+                <option th:each="wr : ${WorkRooms}"
+                        th:value="${wr.work_room_id}"
+                        th:text="${wr.name}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
 
 <footer class="footer mt-auto py-3 bg-light d-flex border-top">
     <div class="col-md-4 mx-auto w-auto justify-content-center">

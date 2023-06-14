@@ -31,78 +31,6 @@
         }
     </script>
 
-    <!--    <style>-->
-    <!--        .wrapper {-->
-    <!--        min-height: 100%;-->
-    <!--        position: relative;-->
-    <!--        overflow: hidden;-->
-    <!--    }-->
-
-    <!--    .content {-->
-    <!--        max-width: 100%;-->
-    <!--        margin: 0px auto;-->
-    <!--    }-->
-    <!--    /*.tabs {*/-->
-    <!--    /*    margin: 0px 0px 0px 0px;*/-->
-    <!--    /*}*/-->
-    <!--    .tabs__items {-->
-    <!--        display: flex;-->
-    <!--        background-color: gold;-->
-    <!--    }-->
-    <!--    .tabs__item {-->
-    <!--        flex: 0 1 33.333%;-->
-    <!--        height: 50px;-->
-    <!--        display: flex;-->
-    <!--        justify-content: center;-->
-    <!--        align-items: center;-->
-    <!--        text-transform: uppercase;-->
-    <!--        text-decoration: none;-->
-    <!--    }-->
-    <!--    .tabs__item span {-->
-    <!--        position: relative;-->
-    <!--        z-index: 2;-->
-    <!--    }-->
-
-    <!--    .tabs__body {-->
-    <!--    }-->
-    <!--    .tabs__block {-->
-    <!--        position: relative;-->
-    <!--        padding: 20px;-->
-    <!--        font-size: 18px;-->
-    <!--        line-height: 24px;-->
-    <!--        display: none;-->
-    <!--    }-->
-    <!--    .tabs__block:before {-->
-    <!--        content: "";-->
-    <!--        height: 50px;-->
-    <!--        width: 33.333%;-->
-    <!--        position: absolute;-->
-    <!--        top: -50px;-->
-    <!--    }-->
-    <!--    .tabs__block:nth-child(1):before {-->
-    <!--        left: 0;-->
-    <!--    }-->
-    <!--    .tabs__block:nth-child(2):before {-->
-    <!--        left: 33.333%;-->
-    <!--    }-->
-    <!--    .tabs__block:nth-child(3):before {-->
-    <!--        right: 33.333%;-->
-    <!--    }  -->
-    <!--    .tabs__block:nth-child(4):before {-->
-    <!--        right: 0;-->
-    <!--    }-->
-
-    <!--    .tabs__block:target {-->
-    <!--        display: block;-->
-    <!--    }-->
-
-    <!--    .text {-->
-    <!--        font-size: 18px;-->
-    <!--        line-height: 24px;-->
-    <!--    }-->
-    <!--    </style>-->
-
-
     <style>
         .tabs {
             font-size: 0;
@@ -162,12 +90,11 @@
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a>
-                </li>
-                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
-                    пользователей</a></li>
+                <li><a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление пользователями</a></li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
                 <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
-                <li><a th:href="@{/monitoring}" class="nav-link px-2 link-dark">Мониторинг</a></li>
+                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-dark">Скрипты</a></li>
+                <li><a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Активные скрипты</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
@@ -197,7 +124,7 @@
 
             <div id="content-1">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of Created students:</span></div>
                             <input class="form-control" type="text"
@@ -242,7 +169,7 @@
 
             <div id="content-2">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of Worked students:</span></div>
                             <input class="form-control" type="text"
@@ -284,7 +211,7 @@
 
             <div id="content-3">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of ready to work students:</span></div>
                             <input class="form-control" type="text"
@@ -312,8 +239,7 @@
                                     <td th:utext="${std.group.department.department_name}"></td>
                                     <td th:utext="${std.login}"></td>
                                     <td th:utext="${std.access}"></td>
-                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
-                                                                   th:value="${std.student_id}"></td>
+                                    <td class="text-center"><input type="checkbox" th:field="*{studentsList}" th:value="${std.student_id}"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -327,7 +253,7 @@
 
             <div id="content-4">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${scriptBuilder}">
+                    <form th:method="POST" th:action="@{/management/main/do-script}" th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of ready to delete students:</span></div>
                             <input class="form-control" type="text"

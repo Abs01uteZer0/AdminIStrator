@@ -27,13 +27,30 @@ public class Work_rooms {
             mappedBy = "work_room")
     private List<Sub_pcs> sub_pcs;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "work_room")
+    private List<Archives> archives;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "work_room")
+    private List<Thread_scripts> thread_scripts;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "work_room")
+    private List<Logs> logs;
+
     public Work_rooms() {
     }
 
-    public Work_rooms(int work_room_id, String name, String main_pc_id) {
+    public Work_rooms(int work_room_id, String name, String main_pc_id, List<Students> students, List<Sub_pcs> sub_pcs, List<Archives> archives, List<Thread_scripts> thread_scripts, List<Logs> logs) {
         this.work_room_id = work_room_id;
         this.name = name;
         this.main_pc_id = main_pc_id;
+        this.students = students;
+        this.sub_pcs = sub_pcs;
+        this.archives = archives;
+        this.thread_scripts = thread_scripts;
+        this.logs = logs;
     }
 
     public int getWork_room_id() {
@@ -74,5 +91,29 @@ public class Work_rooms {
 
     public void setSub_pcs(List<Sub_pcs> sub_pcs) {
         this.sub_pcs = sub_pcs;
+    }
+
+    public List<Archives> getArchives() {
+        return archives;
+    }
+
+    public void setArchives(List<Archives> archives) {
+        this.archives = archives;
+    }
+
+    public List<Thread_scripts> getThread_scripts() {
+        return thread_scripts;
+    }
+
+    public void setThread_scripts(List<Thread_scripts> thread_scripts) {
+        this.thread_scripts = thread_scripts;
+    }
+
+    public List<Logs> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<Logs> logs) {
+        this.logs = logs;
     }
 }

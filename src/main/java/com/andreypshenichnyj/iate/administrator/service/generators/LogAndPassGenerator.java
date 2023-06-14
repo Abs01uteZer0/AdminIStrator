@@ -1,9 +1,11 @@
 package com.andreypshenichnyj.iate.administrator.service.generators;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
-public class LoginGenerator {
+public class LogAndPassGenerator {
 
     Map<Character, String> alphabet = new HashMap<>();
 
@@ -39,8 +41,8 @@ public class LoginGenerator {
         alphabet.put('ы', "y");
         alphabet.put('ь', "?");         //??
         alphabet.put('э', "e");
-        alphabet.put('ю', "yu");        //??
-        alphabet.put('я', "ya");        //??
+        alphabet.put('ю', "yu");
+        alphabet.put('я', "ya");
     }
 
 
@@ -54,5 +56,21 @@ public class LoginGenerator {
         login.append(alphabet.get(middle_name.toLowerCase().charAt(0)));
 
         return login.toString();
+    }
+
+    public String getRandomPassword(){
+        final String chars = "ABCDEFGHJKLMNPRSTUVWXYZabcdefhjkmnprstuvwxyz23456789";
+        int len = 5 + (new Random().nextInt() % 4);
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < len; i++)
+        {
+            int randomIndex = random.nextInt(chars.length());
+            sb.append(chars.charAt(randomIndex));
+        }
+
+        return sb.toString();
     }
 }

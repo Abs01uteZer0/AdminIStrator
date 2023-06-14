@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminIStrator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+
+    <style>
+        .tabs_1 {
+            font-size: 0;
+            margin: 0px 0px 0px 0px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tabs_2 {
+            font-size: 0;
+            margin: 0px 0px 0px 0px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tabs_1 > input[type="radio"] {
+            display: none;
+        }
+
+        .tabs_2 > input[type="radio"] {
+            display: none;
+        }
+
+        .tabs_1 > div {
+            display: none;
+            font-size: 16px;
+        }
+
+        .tabs_2 > div {
+            display: none;
+            font-size: 16px;
+        }
+
+        #Scripts_In_Work:checked ~ #content-1,
+        #Scripts_Stashed:checked ~ #content-2{
+            display: block;
+        }
+
+        #Archive_In_Work:checked ~ #content-3,
+        #Archive_Stashed:checked ~ #content-4{
+            display: block;
+        }
+
+        .tabs_1 > label {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 2px 8px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            top: 1px;
+        }
+
+        .tabs_2 > label {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 2px 8px;
+            font-size: 16px;
+            line-height: 1.5;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            top: 1px;
+        }
+
+        .tabs_1 > label:not(:first-of-type) {
+            border-left: none;
+        }
+
+        .tabs_2 > label:not(:first-of-type) {
+            border-left: none;
+        }
+
+        .tabs_1 > input[type="radio"]:checked + label {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+
+        .tabs_2 > input[type="radio"]:checked + label {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100">
+<header class="p-1 m-1 border-bottom bg-light">
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
+                <li><a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
+                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
+                    пользователей</a></li>
+                <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
+                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">Скрипты</a></li>
+                <li><a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Активные скрипты</a></li>
+            </ul>
+
+            <div class="col-md-3 text-end">
+                <form th:method="POST" th:action="@{/logout}">
+                    <input type="submit" class="btn btn-primary" th:value="Выход" \>
+                </form>
+            </div>
+        </header>
+    </div>
+</header>
+
+
+<div class="wrapper">
+    <div class="content">
+        <div class="tabs_1">
+            <input type="radio" name="tab-btn" id="Scripts_In_Work" value="" checked>
+            <label for="Scripts_In_Work">В работе</label>
+            <input type="radio" name="tab-btn" id="Scripts_Stashed" value="">
+            <label for="Scripts_Stashed">Не используемые</label>
+
+            <div id="content-1">
+                <div class="generic-container m-5 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="lead">Список рабочих скриптов:</span></div>
+                        <!--                        <input class="form-control" type="text"-->
+                        <!--                               placeholder="Введите фамилию, имя, группу или отделение"-->
+                        <!--                               id="created-search-text" onkeyup="tableSearchStudents()">-->
+                        <table class="table table-striped table-hover" id="in-work-scripts-table">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Текст скрипта</th>
+                                <th width="100"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="script : ${scriptsActive}">
+                                <td th:utext="${script.label}"></td>
+                                <td th:utext="${script.script_code}"></td>
+                                <td><a th:href="@{/monitoring/scripts/swap/{id}(id=${script.script_id})}"
+                                       th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-2">
+                <div class="generic-container m-5 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="lead">Список неиспользуемых скриптов:</span></div>
+<!--                        <input class="form-control" type="text"-->
+<!--                               placeholder="Введите фамилию, имя, группу или отделение"-->
+<!--                               id="r-to-delete-search-text" onkeyup="tableSearchStudents()">-->
+                        <table class="table table-striped table-hover" id="stashed-scripts-table">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Текст скрипта</th>
+                                <th width="100"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="script : ${scriptsStashed}">
+                                <td th:utext="${script.label}"></td>
+                                <td th:utext="${script.script_code}"></td>
+                                <td><a th:href="@{/monitoring/scripts/swap/{id}(id=${script.script_id})}"
+                                       th:method="get" class="btn btn-success custom-width">Восстановить</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="well">
+    <a th:href="@{/monitoring/scripts/add-script}">Добавить скрипт</a>
+</div>
+
+<div class="wrapper_2">
+    <div class="content_2">
+        <div class="tabs_2">
+            <input type="radio" name="tab-btn-2" id="Archive_In_Work" value="" checked>
+            <label for="Archive_In_Work">В работе</label>
+            <input type="radio" name="tab-btn-2" id="Archive_Stashed" value="">
+            <label for="Archive_Stashed">Не используемые</label>
+
+            <div id="content-3">
+                <div class="generic-container m-5 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="lead">Список рабочих скриптов:</span></div>
+                        <!--                        <input class="form-control" type="text"-->
+                        <!--                               placeholder="Введите фамилию, имя, группу или отделение"-->
+                        <!--                               id="created-search-text" onkeyup="tableSearchStudents()">-->
+                        <table class="table table-striped table-hover" id="in-work-archive-table">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Скрипт</th>
+                                <th>Кабинет</th>
+                                <th width="100"></th>
+                                <th width="100"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="arch : ${archiveActive}">
+                                <td th:utext="${arch.label}"></td>
+                                <td th:utext="${arch.getScript().label}"></td>
+                                <td th:utext="${arch.getWork_room().name}"></td>
+                                <td><a th:href="@{/monitoring/archives/{id}(id=${arch.archive_id})}"
+                                       th:method="get" class="btn btn-success custom-width">Посмотреть</a></td>
+                                <td><a th:href="@{/monitoring/archives/swap/{id}(id=${arch.archive_id})}"
+                                       th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-4">
+                <div class="generic-container m-5 ">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><span class="lead">Список неиспользуемых скриптов:</span></div>
+                        <!--                        <input class="form-control" type="text"-->
+                        <!--                               placeholder="Введите фамилию, имя, группу или отделение"-->
+                        <!--                               id="r-to-delete-search-text" onkeyup="tableSearchStudents()">-->
+                        <table class="table table-striped table-hover" id="stashed-archive-table">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Скрипт</th>
+                                <th>Кабинет</th>
+                                <th width="100"></th>
+                                <th width="100"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="arch : ${archiveStashed}">
+                                <td th:utext="${arch.label}"></td>
+                                <td th:utext="${arch.getScript().label}"></td>
+                                <td th:utext="${arch.getWork_room().name}"></td>
+                                <td><a th:href="@{/monitoring/archives/{id}(id=${arch.archive_id})}"
+                                       th:method="get" class="btn btn-success custom-width">Посмотреть</a></td>
+                                <td><a th:href="@{/monitoring/archives/swap/{id}(id=${arch.archive_id})}"
+                                       th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="well">
+    <a th:href="@{/monitoring/archives/add-archive}">Добавить скрипт</a>
+</div>
+
+
+<footer class="footer mt-auto py-3 bg-light d-flex border-top">
+    <div class="col-md-4 mx-auto w-auto justify-content-center">
+        <span class="mb-3 mb-md-0 text-muted text-center">© 2023 Пшеничный А.И., ИС-Б19</span>
+    </div>
+</footer>
+
+</body>
+</html>

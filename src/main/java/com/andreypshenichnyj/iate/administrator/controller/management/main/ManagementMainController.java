@@ -1,9 +1,8 @@
 package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
-import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
-import com.andreypshenichnyj.iate.administrator.service.scripts.ScriptBuilder;
+import com.andreypshenichnyj.iate.administrator.service.scripts.ManagementScriptBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +22,7 @@ public class ManagementMainController {
     @GetMapping(value = "")
     public String getManagementMainPage(Model model){
         //Добавляем в модель необходимые параметры
-        model.addAttribute("scriptBuilder", new ScriptBuilder());
+        model.addAttribute("managementScriptBuilder", new ManagementScriptBuilder());
         model.addAttribute("createdStudents", studentService.getAllCreatedStudents());
         model.addAttribute("inWorkStudents", studentService.getAllInWorkStudents());
         model.addAttribute("rToWorkStudents", studentService.getAllRToWorkStudents());
@@ -39,9 +38,9 @@ public class ManagementMainController {
 
     @PostMapping (value = "/do-script")
     public String getScript(Model model,
-                            @Validated @ModelAttribute("scriptBuilder") ScriptBuilder scriptBuilder){
+                            @Validated @ModelAttribute("scriptBuilder") ManagementScriptBuilder managementScriptBuilder){
 
-        scriptBuilder.buildScript();
+        managementScriptBuilder.buildScript();
 
 
         return "main_page";

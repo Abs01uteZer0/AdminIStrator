@@ -35,25 +35,12 @@ public class MainController {
         return "main_page";
     }
 
-    @GetMapping(value = "/monitoring")
-    public String getMonitoringPage(){
-
-        return "monitoring_page";
-    }
-
     @GetMapping(value = "/administration")
     public String getAdministrationPage(Model model){
         model.addAttribute("Work_rooms", studentService.getAllWorkRooms());
 
         return "administration_page";
     }
-
-    @GetMapping(value = "/role-checker")
-    public String getRoleChecker(){
-
-        return "Role_checker";
-    }
-
 
     @GetMapping(value = "/administration/info/{id}")
     public String addStudent(Model model, @PathVariable int id){
@@ -64,10 +51,5 @@ public class MainController {
         model.addAttribute("computers", fakeMap);
 
         return "show_pcs_info";
-    }
-
-    @GetMapping(value = "/test")
-    public String test(){
-        return "index";
     }
 }

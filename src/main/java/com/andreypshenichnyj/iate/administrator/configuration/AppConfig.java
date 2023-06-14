@@ -34,12 +34,16 @@ public class AppConfig implements WebMvcConfigurer{
     @Autowired
     private StudentIdToStudentConverter studentIdToStudentConverter;
 
+    @Autowired
+    private ScriptIdToScriptConverter scriptIdToScriptConverter;
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(groupIdToGroupConverter);
         registry.addConverter(departmentIdToDepartmentConverter);
         registry.addConverter(workRoomIdToWorkRoomConverter);
         registry.addConverter(studentIdToStudentConverter);
+        registry.addConverter(scriptIdToScriptConverter);
     }
 
     @Bean

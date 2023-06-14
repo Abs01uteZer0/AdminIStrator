@@ -9,7 +9,7 @@ import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
 import com.andreypshenichnyj.iate.administrator.entity.students.State;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
-import com.andreypshenichnyj.iate.administrator.service.generators.LoginGenerator;
+import com.andreypshenichnyj.iate.administrator.service.generators.LogAndPassGenerator;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,15 +32,15 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private DepartmentDAO departmentDAO;
 
-    private LoginGenerator loginGenerator;
+    private LogAndPassGenerator logAndPassGenerator;
 
     {
-        loginGenerator = new LoginGenerator();
+        logAndPassGenerator = new LogAndPassGenerator();
     }
 
     @Override
     public void saveStudent(Students students) {
-        students.setLogin(loginGenerator.getLogin(students.getName(), students.getSurname(), students.getMiddle_name()));
+        students.setLogin(logAndPassGenerator.getLogin(students.getName(), students.getSurname(), students.getMiddle_name()));
         students.setState(State.CREATED);
         students.setPassword("12345");
         studentDAO.addStudent(students);
