@@ -23,7 +23,7 @@ public class MonitoringController {
     private StudentService studentService;
 
     @GetMapping("/scripts")
-    public String getMonitoringSctiptsPage(Model model){
+    public String getMonitoringScriptsPage(Model model){
         //Сюда из администрирования добавить
         model.addAttribute("archiveActive", monitoringService.getAllActiveArchiveScripts());
         model.addAttribute("archiveStashed", monitoringService.getAllStashedArchiveScripts());
@@ -114,18 +114,16 @@ public class MonitoringController {
     }
 
     @PostMapping("/archives/success-archive")
-    public String successArchive(@ModelAttribute("archive") Archives archive, Model model){
+    public String successArchive(@Validated @ModelAttribute("archive") Archives archive, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("Flag", true);
+            model.addAttribute("scripts", monitoringService.getAllScripts());
+            model.addAttribute("work_rooms", studentService.getAllWorkRooms());
+            return "raw_pages/scripts/archive";
+        }
         monitoringService.addArchive(archive);
         model.addAttribute("message", "Добавление скрипта прошло успешно");
 
         return "success_page";
     }
-    //Главная страница: 2 таблицы с табами (скрипты одиночные и автоматические) + таблица с имеющимися скриптами с кнопкой добавить
-    //К каждой таблице снизу кнопка для перехода на генератор скриптов
-    //В начале страницы (в описание) добавить ссылку для перехода на администрирование, чтобы посмотреть компьютеры
-
-    //Для каждой таблицы в поле сделать ссылку на просмотр записи без возможности редактировать, также рядом разместить
-    //Кнопку в стэш (в стэше будут хранится записи с возможностью просмотра и восстановления)
-
-    //+ в самое начало добавить таблицу в которой выводится информация о запущенных скриптах!!!!
 }

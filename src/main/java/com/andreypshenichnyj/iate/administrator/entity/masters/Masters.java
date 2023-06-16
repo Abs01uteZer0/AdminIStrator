@@ -14,21 +14,19 @@ public class Masters{
     private int master_id;
 
     @Column(name = "name")
-    @NotEmpty(message = "Имя не может быть пустым!")
     @Size(min = 2, max = 25, message = "Имя должно содержать от 2 до 25 символов!")
     private String name;
 
     @Column(name = "surname")
-    @NotEmpty(message = "Фамилия не может быть пустой!")
-    @Size(min = 2, max = 25, message = "Фамилия должна содержать от 2 до 35 символов!")
+    @Size(min = 2, max = 35, message = "Фамилия должна содержать от 2 до 35 символов!")
     private String surname;
 
     @Column(name = "middle_name")
+    @Size(min = 2, max = 30, message = "Отчество должно содержать от 2 до 30 символов!")
     private String middle_name;
 
     @Column(name = "login")
-    @NotEmpty(message = "Логин не должен быть пустым!")
-    @Size(min = 5, max = 50, message = "Логин должен содержать от 5 до 50 символов!")
+    @Size(min = 3, max = 50, message = "Логин должен содержать от 3 до 50 символов!")
     private String login;
 
     @Column(name = "password")
@@ -37,7 +35,6 @@ public class Masters{
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
-//    @NotNull
     private Role role;
 
     @Enumerated(value = EnumType.STRING)

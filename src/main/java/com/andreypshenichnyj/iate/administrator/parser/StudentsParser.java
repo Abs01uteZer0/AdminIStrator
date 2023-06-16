@@ -12,13 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StudentsParser {
-    //Желательно оставить поля для того, чтобы передавать это все в форму и валидировать, а также, чтобы
-    //Проще было потом доставать данные из маппинга
 
     @jakarta.validation.constraints.Pattern(regexp = "([А-я]+:[А-я]+:[А-я]+:[A-z]+:[A-z0-9]+)+")
     private String data;
     private Groups group;
-    @NotEmpty
+
     private Work_rooms work_room;
     List<Students> studentsList;
 

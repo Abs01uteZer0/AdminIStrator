@@ -5,7 +5,6 @@ import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.masters.Masters;
 import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
-import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
 import com.andreypshenichnyj.iate.administrator.parser.StudentsParser;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
@@ -16,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -71,7 +69,7 @@ public class ManagementAddController {
         model.addAttribute("master", new Masters());
         model.addAttribute("roles", Role.TEACHER);
 
-        return "raw_pages/master";
+        return "raw_pages/master_teacher";
     }
 
     @GetMapping(value = "/add-admin")
@@ -80,7 +78,7 @@ public class ManagementAddController {
         model.addAttribute("master", new Masters());
         model.addAttribute("roles", Role.ADMIN);
 
-        return "raw_pages/master";
+        return "raw_pages/master_admin";
     }
 
     //Обработка полученных с форм результатов
@@ -89,6 +87,9 @@ public class ManagementAddController {
     public String successStudent(@Validated @ModelAttribute("student") Students student,
                                  BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("WorkRooms", studentService.getAllWorkRooms());
+            model.addAttribute("change_flag", CHANGE_FLAG);
+            model.addAttribute("groups", studentService.getGroups());
             return "raw_pages/student";
         }
         studentService.saveStudent(student);
@@ -101,6 +102,8 @@ public class ManagementAddController {
     public String successGroup(@Validated @ModelAttribute("group") Groups group,
                                BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()){
+            model.addAttribute("change_flag", CHANGE_FLAG);
+            model.addAttribute("departments", studentService.getDepartments());
             return "raw_pages/group";
         }
         studentService.saveGroup(group);
@@ -121,11 +124,27 @@ public class ManagementAddController {
         return "success_page";
     }
 
-    @PatchMapping(value = "/success-master")
-    public String successMaster(@Validated @ModelAttribute("master") Masters master,
+    @PatchMapping(value = "/success-teacher")
+    public String successTeacher(@Validated @ModelAttribute("master") Masters master,
                                 BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()){
-            return "raw_pages/master";
+            model.addAttribute("change_flag", CHANGE_FLAG);
+            model.addAttribute("roles", Role.TEACHER);
+            return "raw_pages/master_teacher";
+        }
+        masterService.saveMaster(master);
+        model.addAttribute("message", "Добавление/изменение преподавателя/администратора прошло успешно");
+
+        return "success_page";
+    }
+
+    @PatchMapping(value = "/success-admin")
+    public String successAdmin(@Validated @ModelAttribute("master") Masters master,
+                                BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("change_flag", CHANGE_FLAG);
+            model.addAttribute("roles", Role.ADMIN);
+            return "raw_pages/master_admin";
         }
         masterService.saveMaster(master);
         model.addAttribute("message", "Добавление/изменение преподавателя/администратора прошло успешно");
@@ -137,6 +156,8 @@ public class ManagementAddController {
     public String successStudentGroup(@Validated @ModelAttribute("StParser") StudentsParser studentsParser,
                                       BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
+            model.addAttribute("WorkRooms", studentService.getAllWorkRooms());
+            model.addAttribute("groups", studentService.getGroups());
             return "raw_pages/group_of_students";
         }
         List<Students> studentsList = studentsParser.parsing();

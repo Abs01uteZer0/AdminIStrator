@@ -1,6 +1,10 @@
 package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -22,9 +26,11 @@ public class Scripts {
     private List<Thread_scripts> thread_scripts;
 
     @Column(name = "label")
+    @Size(min = 3, max = 50, message = "Название скрипта должно содержать от 3 до 50 символов!")
     private String label;
 
     @Column(name = "script_code")
+    @Min(value = 1, message = "Минимальная длина скрипта - 1 символ")
     private String script_code;
 
     @Column(name = "status")

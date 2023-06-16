@@ -1,6 +1,8 @@
 package com.andreypshenichnyj.iate.administrator.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "archives")
@@ -12,6 +14,7 @@ public class Archives {
     private int archive_id;
 
     @Column(name = "label")
+    @Size(min = 3, max = 50, message = "Название скрипта должно содержать от 3 до 50 символов!")
     private String label;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -23,6 +26,7 @@ public class Archives {
     private Work_rooms work_room;
 
     @Column(name = "generated_script")
+    @NotEmpty(message = "Код скрипта не должен быть пустым!")
     private String generated_script;
 
     @Column(name = "status")

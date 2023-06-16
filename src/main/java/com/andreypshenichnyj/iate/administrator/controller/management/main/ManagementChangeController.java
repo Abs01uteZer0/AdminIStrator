@@ -1,7 +1,6 @@
 package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
 import com.andreypshenichnyj.iate.administrator.entity.masters.Role;
-import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Arrays;
 
 @Controller
 @RequestMapping(value = "/management/main")
@@ -56,7 +53,7 @@ public class ManagementChangeController {
         model.addAttribute("master", masterService.getMasterById(id));
         model.addAttribute("roles", Role.TEACHER);
 
-        return "raw_pages/master";
+        return "master_admin";
     }
 
     @GetMapping(value = "/edit-admin/{id}")
@@ -65,6 +62,6 @@ public class ManagementChangeController {
         model.addAttribute("master", masterService.getMasterById(id));
         model.addAttribute("roles", Role.ADMIN);
 
-        return "raw_pages/master";
+        return "master_admin";
     }
 }

@@ -35,7 +35,7 @@ public class MainController {
         return "main_page";
     }
 
-    @GetMapping(value = "/administration")
+    @GetMapping(value = "monitoring/administration")
     public String getAdministrationPage(Model model){
         model.addAttribute("Work_rooms", studentService.getAllWorkRooms());
 

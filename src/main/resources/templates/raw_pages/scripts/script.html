@@ -10,50 +10,138 @@
     <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js"></script>
     <script src="https://harvesthq.github.io/chosen/chosen.jquery.js"></script>
     <link rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
-    <script>$(function(){ $('select').chosen(); })</script>
+    <script>$(function () {
+        $('select').chosen();
+    })</script>
     <!--Библиотки для поиска в dropdown list (jquery + jquery css)-->
+
+    <style>
+
+        .Navbar {
+            overflow: hidden;
+        }
+
+        .Navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .Dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .Dropdown .Dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .Dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .Dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .Dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .Dropdown:hover .Dropdown-content {
+            display: block;
+        }
+
+    </style>
+
 </head>
 <body class="d-flex flex-column h-100">
-<header class="p-1 m-1 border-bottom bg-light">
+<header class="border-bottom" style="background-color: #0053bc">
     <div class="container">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a th:href="@{/main}" class="nav-link px-2 link-dark">Главная страница</a></li>
-                <li><a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление пользователями</a></li>
-                <li><a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление пользователей</a></li>
-                <li><a th:href="@{/administration}" class="nav-link px-2 link-dark">Администрирование</a></li>
-                <li><a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">Скрипты</a></li>
-                <li><a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Активные скрипты</a></li>
-            </ul>
+            <div class="Navbar">
+                <a th:href="@{/main}" class="nav-link px-2 link-light">Главная страница</a>
+                <div class="Dropdown">
+                    <button class="Dropbtn">Менеджмент
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="Dropdown-content">
+                        <a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление
+                            пользователями</a>
+                        <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
+                            пользователей</a>
+                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                    </div>
+                </div>
+                <div class="Dropdown">
+                    <button class="Dropbtn link-info">Мониторинг
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="Dropdown-content">
+                        <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">База скриптов</a>
+                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Автоматизированные
+                            скрипты</a>
+                        <a th:href="@{/monitoring/administration}" class="nav-link px-2 link-dark">Состояние
+                            компьютеров</a>
+                    </div>
+                </div>
+                <a th:href="@{/help}" class="nav-link px-2 link-light">Помощь</a>
+            </div>
 
             <div class="col-md-3 text-end">
                 <form th:method="POST" th:action="@{/logout}">
-                    <input type="submit" class="btn btn-primary" th:value="Выход"\>
+                    <input type="submit" class="btn btn-primary" th:value="Выход" \>
                 </form>
             </div>
         </header>
     </div>
 </header>
 
-<h1>1)</h1>
-<h5>Добавление скрипта:</h5>
-<form th:method="POST" th:action="@{/monitoring/scripts/success-script}" th:object="${script}">
+<p>Форма добавления студента </p>
+<div class="w-50 align-self-center m-3">
+    <form th:method="POST" th:action="@{/monitoring/scripts/success-script}" th:object="${script}">
 
-    <input type="number" th:field="*{script_id}" id="id" th:hidden="true">
-    Название: <input type="text" th:field="*{label}" id="label" placeholder="Название "/>
-    <div style="color: red" th:if="${#fields.hasErrors('label')}" th:errors="*{label}">Label Error</div>
-    <br>
-    Код скрипта: <input type="text" th:field="*{script_code}" id="script_code" placeholder="Код скрипта "/>
-    <div style="color: red" th:if="${#fields.hasErrors('script_code')}" th:errors="*{script_code}">Script_code Error</div>
-    <br>
-    <input type="submit" value="OK">
-</form>
+        <input type="number" th:field="*{script_id}" id="id" th:hidden="true">
+        <div class="mb-3">
+            <label for="label" class="form-label">Название</label>
+            <input type="text" class="form-control" th:field="*{label}" id="label" placeholder="Валидация"/>
+            <div style="color: red" th:if="${#fields.hasErrors('label')}" th:errors="*{label}">Label Error</div>
+        </div>
+        <div class="mb-3">
+            <label for="script_code" class="form-label">Код скрипта</label>
+            <input type="text" class="form-control" th:field="*{script_code}" id="script_code" placeholder="Валидация"/>
+            <div style="color: red" th:if="${#fields.hasErrors('script_code')}" th:errors="*{script_code}">
+                Script_code Error
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" >Отправить</button>
+    </form>
+</div>
 
 
-<footer class="footer mt-auto py-3 bg-light d-flex border-top">
+<footer class="footer mt-auto py-3 d-flex border-top" style="background-color: #0053bc">
     <div class="col-md-4 mx-auto w-auto justify-content-center">
-        <span class="mb-3 mb-md-0 text-muted text-center">© 2023 Пшеничный А.И., ИС-Б19</span>
+        <span class="mb-3 mb-md-0 text-light text-center">© 2023 Пшеничный А.И., ИС-Б19</span>
     </div>
 </footer>
 
