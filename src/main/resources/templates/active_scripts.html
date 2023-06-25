@@ -11,9 +11,9 @@
 
     <script>
 
-        function tableSearchScriptsWorked() {
-            var phrase = document.getElementById('scripts-worked-search-text');
-            var table = document.getElementById('in-work-scripts-table');
+        function tableSearchActive() {
+            var phrase = document.getElementById('active-scripts');
+            var table = document.getElementById('active-table');
             var regPhrase = new RegExp(phrase.value, 'i');
             var flag = false;
             for (var i = 0; i < table.rows.length; i++) {
@@ -30,9 +30,9 @@
             }
         }
 
-        function tableSearchScriptsStashed() {
-            var phrase = document.getElementById('scripts-stashed-search-text');
-            var table = document.getElementById('stashed-scripts-table');
+        function tableSearchNonActive() {
+            var phrase = document.getElementById('non-active-scripts');
+            var table = document.getElementById('non-active-table');
             var regPhrase = new RegExp(phrase.value, 'i');
             var flag = false;
             for (var i = 0; i < table.rows.length; i++) {
@@ -49,9 +49,9 @@
             }
         }
 
-        function tableSearchArchivesWorked() {
-            var phrase = document.getElementById('created-archives-search-text');
-            var table = document.getElementById('in-work-archive-table');
+        function tableSearchStashed() {
+            var phrase = document.getElementById('stashed-active-scripts');
+            var table = document.getElementById('stashed-active-table');
             var regPhrase = new RegExp(phrase.value, 'i');
             var flag = false;
             for (var i = 0; i < table.rows.length; i++) {
@@ -68,9 +68,9 @@
             }
         }
 
-        function tableSearchArchivesStashed() {
-            var phrase = document.getElementById('r-to-delete-archives-search-text');
-            var table = document.getElementById('stashed-archive-table');
+        function tableSearchLogs() {
+            var phrase = document.getElementById('logs-search-text');
+            var table = document.getElementById('logs-table');
             var regPhrase = new RegExp(phrase.value, 'i');
             var flag = false;
             for (var i = 0; i < table.rows.length; i++) {
@@ -90,54 +90,35 @@
     </script>
 
     <style>
-        .tabs_1 {
-            font-size: 0;
-            margin: 0px 0px 0px 0px;
-            margin-left: auto;
-            margin-right: auto;
-
+        .custom-btn {
+            margin-top: 20px;
         }
 
-        .tabs_2 {
+        .tabs {
             font-size: 0;
             margin: 0px 0px 0px 0px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 0px;
+            margin-right: 0px;
         }
 
-        .tabs_1 > input[type="radio"] {
+        .tabs > input[type="radio"] {
             display: none;
         }
 
-        .tabs_2 > input[type="radio"] {
-            display: none;
-        }
-
-        .tabs_1 > div {
+        .tabs > div {
             display: none;
             font-size: 16px;
         }
 
-        .tabs_2 > div {
-            display: none;
-            font-size: 16px;
-        }
-
-        #Scripts_In_Work:checked ~ #content-1,
-        #Scripts_Stashed:checked ~ #content-2 {
+        #Active:checked ~ #content-1,
+        #Non_Active:checked ~ #content-2,
+        #Stashed:checked ~ #content-3 {
             border: 1px solid #dddddd;
             display: block;
             height: 83vh;
         }
 
-        #Archive_In_Work:checked ~ #content-3,
-        #Archive_Stashed:checked ~ #content-4 {
-            display: block;
-            border: 1px solid #dddddd;
-            height: 83vh;
-        }
-
-        .tabs_1 > label {
+        .tabs > label {
             display: inline-block;
             text-align: center;
             vertical-align: middle;
@@ -153,36 +134,11 @@
             top: 1px;
         }
 
-        .tabs_2 > label {
-            display: inline-block;
-            text-align: center;
-            vertical-align: middle;
-            user-select: none;
-            background-color: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            padding: 2px 8px;
-            font-size: 16px;
-            line-height: 1.5;
-            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-            cursor: pointer;
-            position: relative;
-            top: 1px;
-        }
-
-        .tabs_1 > label:not(:first-of-type) {
+        .tabs > label:not(:first-of-type) {
             border-left: none;
         }
 
-        .tabs_2 > label:not(:first-of-type) {
-            border-left: none;
-        }
-
-        .tabs_1 > input[type="radio"]:checked + label {
-            background-color: #fff;
-            border-bottom: 1px solid #fff;
-        }
-
-        .tabs_2 > input[type="radio"]:checked + label {
+        .tabs > input[type="radio"]:checked + label {
             background-color: #fff;
             border-bottom: 1px solid #fff;
         }
@@ -289,7 +245,9 @@
         .Dropdown:hover .Dropdown-content {
             display: block;
         }
+
     </style>
+
 
 </head>
 <body class="d-flex flex-column h-100">
@@ -311,13 +269,13 @@
                         <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
-                <div class="Dropdown link-info">
+                <div class="Dropdown">
                     <button class="Dropbtn link-info">Мониторинг
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="Dropdown-content">
-                        <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">База скриптов</a>
-                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Автоматизированные
+                        <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-dark">База скриптов</a>
+                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-secondary">Автоматизированные
                             скрипты</a>
                         <a th:href="@{/monitoring/administration}" class="nav-link px-2 link-dark">Состояние
                             компьютеров</a>
@@ -335,40 +293,57 @@
     </div>
 </header>
 
+<h4 class="m-4">Добро пожаловать! <br> На данной странице происходит управлениями сущностями пользвователей студентов,
+    групп, отделений, преподавателей и администраторов.
+    <br>
+    Здесь вы можете добавить или удалить данные</h4>
 
 <div class="wrapper">
     <div class="content">
-        <div class="tabs_1">
-            <input type="radio" name="tab-btn" id="Scripts_In_Work" value="" checked>
-            <label for="Scripts_In_Work">В работе</label>
-            <input type="radio" name="tab-btn" id="Scripts_Stashed" value="">
-            <label for="Scripts_Stashed">Не используемые</label>
+        <div class="tabs">
+            <input type="radio" name="tab-btn" id="Active" value="" checked>
+            <label for="Active">Запущенные</label>
+            <input type="radio" name="tab-btn" id="Non_Active" value="">
+            <label for="Non_Active">Не активные</label>
+            <input type="radio" name="tab-btn" id="Stashed" value="">
+            <label for="Stashed">Стэш</label>
 
             <div id="content-1">
                 <div class="generic-container m-5 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список рабочих скриптов:</span></div>
+                        <div class="panel-heading"><span class="lead">List of active scripts:</span></div>
                         <input class="form-control" type="text"
-                               placeholder="Введите название или текст скрипта"
-                               id="scripts-worked-search-text" onkeyup="tableSearchScriptsWorked()">
+                               placeholder="Введите название, кабинет, промежуток или время запуска"
+                               id="active-scripts" onkeyup="tableSearchActive()">
                         <div class="scroll-table">
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>Название</th>
-                                    <th>Текст скрипта</th>
-                                    <th>Удаление</th>
+                                    <th>Кабинет</th>
+                                    <th>Промежуток</th>
+                                    <th>Время запуска</th>
+                                    <th>Остановить</th>
+                                    <th>Просмотреть</th>
                                 </tr>
                                 </thead>
                             </table>
                             <div class="scroll-table-body">
-                                <table id="in-work-scripts-table">
+                                <table id="acrive-table">
                                     <tbody>
-                                    <tr th:each="script : ${scriptsActive}">
-                                        <td th:utext="${script.label}"></td>
-                                        <td th:utext="${script.script_code}"></td>
-                                        <td><a th:href="@{/monitoring/scripts/swap/{id}(id=${script.script_id})}"
-                                               th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
+                                    <tr th:each="scr : ${runningActive}">
+                                        <td th:utext="${scr.label}"></td>
+                                        <td th:utext="${scr.work_room.name}"></td>
+                                        <td th:utext="${scr.time_minutes}"></td>
+                                        <td th:utext="${scr.date}"></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/stop-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Остановить</a></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/view-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Открыть</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -381,29 +356,39 @@
             <div id="content-2">
                 <div class="generic-container m-5 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список неиспользуемых скриптов:</span></div>
+                        <div class="panel-heading"><span class="lead">List of non-active scripts:</span></div>
                         <input class="form-control" type="text"
-                               placeholder="Введите название или текст скрипта"
-                               id="scripts-stashed-search-text" onkeyup="tableSearchScriptsStashed()">
+                               placeholder="Введите название, кабинет, промежуток или время запуска"
+                               id="non-active-scripts" onkeyup="tableSearchNonActive()">
                         <div class="scroll-table">
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>Название</th>
-                                    <th>Текст скрипта</th>
-                                    <th width="100"></th>
+                                    <th>Кабинет</th>
+                                    <th>Промежуток</th>
+                                    <th>Время запуска</th>
+                                    <th>Запустить</th>
+                                    <th>Просмотреть</th>
                                 </tr>
                                 </thead>
                             </table>
                             <div class="scroll-table-body">
-                                <table id="stashed-scripts-table">
+                                <table id="non-acrive-table">
                                     <tbody>
-                                    <tr th:each="script : ${scriptsStashed}">
-                                        <td th:utext="${script.label}"></td>
-                                        <td th:utext="${script.script_code}"></td>
-                                        <td><a th:href="@{/monitoring/scripts/swap/{id}(id=${script.script_id})}"
-                                               th:method="get" class="btn btn-success custom-width">Восстановить</a>
-                                        </td>
+                                    <tr th:each="scr : ${runningNonActive}">
+                                        <td th:utext="${scr.label}"></td>
+                                        <td th:utext="${scr.work_room.name}"></td>
+                                        <td th:utext="${scr.time_minutes}"></td>
+                                        <td th:utext="${scr.date}"></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/run-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Запустить</a></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/view-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Открыть</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -412,53 +397,43 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="well ms-5 mt-3">
-    <a th:href="@{/monitoring/scripts/add-script}">Добавить скрипт</a>
-</div>
-
-<br><br><br><br>
-
-<div class="wrapper_2">
-    <div class="content_2">
-        <div class="tabs_2">
-            <input type="radio" name="tab-btn-2" id="Archive_In_Work" value="" checked>
-            <label for="Archive_In_Work">В работе</label>
-            <input type="radio" name="tab-btn-2" id="Archive_Stashed" value="">
-            <label for="Archive_Stashed">Не используемые</label>
 
             <div id="content-3">
                 <div class="generic-container m-5 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список рабочих скриптов:</span></div>
+                        <div class="panel-heading"><span class="lead">List of stashed scripts:</span></div>
                         <input class="form-control" type="text"
-                               placeholder="Название, скрипт или кабинет"
-                               id="created-archives-search-text" onkeyup="tableSearchArchivesWorked()">
+                               placeholder="Введите название, кабинет, промежуток или время запуска"
+                               id="stashed-active-scripts" onkeyup="tableSearchStashed()">
                         <div class="scroll-table">
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
                                     <th>Название</th>
-                                    <th>Скрипт</th>
                                     <th>Кабинет</th>
-                                    <th>Просмотр</th>
-                                    <th>Удаление</th>
+                                    <th>Промежуток</th>
+                                    <th>Время запуска</th>
+                                    <th>Восстановить</th>
+                                    <th>Просмотреть</th>
                                 </tr>
                                 </thead>
                             </table>
                             <div class="scroll-table-body">
-                                <table id="in-work-archive-table">
+                                <table id="stashed-acrive-table">
                                     <tbody>
-                                    <tr th:each="arch : ${archiveActive}">
-                                        <td th:utext="${arch.label}"></td>
-                                        <td th:utext="${arch.getScript().label}"></td>
-                                        <td th:utext="${arch.getWork_room().name}"></td>
-                                        <td><a th:href="@{/monitoring/archives/{id}(id=${arch.archive_id})}"
-                                               th:method="get" class="btn btn-success custom-width">Посмотреть</a></td>
-                                        <td><a th:href="@{/monitoring/archives/swap/{id}(id=${arch.archive_id})}"
-                                               th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
+                                    <tr th:each="scr : ${runningStashed}">
+                                        <td th:utext="${scr.label}"></td>
+                                        <td th:utext="${scr.work_room.name}"></td>
+                                        <td th:utext="${scr.time_minutes}"></td>
+                                        <td th:utext="${scr.date}"></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/recovery-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Восстановить</a></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/view-script/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Открыть</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -467,50 +442,54 @@
                     </div>
                 </div>
             </div>
-
-            <div id="content-4">
-                <div class="generic-container m-5 ">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список неиспользуемых скриптов:</span></div>
-                        <input class="form-control" type="text"
-                               placeholder="Название, скрипт или кабинет"
-                               id="r-to-delete-archives-search-text" onkeyup="tableSearchArchivesStashed()">
-                        <div class="scroll-table">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <tr>
-                                    <th>Название</th>
-                                    <th>Скрипт</th>
-                                    <th>Кабинет</th>
-                                    <th width="100"></th>
-                                    <th width="100"></th>
-                                </tr>
-                                </thead>
-                            </table>
-                            <div class="scroll-table-body">
-                                <table id="stashed-archive-table">
-                                    <tbody>
-                                    <tr th:each="arch : ${archiveStashed}">
-                                        <td th:utext="${arch.label}"></td>
-                                        <td th:utext="${arch.getScript().label}"></td>
-                                        <td th:utext="${arch.getWork_room().name}"></td>
-                                        <td><a th:href="@{/monitoring/archives/{id}(id=${arch.archive_id})}"
-                                               th:method="get" class="btn btn-success custom-width">Посмотреть</a></td>
-                                        <td><a th:href="@{/monitoring/archives/swap/{id}(id=${arch.archive_id})}"
-                                               th:method="get" class="btn btn-danger custom-width">В стэш</a></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="well ms-5 mt-3">
+                <a th:href="@{/monitoring/scripts/add-active-script}">Добавить скрипт</a>
             </div>
         </div>
     </div>
 </div>
 <div class="well ms-5 mt-3">
-    <a th:href="@{/monitoring/archives/add-archive}">Добавить скрипт</a>
+    <a th:href="@{/monitoring/scripts/add-active-script}">Добавить скрипт</a>
+</div>
+<br>
+<br>
+<br>
+
+
+<h5>Логи:</h5>
+
+<div class="generic-container m-5">
+    <div class="panel panel-default">
+        <div class="panel-heading"><span class="lead">List of Logs:</span></div>
+        <input class="form-control" type="text"
+               placeholder="Введите название, кабинет или время запуска"
+               id="logs-search-text" onkeyup="tableSearchLogs()">
+        <div class="scroll-table">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Кабинет</th>
+                    <th>Время выполнения</th>
+                    <th>Посмотреть</th>
+                </tr>
+                </thead>
+            </table>
+            <div class="scroll-table-body">
+                <table id="logs-table">
+                    <tbody>
+                    <tr th:each="log : ${logs}">
+                        <td th:utext="${log.work_room.name}"></td>
+                        <td th:utext="${log.date}"></td>
+
+                        <td><a th:href="@{/monitoring/scripts/view-log/{id}{id}(id=${log.log_id})}"
+                               th:method="get"
+                               class="btn btn-success custom-width">Открыть</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 

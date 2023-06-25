@@ -22,17 +22,16 @@ public class ScriptBuilder {
 
     public String buildScript(){
         StringBuilder stringBuilder = new StringBuilder();
-        if (pdsh) stringBuilder.append("pdsh ");
-        stringBuilder.append(script.getScript_code());
+        if (pdsh) stringBuilder.append("pdsh");
         if (w){
             stringBuilder.append(" -w");
             List<Sub_pcs> sub_pcs = work_room.getSub_pcs();
             for (int i = 0; i<sub_pcs.size(); i++){
                 stringBuilder.append(" ");
-                stringBuilder.append(sub_pcs.get(i).getSub_pc_ip());    //Переделать таблицу главных компьютеров, добавить поле типа xx.xx.xx.[xx-xx] или нет?
-                //Либо заменить их на сокращенные значения типа 101 123 и тд, а основное значение использовать здесь.
+                stringBuilder.append(sub_pcs.get(i).getSub_pc_ip());
             }
         }
+        stringBuilder.append(" ").append(script.getScript_code());
         if (uptime) stringBuilder.append(" uptime");
 
         return stringBuilder.toString();

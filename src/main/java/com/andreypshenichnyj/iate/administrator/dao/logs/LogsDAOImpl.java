@@ -12,7 +12,7 @@ import java.util.List;
 public class LogsDAOImpl implements LogsDAO{
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public List<Logs> getAllLogs() {

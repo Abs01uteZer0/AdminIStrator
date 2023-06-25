@@ -30,7 +30,6 @@ public class Scripts {
     private String label;
 
     @Column(name = "script_code")
-    @Min(value = 1, message = "Минимальная длина скрипта - 1 символ")
     private String script_code;
 
     @Column(name = "status")

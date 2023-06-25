@@ -16,6 +16,7 @@
     <!--Библиотки для поиска в dropdown list (jquery + jquery css)-->
 
     <style>
+
         .Navbar {
             overflow: hidden;
         }
@@ -28,7 +29,6 @@
             padding: 14px 16px;
             text-decoration: none;
         }
-
 
         .Dropdown {
             float: left;
@@ -83,11 +83,11 @@
             <div class="Navbar">
                 <a th:href="@{/main}" class="nav-link px-2 link-light">Главная страница</a>
                 <div class="Dropdown">
-                    <button class="Dropbtn link-info">Менеджмент
+                    <button class="Dropbtn">Менеджмент
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="Dropdown-content">
-                        <a th:href="@{/management/main}" class="nav-link px-2 link-secondary">Управление
+                        <a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
@@ -95,12 +95,12 @@
                     </div>
                 </div>
                 <div class="Dropdown">
-                    <button class="Dropbtn">Мониторинг
+                    <button class="Dropbtn link-info">Мониторинг
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="Dropdown-content">
                         <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-dark">База скриптов</a>
-                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Автоматизированные
+                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-secondary">Автоматизированные
                             скрипты</a>
                         <a th:href="@{/monitoring/administration}" class="nav-link px-2 link-dark">Состояние
                             компьютеров</a>
@@ -118,63 +118,46 @@
     </div>
 </header>
 
-<p>Форма для преподавателя</p>
+<p>Форма добавления скрипта</p>
 <div class="w-50 align-self-center m-3">
-    <form th:method="PATCH" th:action="@{/management/main/success-teacher}" th:object="${master}">
-
-        <input type="number" th:field="*{master_id}" id="m_id" th:hidden="true">
-        <input type="text" th:field="*{status}" id="m_status" th:hidden="true">
+    <form th:method="POST" th:action="@{/monitoring/active/between-success}" th:object="${sb}">
 
         <div class="mb-3">
-            <label for="name" class="form-label">Имя</label>
-            <input type="text" class="form-control" th:field="*{name}" id="name"
-                   placeholder="Введите от 2 до 25 символов"/>
-            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-        </div>
-
-        <div class="mb-3">
-            <label for="surname" class="form-label">Фамилия</label>
-            <input type="text" class="form-control" th:field="*{surname}" id="surname"
-                   placeholder="Введите от 2 до 35 символов"/>
-            <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
-        </div>
-
-        <div class="mb-3">
-            <label for="middle_name" class="form-label">Отчество</label>
-            <input type="text" class="form-control" th:field="*{middle_name}" id="middle_name"
-                   placeholder="Введите от 2 до 30 символов"/>
-            <div style="color: red" th:if="${#fields.hasErrors('middle_name')}" th:errors="*{middle_name}">Middle_name
-                Error
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="login" class="form-label">Логин</label>
-            <input type="text" class="form-control" th:field="*{login}" id="login"
-                   placeholder="Введите от 3 до 50 символов"/>
-            <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login
-                Error
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Пароль</label>
-            <input type="text" class="form-control" th:field="*{password}" id="password" placeholder="Введите пароль"/>
-            <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error
-            </div>
-            <br>
-        </div>
-
-        <div th:hidden="true">
-            <select th:field="*{role}" th:readonly="true">
-                <option th:each="role : ${roles}"
-                        th:value="${role}"
+            <label for="script" class="form-label">Скрипт</label>
+            <select th:field="*{script}" class="form-select" id="script">
+                <option th:each="script : ${scripts}"
+                        th:value="${script.script_id}"
+                        th:text="${script.label}">
                 </option>
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <div class="mb-3">
+            <label for="work_room" class="form-label">Кабинет</label>
+            <select th:field="*{work_room}" class="form-select" id="work_room">
+                <option th:each="wr : ${work_rooms}"
+                        th:value="${wr.work_room_id}"
+                        th:text="${wr.name}">
+                </option>
+            </select>
+        </div>
 
+        <div class="mb-3">
+            <label for="pdsh" class="form-label">Использование pdsh</label>
+            <input type="checkbox" class="form-check" th:field="*{pdsh}" id="pdsh" th:value="true"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="w" class="form-label">Использовать ip компьютеров кабинета (-w): </label>
+            <input type="checkbox" class="form-check" th:field="*{w}" id="w" th:value="true"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="uptime" class="form-label">Использовать uptime</label>
+            <input type="checkbox" class="form-check" th:field="*{uptime}" id="uptime" th:value="true"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Отправить</button>
     </form>
 </div>
 

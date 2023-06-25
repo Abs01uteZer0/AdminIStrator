@@ -91,7 +91,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -128,6 +128,13 @@
             <input type="text" class="form-control" th:field="*{group_name}" id="group_name"
                    placeholder="Введите название группы в виде: [А-Я]+_[Б|С|М]\d{2}"/>
             <div style="color: red" th:if="${#fields.hasErrors('group_name')}" th:errors="*{group_name}">Name Error
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="group_code" class="form-label">Код группы</label>
+            <input type="text" class="form-control" th:field="*{group_code}" id="group_code"
+                   placeholder="Введите код группы"/>
+            <div style="color: red" th:if="${#fields.hasErrors('group_name')}" th:errors="*{group_code}">Code Error
             </div>
         </div>
         <div class="mb-3">

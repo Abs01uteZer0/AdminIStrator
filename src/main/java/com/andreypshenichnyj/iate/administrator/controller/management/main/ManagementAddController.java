@@ -95,7 +95,6 @@ public class ManagementAddController {
         studentService.saveStudent(student);
         model.addAttribute("message", "Добавление/изменение студента прошло успешно!");
         return "success_page";
-
     }
 
     @PatchMapping(value = "/success-group")

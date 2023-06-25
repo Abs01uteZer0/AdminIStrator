@@ -91,7 +91,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -120,8 +120,8 @@
 
 <p>Форма добавления группы студентов</p>
 <h6>Внимание, Необходимо вводить студентов в точности так, как показано ниже!
-    Имя:Фамилия:Отчество:login:password
-    Имя:Фамилия:Отчество:login:password...</h6>
+    Имя:Фамилия:Отчество
+    Имя:Фамилия:Отчество...</h6>
 <div class="w-50 align-self-center m-3">
     <form th:method="POST" th:action="@{/management/main/success-student-group}" th:object="${StParser}">
 

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class Thread_scriptDAOImpl implements Thread_scriptDAO{
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public List<Thread_scripts> getAllThread_scripts() {
@@ -54,4 +54,5 @@ public class Thread_scriptDAOImpl implements Thread_scriptDAO{
     public List<Thread_scripts> getAllStashedThreadScripts() {
         return getAllThread_scripts().stream().filter((th -> !th.isStatus())).collect(Collectors.toList());
     }
+
 }

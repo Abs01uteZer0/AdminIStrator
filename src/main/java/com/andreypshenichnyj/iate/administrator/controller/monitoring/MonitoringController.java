@@ -2,15 +2,20 @@ package com.andreypshenichnyj.iate.administrator.controller.monitoring;
 
 import com.andreypshenichnyj.iate.administrator.entity.Archives;
 import com.andreypshenichnyj.iate.administrator.entity.Scripts;
+import com.andreypshenichnyj.iate.administrator.entity.Thread_scripts;
 import com.andreypshenichnyj.iate.administrator.service.MonitoringService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
+import com.andreypshenichnyj.iate.administrator.service.scripts.RunningScriptBuilder;
 import com.andreypshenichnyj.iate.administrator.service.scripts.ScriptBuilder;
+import com.andreypshenichnyj.iate.administrator.service.threads.RunningThreadAdministrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @Controller
 @RequestMapping(value = "monitoring")
@@ -22,6 +27,9 @@ public class MonitoringController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private RunningThreadAdministrator runningThreadAdministrator;
+
     @GetMapping("/scripts")
     public String getMonitoringScriptsPage(Model model){
         //Сюда из администрирования добавить
@@ -31,16 +39,6 @@ public class MonitoringController {
         model.addAttribute("scriptsStashed", monitoringService.getAllStashedScripts());
 
         return "scripts";
-    }
-
-    @GetMapping("/scripts/active")
-    public String getMonitoringActiveSctiptsPage(Model model){
-        model.addAttribute("runningActive", monitoringService.getAllActiveThreadScripts());
-        model.addAttribute("runningNonActive", monitoringService.getAllNonActiveThreadScripts());
-        model.addAttribute("runningStashed", monitoringService.getAllStashedThreadScripts());
-        model.addAttribute("logs", monitoringService.getAllLogs());
-
-        return "active_scripts";
     }
 
     @GetMapping("/scripts/swap/{id}")
@@ -123,6 +121,59 @@ public class MonitoringController {
         }
         monitoringService.addArchive(archive);
         model.addAttribute("message", "Добавление скрипта прошло успешно");
+
+        return "success_page";
+    }
+
+    //running scripts
+
+    @GetMapping("/scripts/active")
+    public String getMonitoringActiveSctiptsPage(Model model){
+        model.addAttribute("runningActive", monitoringService.getAllActiveThreadScripts());
+        model.addAttribute("runningNonActive", monitoringService.getAllNonActiveThreadScripts());
+        model.addAttribute("runningStashed", monitoringService.getAllStashedThreadScripts());
+        model.addAttribute("logs", monitoringService.getAllLogs());
+
+        return "active_scripts";
+    }
+
+    @GetMapping("/scripts/add-active-script")
+    public String addActiveScriptPage(Model model){
+        model.addAttribute("scripts", monitoringService.getAllScripts());
+        model.addAttribute("work_rooms", studentService.getAllWorkRooms());
+        model.addAttribute("sb", new RunningScriptBuilder());
+
+        return "raw_pages/scripts/running_scriptsb";
+    }
+
+    @PostMapping("/active/between-success")
+    public String redActive(Model model, @ModelAttribute("sb") RunningScriptBuilder sb){
+        Thread_scripts thread_script = new Thread_scripts();
+        thread_script.setScript(sb.getScript());
+        thread_script.setStatus(true);
+        thread_script.setGenerated_script(sb.buildScript());
+        thread_script.setWork_room(sb.getWork_room());
+        thread_script.setDate(new Date());
+        model.addAttribute("thread_script", thread_script);
+        model.addAttribute("Flag", true);
+        model.addAttribute("scripts", monitoringService.getAllScripts());
+        model.addAttribute("work_rooms", studentService.getAllWorkRooms());
+
+        return "raw_pages/scripts/running_script";
+    }
+
+    @PostMapping("/active/success-active")
+    public String successActive(@Validated @ModelAttribute("thread_script") Thread_scripts thread_script,
+                                 BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("Flag", true);
+            model.addAttribute("scripts", monitoringService.getAllScripts());
+            model.addAttribute("work_rooms", studentService.getAllWorkRooms());
+            return "raw_pages/scripts/running_script";
+        }
+        monitoringService.addThread_script(thread_script);
+        runningThreadAdministrator.addScript(thread_script);
+        model.addAttribute("message", "Добавление автозапускаемого скрипта прошло успешно");
 
         return "success_page";
     }

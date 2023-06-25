@@ -155,7 +155,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -202,8 +202,7 @@
                     <tbody>
                     <tr th:each="pc : ${computers}">
                         <td th:utext="${pc.key}"></td>
-                        <td th:utext="Включен" th:if="${pc.value}"></td>
-                        <td th:utext="Выключен" th:if="${!pc.value}"></td>
+                        <td th:utext="${pc.value}"></td>
                     </tr>
                     </tbody>
                 </table>

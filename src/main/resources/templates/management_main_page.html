@@ -343,7 +343,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -368,7 +368,9 @@
     </div>
 </header>
 
-<p>Вступительный текст </p>
+<h4 class="m-4">Добро пожаловать! <br> На данной странице происходит управлениями сущностями пользвователей студентов, групп, отделений, преподавателей и администраторов.
+<br>
+Здесь вы можете добавить или удалить данные</h4>
 
 <div class="wrapper">
     <div class="content">
@@ -400,10 +402,8 @@
                                         <th>Отчество</th>
                                         <th>Группа</th>
                                         <th>Отделение</th>
-                                        <th>Логин</th>
-                                        <th>Доступ</th>
                                         <th>Изменение</th>
-                                        <th class="text-center">Скрипт?</th>
+                                        <th class="text-center">Выбрать</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -416,8 +416,6 @@
                                             <td th:utext="${std.middle_name}"></td>
                                             <td th:utext="${std.group.group_name}"></td>
                                             <td th:utext="${std.group.department.department_name}"></td>
-                                            <td th:utext="${std.login}"></td>
-                                            <td th:utext="${std.access}"></td>
                                             <td><a th:href="@{/management/main/edit-student/{id}(id=${std.student_id})}"
                                                    th:method="get" class="btn btn-success custom-width">изменить</a>
                                             </td>
@@ -452,9 +450,7 @@
                                         <th>Отчество</th>
                                         <th>Группа</th>
                                         <th>Отделение</th>
-                                        <th>Логин</th>
-                                        <th>Доступ</th>
-                                        <th class="text-center">Скрипт?</th>
+                                        <th class="text-center">Выбрать</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -467,8 +463,6 @@
                                             <td th:utext="${std.middle_name}"></td>
                                             <td th:utext="${std.group.group_name}"></td>
                                             <td th:utext="${std.group.department.department_name}"></td>
-                                            <td th:utext="${std.login}"></td>
-                                            <td th:utext="${std.access}"></td>
                                             <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
                                                                            th:value="${std.student_id}"></td>
                                         </tr>
@@ -477,7 +471,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Расположить в нужном месте кнопку-->
                         <input type="submit" class="custom-btn" value="Создать скрипт удаления" th:method="POST">
                     </form>
                 </div>
@@ -485,7 +478,7 @@
 
             <div id="content-3">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}"
+                    <form th:method="POST" th:action="@{/management/main/change-state}"
                           th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of ready to work students:</span></div>
@@ -501,8 +494,6 @@
                                         <th>Отчество</th>
                                         <th>Группа</th>
                                         <th>Отделение</th>
-                                        <th>Логин</th>
-                                        <th>Доступ</th>
                                         <th class="text-center">Выбрать</th>
                                     </tr>
                                     </thead>
@@ -516,8 +507,6 @@
                                             <td th:utext="${std.middle_name}"></td>
                                             <td th:utext="${std.group.group_name}"></td>
                                             <td th:utext="${std.group.department.department_name}"></td>
-                                            <td th:utext="${std.login}"></td>
-                                            <td th:utext="${std.access}"></td>
                                             <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
                                                                            th:value="${std.student_id}"></td>
                                         </tr>
@@ -528,7 +517,7 @@
                         </div>
                         <input type="submit" class="custom-btn" value="Подтвердить добавление выбранных студентов"
                                th:method="POST">
-                        <a th:href="@{/management/main/edit-student}"
+                        <a th:href="@{/management/main/change-state-work}"
                            th:method="get" class="btn custom-width">Подтвердить всех</a>
                     </form>
                 </div>
@@ -536,7 +525,7 @@
 
             <div id="content-4">
                 <div class="generic-container m-5 ">
-                    <form th:method="POST" th:action="@{/management/main/do-script}"
+                    <form th:method="POST" th:action="@{/management/main/change-state}"
                           th:object="${managementScriptBuilder}">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="lead">List of ready to delete students:</span></div>
@@ -552,8 +541,6 @@
                                         <th>Отчество</th>
                                         <th>Группа</th>
                                         <th>Отделение</th>
-                                        <th>Логин</th>
-                                        <th>Доступ</th>
                                         <th class="text-center">Выбрать</th>
                                     </tr>
                                     </thead>
@@ -567,8 +554,6 @@
                                             <td th:utext="${std.middle_name}"></td>
                                             <td th:utext="${std.group.group_name}"></td>
                                             <td th:utext="${std.group.department.department_name}"></td>
-                                            <td th:utext="${std.login}"></td>
-                                            <td th:utext="${std.access}"></td>
                                             <td class="text-center"><input type="checkbox" th:field="*{studentsList}"
                                                                            th:value="${std.student_id}"></td>
                                         </tr>
@@ -578,8 +563,7 @@
                             </div>
                         </div>
                         <input type="submit" class="custom-btn" value="Подтвердить удаление выбранных студентов" th:method="POST">
-                        <!--Добавить нужную ссылку!-->
-                        <a th:href="@{/management/main/edit-student}"
+                        <a th:href="@{/management/main/change-state-delete}"
                            th:method="get" class="btn custom-width">Подтвердить всех</a>
                     </form>
                 </div>
@@ -607,9 +591,11 @@
                 <thead>
                 <tr>
                     <th>Группа</th>
+                    <th>Код группы</th>
                     <th>Отделение</th>
                     <th>Изменение</th>
-                    <th>Удаление</th>
+                    <th>Скрипт добавления</th>
+                    <th>Скрипт удаления</th>
                 </tr>
                 </thead>
             </table>
@@ -618,12 +604,19 @@
                     <tbody>
                     <tr th:each="grp : ${groups}">
                         <td th:utext="${grp.group_name}"></td>
+                        <td th:utext="${grp.group_code}"></td>
                         <td th:utext="${grp.department.department_name}"></td>
                         <td><a th:href="@{/management/main/edit-group/{id}(id=${grp.group_id})}" th:method="get"
                                class="btn btn-success custom-width">изменить</a></td>
                         <td>
-                            <form th:method="PATCH"
-                                  th:action="@{/management/main/delete-group/{id}(id=${grp.group_id})}">
+                            <form th:method="POST"
+                                  th:action="@{/management/main/script-group-work/{id}(id=${grp.group_id})}">
+                                <input type="submit" value="Добавить" class="btn btn-success custom-width">
+                            </form>
+                        </td>
+                        <td>
+                            <form th:method="POST"
+                                  th:action="@{/management/main/script-group-delete/{id}(id=${grp.group_id})}">
                                 <input type="submit" value="Удалить" class="btn btn-danger custom-width">
                             </form>
                         </td>
@@ -653,7 +646,6 @@
                 <tr>
                     <th>Отделение</th>
                     <th>Изменение</th>
-                    <th>Удаление</th>
                 </tr>
                 </thead>
             </table>
@@ -665,12 +657,6 @@
                         <td><a th:href="@{/management/main/edit-department/{id}(id=${dep.department_id})}"
                                th:method="get"
                                class="btn btn-success custom-width">изменить</a></td>
-                        <td>
-                            <form th:method="PATCH"
-                                  th:action="@{/management/main/delete-department/{id}(id=${dep.department_id})}">
-                                <input type="submit" value="Удалить" class="btn btn-danger custom-width">
-                            </form>
-                        </td>
                     </tr>
                     </tbody>
                 </table>

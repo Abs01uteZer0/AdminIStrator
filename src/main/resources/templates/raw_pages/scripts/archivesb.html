@@ -91,7 +91,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -142,6 +142,8 @@
             </select>
         </div>
 
+
+
         <div class="mb-3">
             <label for="pdsh" class="form-label">Использование pdsh</label>
             <input type="checkbox" class="form-check" th:field="*{pdsh}" id="pdsh" th:value="true"/>
@@ -154,7 +156,7 @@
 
         <div class="mb-3">
             <label for="uptime" class="form-label">Использовать uptime</label>
-            uptime: <input type="checkbox" class="form-check" th:field="*{uptime}" id="uptime" th:value="true"/>
+            <input type="checkbox" class="form-check" th:field="*{uptime}" id="uptime" th:value="true"/>
         </div>
 
         <button type="submit" class="btn btn-primary">Отправить</button>

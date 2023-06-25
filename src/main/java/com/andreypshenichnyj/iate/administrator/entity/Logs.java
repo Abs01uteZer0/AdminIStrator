@@ -13,9 +13,6 @@ public class Logs {
     @Column(name = "log_id")
     private int log_id;
 
-    @Column(name = "label")
-    private String label;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "work_room_id")
     private Work_rooms work_room;
@@ -34,9 +31,8 @@ public class Logs {
     public Logs() {
     }
 
-    public Logs(int log_id, String label, Work_rooms work_room, Thread_scripts thread_script, Date date, String log_text) {
+    public Logs(int log_id, Work_rooms work_room, Thread_scripts thread_script, Date date, String log_text) {
         this.log_id = log_id;
-        this.label = label;
         this.work_room = work_room;
         this.thread_script = thread_script;
         this.date = date;
@@ -49,14 +45,6 @@ public class Logs {
 
     public void setLog_id(int log_id) {
         this.log_id = log_id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public Work_rooms getWork_room() {

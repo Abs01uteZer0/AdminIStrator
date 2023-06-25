@@ -11,8 +11,6 @@ public class Connector {
     private BufferedReader errorReader;
     private Process p;
 
-    private boolean b = false;
-
     public Connector(String command) {
         try {
             p = Runtime.getRuntime().exec(command);
@@ -21,24 +19,13 @@ public class Connector {
         }
         this.inputReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
         this.errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-
-        String str = null;
-        try{
-            while ((str = inputReader.readLine()) != null) {
-                System.out.println(str);
-                if (str.contains("0 received")||str.contains("получено = 0,")) {
-                    b = false;
-                }
-            }
-            b = true;
-        } catch (IOException e){
-            b = false;
-        } finally {
-            p.destroy();
-        }
     }
 
-    public boolean getBoolean() {
-        return b;
+    public BufferedReader getInputReader() {
+        return inputReader;
+    }
+
+    public BufferedReader getErrorReader() {
+        return errorReader;
     }
 }

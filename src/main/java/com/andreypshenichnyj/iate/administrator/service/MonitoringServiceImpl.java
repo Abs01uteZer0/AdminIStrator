@@ -4,15 +4,19 @@ import com.andreypshenichnyj.iate.administrator.dao.archives.ArchiveDAO;
 import com.andreypshenichnyj.iate.administrator.dao.logs.LogsDAO;
 import com.andreypshenichnyj.iate.administrator.dao.scripts.ScriptDAO;
 import com.andreypshenichnyj.iate.administrator.dao.thread_scripts.Thread_scriptDAO;
-import com.andreypshenichnyj.iate.administrator.entity.Archives;
-import com.andreypshenichnyj.iate.administrator.entity.Logs;
-import com.andreypshenichnyj.iate.administrator.entity.Scripts;
-import com.andreypshenichnyj.iate.administrator.entity.Thread_scripts;
+import com.andreypshenichnyj.iate.administrator.dao.work_rooms.Work_roomDAO;
+import com.andreypshenichnyj.iate.administrator.entity.*;
+import com.andreypshenichnyj.iate.administrator.service.threads.RunningThreadAdministratorImpl;
+import com.andreypshenichnyj.iate.administrator.terminal.Connector;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Service
@@ -29,6 +33,9 @@ public class MonitoringServiceImpl implements MonitoringService{
 
     @Autowired
     private LogsDAO logsDAO;
+
+    @Autowired
+    private Work_roomDAO work_roomDAO;
 
     @Override
     public List<Archives> getAllArchives() {
@@ -141,6 +148,51 @@ public class MonitoringServiceImpl implements MonitoringService{
         archive.setStatus(!archive.isStatus());
         return archive;
     }
+
+    @Override
+    public Map<String, String> getPcsInfo(Work_rooms work_room) {
+        List<Sub_pcs> list = work_room.getSub_pcs();
+        StringBuilder stringBuilder = new StringBuilder();
+//        StringBuilder stringBuilder_error = new StringBuilder();
+
+        stringBuilder.append("ssh -l root ").append(work_room.getMain_pc_ip()).append(" \"pdsh");
+        for (Sub_pcs sub_pc: list){
+            stringBuilder.append(" ").append(sub_pc.getSub_pc_ip());
+        }
+        stringBuilder.append(" uptime \"");
+
+        Connector connector = new Connector(stringBuilder.toString());
+        BufferedReader inputReader = connector.getInputReader();
+        BufferedReader errorReader = connector.getErrorReader();
+        StringBuilder sb = new StringBuilder();
+
+        String str = null;
+        try {
+            while ((str = inputReader.readLine()) != null) {
+                sb.append(str);
+            }
+//            while ((str = errorReader.readLine()) != null) {
+//                stringBuilder_error.append(str);
+//            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        str = sb.toString();
+//        System.out.println(stringBuilder_error.toString());
+
+        Map<String, String> info = new HashMap<>();
+        System.out.println(str);
+        for (int i=0; i<list.size(); i++){
+            if (str.contains(list.get(i).getSub_pc_ip() + ": ssh exited with exit code 255")){
+                info.put(list.get(i).getSub_pc_ip(), "Выключен");
+            } else {
+                info.put(list.get(i).getSub_pc_ip(), "Включен");
+            }
+        }
+
+        return info;
+    }
+
 
 
 }

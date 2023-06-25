@@ -11,47 +11,9 @@
 
     <script>
 
-        function tableSearchStudents() {
-            var phrase = document.getElementById('students-search-text');
-            var table = document.getElementById('students-table');
-            var regPhrase = new RegExp(phrase.value, 'i');
-            var flag = false;
-            for (var i = 0; i < table.rows.length; i++) {
-                flag = false;
-                for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
-                    flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
-                    if (flag) break;
-                }
-                if (flag) {
-                    table.rows[i].style.display = "";
-                } else {
-                    table.rows[i].style.display = "none";
-                }
-            }
-        }
-
-        function tableSearchGroups() {
-            var phrase = document.getElementById('groups-search-text');
-            var table = document.getElementById('groups-table');
-            var regPhrase = new RegExp(phrase.value, 'i');
-            var flag = false;
-            for (var i = 0; i < table.rows.length; i++) {
-                flag = false;
-                for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
-                    flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
-                    if (flag) break;
-                }
-                if (flag) {
-                    table.rows[i].style.display = "";
-                } else {
-                    table.rows[i].style.display = "none";
-                }
-            }
-        }
-
-        function tableSearchDepartments() {
-            var phrase = document.getElementById('departments-search-text');
-            var table = document.getElementById('departments-table');
+        function tableSearchJournals() {
+            var phrase = document.getElementById('journals-search-text');
+            var table = document.getElementById('journals-table');
             var regPhrase = new RegExp(phrase.value, 'i');
             var flag = false;
             for (var i = 0; i < table.rows.length; i++) {
@@ -207,9 +169,9 @@
                     <div class="Dropdown-content">
                         <a th:href="@{/management/main}" class="nav-link px-2 link-dark">Управление
                             пользователями</a>
-                        <a th:href="@{/management/recovery}" class="nav-link px-2 link-secondary">Восстановление
+                        <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-secondary">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -236,116 +198,33 @@
     </div>
 </header>
 
-<p>Текст для страницы восстановления</p>
+<p>Добро пожаловать в журнал операций, здесь расположены все записи</p>
 
 <div class="generic-container m-5 ">
     <div class="panel panel-default">
         <div class="panel-heading"><span class="lead">List of Users:</span></div>   <!--Вот сюда добавить поиск-->
-        <input class="form-control" type="text" placeholder="Введите фамилию, имя, группу или отделение"
-               id="students-search-text" onkeyup="tableSearchStudents()">
-        <div class="scroll-table">
-            <table class="table table-striped table-hover" id="students-table">
-                <thead>
-                <tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
-                    <th>Группа</th>
-                    <th>Отделение</th>
-                    <th>Логин</th>
-                    <th>Восстановление</th>
-                </tr>
-                </thead>
-            </table>
-            <div class="scroll-table-body">
-                <table>
-                    <tbody>
-                    <tr th:each="std : ${students}">
-                        <td th:utext="${std.surname}"></td>
-                        <td th:utext="${std.name}"></td>
-                        <td th:utext="${std.middle_name}"></td>
-                        <td th:utext="${std.group.group_name}"></td>
-                        <td th:utext="${std.group.department.department_name}"></td>
-                        <td th:utext="${std.login}"></td>
-                        <td>
-                            <form th:method="PATCH"
-                                  th:action="@{/management/recovery/recovery-student/{id}(id=${std.student_id})}">
-                                <input type="submit" value="Восстановить" class="btn btn-success custom-width">
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<p>Текст для страницы восстановления</p>
-
-<div class="generic-container m-5 ">
-    <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">List of Groups:</span></div>
-        <input class="form-control" type="text" placeholder="Введите название группы или отделения"
-               id="groups-search-text" onkeyup="tableSearchGroups()">
+        <input class="form-control" type="text" placeholder="Введите дату, время или тип операции"
+               id="journals-search-text" onkeyup="tableSearchJournals()">
         <div class="scroll-table">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>Группа</th>
-                    <th>Код группы</th>
-                    <th>Отделение</th>
-                    <th>Восстановление</th>
+                    <th>Дата операции</th>
+                    <th>Тип операции</th>
+                    <th>Просмотр</th>
                 </tr>
                 </thead>
             </table>
             <div class="scroll-table-body">
-                <table id="groups-table">
+                <table id="journals-table">
                     <tbody>
-                    <tr th:each="grp : ${groups}">
-                        <td th:utext="${grp.group_name}"></td>
-                        <td th:utext="${grp.group_code}"></td>
-                        <td th:utext="${grp.department.department_name}"></td>
+                    <tr th:each="jrl : ${journals}">
+                        <td th:utext="${jrl.date_time}"></td>
+                        <td th:utext="${jrl.type}"></td>
                         <td>
                             <form th:method="PATCH"
-                                  th:action="@{/management/recovery/recovery-group/{id}(id=${grp.group_id})}">
-                                <input type="submit" value="Восстановить" class="btn btn-success custom-width">
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<p>Текст для страницы восстановления</p>
-
-<div class="generic-container m-5 ">
-    <div class="panel panel-default">
-        <div class="panel-heading"><span class="lead">List of Departments:</span></div>
-        <input class="form-control" type="text" placeholder="Введите название отделения"
-               id="departments-search-text" onkeyup="tableSearchDepartments()">
-        <div class="scroll-table border-1">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>Отделение</th>
-                    <th>Восстановление</th>
-                </tr>
-                </thead>
-            </table>
-            <div class="scroll-table-body">
-                <table id="departments-table">
-                    <tbody>
-                    <tr th:each="dep : ${departments}">
-                        <td th:utext="${dep.department_name}"></td>
-                        <td>
-                            <form th:method="PATCH"
-                                  th:action="@{/management/recovery/recovery-department/{id}(id=${dep.department_id})}">
-                                <input type="submit" value="Восстановить" class="btn btn-success custom-width">
+                                  th:action="@{/management/recovery/show-journal/{id}(id=${jrl.journal_id})}">
+                                <input type="submit" value="Посмотреть" class="btn btn-success custom-width">
                             </form>
                         </td>
                     </tr>

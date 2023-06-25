@@ -91,7 +91,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -116,7 +116,7 @@
     </div>
 </header>
 
-<p>Форма добавления студента </p>
+<h4 class="m-4">Заполните все поля и нажмите кнопку отправить </h4>
 <div class="w-50 align-self-center m-3">
     <form th:method="PATCH" th:action="@{/management/main/success-student}" th:object="${student}">
 

@@ -3,6 +3,8 @@ package com.andreypshenichnyj.iate.administrator.entity;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +29,19 @@ public class Groups {
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "group")
+    @Size(min = 2, max = 15, message = "Код группы должен содержать от 2 до 25 символов!")
     private List<Students> students;
+
+    @Column(name = "group_code")
+    private String group_code;
 
     public Groups() {
     }
 
-    public Groups(int group_id, String group_name) {
+    public Groups(int group_id, String group_name, String group_code) {
         this.group_id = group_id;
         this.group_name = group_name;
+        this.group_code = group_code;
     }
 
     public void addStudentToGroup(Students student){
@@ -75,6 +82,14 @@ public class Groups {
 
     public void setStudents(List<Students> students) {
         this.students = students;
+    }
+
+    public String getGroup_code() {
+        return group_code;
+    }
+
+    public void setGroup_code(String group_code) {
+        this.group_code = group_code;
     }
 
     @Override

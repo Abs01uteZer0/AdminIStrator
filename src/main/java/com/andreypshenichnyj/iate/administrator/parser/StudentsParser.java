@@ -3,8 +3,6 @@ package com.andreypshenichnyj.iate.administrator.parser;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
-import com.andreypshenichnyj.iate.administrator.entity.students.WorkRoom;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +11,13 @@ import java.util.regex.Pattern;
 
 public class StudentsParser {
 
-    @jakarta.validation.constraints.Pattern(regexp = "([А-я]+:[А-я]+:[А-я]+:[A-z]+:[A-z0-9]+)+")
+    @jakarta.validation.constraints.Pattern(regexp = "([А-я]+:[А-я]+:[А-я]+\s?)+")
     private String data;
+
     private Groups group;
 
     private Work_rooms work_room;
+
     List<Students> studentsList;
 
     public StudentsParser(String data, Groups group, Work_rooms work_room) {
@@ -64,7 +64,7 @@ public class StudentsParser {
     }
 
     public List<Students> parsing(){
-        Pattern p = Pattern.compile("[А-я]+:[А-я]+:[А-я]+:[A-z]+:[A-z0-9]+");
+        Pattern p = Pattern.compile("[А-я]+:[А-я]+:[А-я]+");
         Matcher m = p.matcher(data);
         while (m.find()){
             String s = m.group();
@@ -73,8 +73,6 @@ public class StudentsParser {
             student.setName(array[0]);
             student.setSurname(array[1]);
             student.setMiddle_name(array[2]);
-            student.setLogin(array[3]);
-            student.setPassword(array[4]);
             student.setGroup(group);
             student.setWork_room(work_room);
             group.addStudentToGroup(student);

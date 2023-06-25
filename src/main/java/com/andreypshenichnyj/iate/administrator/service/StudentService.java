@@ -2,6 +2,7 @@ package com.andreypshenichnyj.iate.administrator.service;
 
 import com.andreypshenichnyj.iate.administrator.entity.Departments;
 import com.andreypshenichnyj.iate.administrator.entity.Groups;
+import com.andreypshenichnyj.iate.administrator.entity.Journals;
 import com.andreypshenichnyj.iate.administrator.entity.Work_rooms;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 
@@ -58,5 +59,13 @@ public interface StudentService {
     List<Work_rooms> getAllWorkRooms();
 
     Work_rooms getWorkRoomById(int id);
+
+    List<Journals> getAllJournals();
+
+    Journals getJournal(int id);
+
+    void addJournal(Journals journal);
+
+    void changeState(List<Students> students);
 
 }

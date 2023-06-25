@@ -17,7 +17,7 @@ public class Work_rooms {
     private String name;
 
     @Column(name = "main_pc_ip")
-    private String main_pc_id;
+    private String main_pc_ip;
 
     @OneToMany(cascade = CascadeType.ALL,
             mappedBy = "work_room")
@@ -42,10 +42,10 @@ public class Work_rooms {
     public Work_rooms() {
     }
 
-    public Work_rooms(int work_room_id, String name, String main_pc_id, List<Students> students, List<Sub_pcs> sub_pcs, List<Archives> archives, List<Thread_scripts> thread_scripts, List<Logs> logs) {
+    public Work_rooms(int work_room_id, String name, String main_pc_ip, List<Students> students, List<Sub_pcs> sub_pcs, List<Archives> archives, List<Thread_scripts> thread_scripts, List<Logs> logs) {
         this.work_room_id = work_room_id;
         this.name = name;
-        this.main_pc_id = main_pc_id;
+        this.main_pc_ip = main_pc_ip;
         this.students = students;
         this.sub_pcs = sub_pcs;
         this.archives = archives;
@@ -69,12 +69,12 @@ public class Work_rooms {
         this.name = name;
     }
 
-    public String getMain_pc_id() {
-        return main_pc_id;
+    public String getMain_pc_ip() {
+        return main_pc_ip;
     }
 
-    public void setMain_pc_id(String main_pc_id) {
-        this.main_pc_id = main_pc_id;
+    public void setMain_pc_ip(String main_pc_ip) {
+        this.main_pc_ip = main_pc_ip;
     }
 
     public List<Students> getStudents() {

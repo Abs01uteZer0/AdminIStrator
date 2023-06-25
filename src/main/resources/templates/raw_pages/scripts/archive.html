@@ -90,7 +90,7 @@
                             пользователями</a>
                         <a th:href="@{/management/recovery}" class="nav-link px-2 link-dark">Восстановление
                             пользователей</a>
-                        <a th:href="@{/management/history}" class="nav-link px-2 link-dark">История операций</a>
+                        <a th:href="@{/management/main/journal}" class="nav-link px-2 link-dark">История операций</a>
                     </div>
                 </div>
                 <div class="Dropdown">
@@ -126,7 +126,7 @@
         <div class="mb-3">
             <label for="label" class="form-label">Название</label>
             <input type="text" class="form-control" th:field="*{label}" id="label"
-                   placeholder="Валидация"/>
+                   placeholder="Введите название скрипта"/>
             <div style="color: red" th:if="${#fields.hasErrors('label')}" th:errors="*{label}">Label Error</div>
         </div>
         <div class="mb-3">
@@ -162,11 +162,6 @@
                 </option>
             </select>
         </div>
-
-        <!--    <br>-->
-        <!--    Кабинет: <input type="text" th:field="*{work_room}" th:value="*{work_room.work_room_id}" th:label="*{work_room.name}" id="work_room" placeholder="Кабинет " readonly/>-->
-        <!--    <br>-->
-        <!--    Скрипт: <input type="text" th:field="*{script}" th:value="*{script.script_id}" th:label="*{script.label}" id="script" placeholder="Скрипт " readonly />-->
 
         <button type="submit" class="btn btn-primary" th:if="${Flag}">Отправить</button>
     </form>

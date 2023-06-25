@@ -2,6 +2,9 @@ package com.andreypshenichnyj.iate.administrator.entity;
 
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ public class Thread_scripts {
     private int thread_script_id;
 
     @Column(name = "label")
+    @Size(min = 3, max = 50, message = "Название скрипта должно содержать от 3 до 50 символов!")
     private String label;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -31,13 +35,13 @@ public class Thread_scripts {
     private int time_minutes;
 
     @Column(name = "launch_time")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date date = null;
 
     @Column(name = "status")
     private boolean status = true;
 
     @Column(name = "generated_script")
+    @NotEmpty(message = "Код скрипта не должен быть пустым!")
     private String generated_script;
 
     @OneToMany(cascade = CascadeType.ALL,

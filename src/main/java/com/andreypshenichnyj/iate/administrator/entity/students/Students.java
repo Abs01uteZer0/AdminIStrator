@@ -35,24 +35,20 @@ public class Students {
     private String login;
 
     @Column(name = "password")
-    @NotEmpty(message = "Пароль не должен быть пустым!")
     private String password;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "work_room_id")
     private Work_rooms work_room;
 
-    @Column(name = "access")
-    private boolean access = true;
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "state")
-    private State state;
+    private State state = State.CREATED;
 
     public Students() {
     }
 
-    public Students(int student_id, String name, String surname, String middle_name, String login, String password, Work_rooms work_room, boolean access, State state) {
+    public Students(int student_id, String name, String surname, String middle_name, String login, String password, Work_rooms work_room, State state) {
         this.student_id = student_id;
         this.name = name;
         this.surname = surname;
@@ -60,7 +56,6 @@ public class Students {
         this.login = login;
         this.password = password;
         this.work_room = work_room;
-        this.access = access;
         this.state = state;
     }
 
@@ -128,14 +123,6 @@ public class Students {
         this.work_room = work_room;
     }
 
-    public boolean isAccess() {
-        return access;
-    }
-
-    public void setAccess(boolean access) {
-        this.access = access;
-    }
-
     public State getState() {
         return state;
     }
@@ -154,7 +141,6 @@ public class Students {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", work_room='" + work_room + '\'' +
-                ", access=" + access + '\'' +
                 ", state=" + state +
                 '}';
     }

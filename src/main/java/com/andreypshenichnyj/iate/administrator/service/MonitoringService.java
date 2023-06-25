@@ -1,11 +1,9 @@
 package com.andreypshenichnyj.iate.administrator.service;
 
-import com.andreypshenichnyj.iate.administrator.entity.Archives;
-import com.andreypshenichnyj.iate.administrator.entity.Logs;
-import com.andreypshenichnyj.iate.administrator.entity.Scripts;
-import com.andreypshenichnyj.iate.administrator.entity.Thread_scripts;
+import com.andreypshenichnyj.iate.administrator.entity.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MonitoringService {
 
@@ -52,4 +50,6 @@ public interface MonitoringService {
     Scripts swapScriptStatus(Scripts script);
 
     Archives swarArchiveStatus(Archives archive);
+
+    Map<String, String> getPcsInfo(Work_rooms work_room);
 }
