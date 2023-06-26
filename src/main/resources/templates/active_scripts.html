@@ -370,6 +370,7 @@
                                     <th>Время запуска</th>
                                     <th>Запустить</th>
                                     <th>Просмотреть</th>
+                                    <th>В стэш</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -389,6 +390,10 @@
                                             <a th:href="@{/monitoring/scripts/view-script/{id}(id=${scr.thread_script_id})}"
                                                th:method="get"
                                                class="btn btn-success custom-width">Открыть</a></td>
+                                        <td>
+                                            <a th:href="@{/monitoring/scripts/go-stash/{id}(id=${scr.thread_script_id})}"
+                                               th:method="get"
+                                               class="btn btn-success custom-width">Убрать</a></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -427,7 +432,7 @@
                                         <td th:utext="${scr.time_minutes}"></td>
                                         <td th:utext="${scr.date}"></td>
                                         <td>
-                                            <a th:href="@{/monitoring/scripts/recovery-script/{id}(id=${scr.thread_script_id})}"
+                                            <a th:href="@{/monitoring/scripts/go-stash/{id}(id=${scr.thread_script_id})}"
                                                th:method="get"
                                                class="btn btn-success custom-width">Восстановить</a></td>
                                         <td>
@@ -470,6 +475,7 @@
                 <tr>
                     <th>Кабинет</th>
                     <th>Время выполнения</th>
+                    <th>Скрипт</th>
                     <th>Посмотреть</th>
                 </tr>
                 </thead>
@@ -480,8 +486,9 @@
                     <tr th:each="log : ${logs}">
                         <td th:utext="${log.work_room.name}"></td>
                         <td th:utext="${log.date}"></td>
+                        <td th:utext="${log.thread_script.label}"></td>
 
-                        <td><a th:href="@{/monitoring/scripts/view-log/{id}{id}(id=${log.log_id})}"
+                        <td><a th:href="@{/monitoring/scripts/view-log/{id}(id=${log.log_id})}"
                                th:method="get"
                                class="btn btn-success custom-width">Открыть</a></td>
                     </tr>

@@ -98,8 +98,8 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <div class="Dropdown-content">
-                        <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-secondary">База скриптов</a>
-                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-dark">Автоматизированные
+                        <a th:href="@{/monitoring/scripts}" class="nav-link px-2 link-dark">База скриптов</a>
+                        <a th:href="@{/monitoring/scripts/active}" class="nav-link px-2 link-secondary">Автоматизированные
                             скрипты</a>
                         <a th:href="@{/monitoring/administration}" class="nav-link px-2 link-dark">Состояние
                             компьютеров</a>
@@ -117,22 +117,28 @@
     </div>
 </header>
 
-<p th:if="${Flag}">Форма редактирование полученного скрипта </p>
-<p th:if="!${Flag}">Просмотр скрипта </p>
+<p th:if="${Flag}">Форма редактирование автоматизированного скрипта </p>
+<p th:if="!${Flag}">Просмотр автоматизированного скрипта </p>
 <div class="w-50 align-self-center m-3">
     <form th:method="POST" th:action="@{/monitoring/active/success-active}" th:object="${thread_script}">
 
         <input type="number" th:field="*{thread_script_id}" id="id" th:hidden="true">
         <div class="mb-3">
-            <label for="label" class="form-label">Название</label>
-            <input type="text" class="form-control" th:field="*{label}" id="label"
+            <label for="label" th:if="${Flag}" class="form-label">Название</label>
+            <input type="text" th:if="${Flag}" class="form-control" th:field="*{label}" id="label"
                    placeholder="Введите название скрипта"/>
+            <label for="label_1" th:if="!${Flag}" class="form-label" >Название</label>
+            <input type="text" th:if="!${Flag}" class="form-control" th:field="*{label}" id="label_1"
+                   placeholder="Введите название скрипта" readonly/>
             <div style="color: red" th:if="${#fields.hasErrors('label')}" th:errors="*{label}">Label Error</div>
         </div>
         <div class="mb-3">
-            <label for="time_minutes" class="form-label">Введите промежуток времени (в минутах)</label>
-            <input type="text" class="form-control" th:field="*{time_minutes}" id="time_minutes"
+            <label for="time_minutes" th:if="${Flag}" class="form-label">Введите промежуток времени (в минутах)</label>
+            <input type="text" th:if="${Flag}" class="form-control" th:field="*{time_minutes}" id="time_minutes"
                    placeholder="Введите промежуток времени (только цифры)"/>
+            <label for="time_minutes_1" th:if="!${Flag}" class="form-label">Введите промежуток времени (в минутах)</label>
+            <input type="text" th:if="!${Flag}" class="form-control" th:field="*{time_minutes}" id="time_minutes_1"
+                   placeholder="Введите промежуток времени (только цифры)" readonly/>
         </div>
         <div class="mb-3">
             <label for="true_script_code" th:if="${Flag}" class="form-label">Код скрипта</label>

@@ -52,4 +52,8 @@ public interface MonitoringService {
     Archives swarArchiveStatus(Archives archive);
 
     Map<String, String> getPcsInfo(Work_rooms work_room);
+
+    Thread_scripts swapThread_ScriptStatus(Thread_scripts thread_script);
+
+    void refreshDate();
 }

@@ -114,20 +114,24 @@
 <p></p>
 
 <div class="w-50 align-self-center m-3">
-    <form th:method="GET" th:action="@{/main}" th:object="${journal}">
+    <form th:method="GET" th:action="@{/main}" th:object="${log}">
 
-        <input type="number" th:field="*{journal_id}" id="id" th:hidden="true">
+        <input type="number" th:field="*{log_id}" id="id" th:hidden="true">
         <div class="mb-3">
-            <label for="label" class="form-label">Тип операции</label>
-            <input type="text" class="form-control" th:field="*{type}" id="label" readonly/>
+            <label for="label" class="form-label">Кабинет</label>
+            <input type="text" class="form-control" th:field="*{work_room.name}" id="label" readonly/>
+        </div>
+        <div class="mb-3">
+            <label for="thread_script" class="form-label">Код вызываемого скрипта</label>
+            <input type="text" class="form-control" th:field="*{thread_script.generated_script}" id="thread_script" readonly/>
         </div>
         <div class="mb-3">
             <label for="date" class="form-label">Дата и время операции</label>
-            <input type="text" class="form-control" th:field="*{date_time}" id="date" readonly/>
+            <input type="text" class="form-control" th:field="*{date}" id="date" readonly/>
         </div>
         <div class="mb-3">
-            <label for="script" class="form-label">Скрипт </label>
-            <textarea th:field="*{script}" class="form-control" id="script" readonly></textarea>
+            <label for="log_text" class="form-label">Текст лога</label>
+            <textarea th:field="*{log_text}" class="form-control" id="log_text" readonly></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary" >На главную</button>

@@ -30,6 +30,8 @@ public class MonitoringController {
     @Autowired
     private RunningThreadAdministrator runningThreadAdministrator;
 
+    private static int preInitializeFlag = 0;
+
     @GetMapping("/scripts")
     public String getMonitoringScriptsPage(Model model){
         //Сюда из администрирования добавить
@@ -129,6 +131,10 @@ public class MonitoringController {
 
     @GetMapping("/scripts/active")
     public String getMonitoringActiveSctiptsPage(Model model){
+        if (preInitializeFlag == 0){
+            monitoringService.refreshDate();
+            preInitializeFlag++;
+        }
         model.addAttribute("runningActive", monitoringService.getAllActiveThreadScripts());
         model.addAttribute("runningNonActive", monitoringService.getAllNonActiveThreadScripts());
         model.addAttribute("runningStashed", monitoringService.getAllStashedThreadScripts());
@@ -171,10 +177,51 @@ public class MonitoringController {
             model.addAttribute("work_rooms", studentService.getAllWorkRooms());
             return "raw_pages/scripts/running_script";
         }
-        monitoringService.addThread_script(thread_script);
         runningThreadAdministrator.addScript(thread_script);
         model.addAttribute("message", "Добавление автозапускаемого скрипта прошло успешно");
 
         return "success_page";
+    }
+
+
+
+
+
+    @GetMapping("/scripts/view-log/{id}")
+    public String getLog(@PathVariable("id") int id, Model model){
+        model.addAttribute("log", monitoringService.getLog(id));
+
+        return "raw_pages/scripts/log";
+    }
+
+    @GetMapping("/scripts/view-script/{id}")
+    public String getScript(@PathVariable("id") int id, Model model){
+        model.addAttribute("thread_script", monitoringService.getThread_script(id));
+        model.addAttribute("Flag", false);
+
+        return "raw_pages/scripts/running_script";
+    }
+
+    @GetMapping("/scripts/go-stash/{id}")
+    public String scriptToStash(@PathVariable("id") int id, Model model){
+        Thread_scripts thread_scripts = monitoringService.getThread_script(id);
+        thread_scripts = monitoringService.swapThread_ScriptStatus(thread_scripts);
+        monitoringService.addThread_script(thread_scripts);
+
+        return "redirect:/monitoring/scripts/active";
+    }
+
+    @GetMapping("/scripts/stop-script/{id}")
+    public String stopScript(@PathVariable("id") int id){
+        runningThreadAdministrator.deleteScript(monitoringService.getThread_script(id));
+
+        return "";
+    }
+
+    @GetMapping("/scripts/run-script/{id}")
+    public String runScript(@PathVariable("id") int id){
+        runningThreadAdministrator.addScript(monitoringService.getThread_script(id));
+
+        return "";
     }
 }

@@ -14,13 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Transactional
 @Service
-public class MonitoringServiceImpl implements MonitoringService{
+public class MonitoringServiceImpl implements MonitoringService {
 
     @Autowired
     private ArchiveDAO archiveDAO;
@@ -89,7 +87,14 @@ public class MonitoringServiceImpl implements MonitoringService{
 
     @Override
     public List<Logs> getAllLogs() {
-        return logsDAO.getAllLogs();
+        List<Logs> list = logsDAO.getAllLogs();
+        Collections.sort(list, new Comparator<Logs>() {
+            @Override
+            public int compare(Logs o1, Logs o2) {
+                return o2.getLog_id()-o1.getLog_id();
+            }
+        });
+        return list;
     }
 
     @Override
@@ -153,10 +158,9 @@ public class MonitoringServiceImpl implements MonitoringService{
     public Map<String, String> getPcsInfo(Work_rooms work_room) {
         List<Sub_pcs> list = work_room.getSub_pcs();
         StringBuilder stringBuilder = new StringBuilder();
-//        StringBuilder stringBuilder_error = new StringBuilder();
 
         stringBuilder.append("ssh -l root ").append(work_room.getMain_pc_ip()).append(" \"pdsh");
-        for (Sub_pcs sub_pc: list){
+        for (Sub_pcs sub_pc : list) {
             stringBuilder.append(" ").append(sub_pc.getSub_pc_ip());
         }
         stringBuilder.append(" uptime \"");
@@ -171,19 +175,15 @@ public class MonitoringServiceImpl implements MonitoringService{
             while ((str = inputReader.readLine()) != null) {
                 sb.append(str);
             }
-//            while ((str = errorReader.readLine()) != null) {
-//                stringBuilder_error.append(str);
-//            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         str = sb.toString();
-//        System.out.println(stringBuilder_error.toString());
 
         Map<String, String> info = new HashMap<>();
         System.out.println(str);
-        for (int i=0; i<list.size(); i++){
-            if (str.contains(list.get(i).getSub_pc_ip() + ": ssh exited with exit code 255")){
+        for (int i = 0; i < list.size(); i++) {
+            if (str.contains(list.get(i).getSub_pc_ip() + ": ssh exited with exit code 255")) {
                 info.put(list.get(i).getSub_pc_ip(), "Выключен");
             } else {
                 info.put(list.get(i).getSub_pc_ip(), "Включен");
@@ -193,6 +193,18 @@ public class MonitoringServiceImpl implements MonitoringService{
         return info;
     }
 
+    @Override
+    public Thread_scripts swapThread_ScriptStatus(Thread_scripts thread_script) {
+        thread_script.setStatus(!thread_script.isStatus());
+        return thread_script;
+    }
 
-
+    @Override
+    public void refreshDate() {
+        List<Thread_scripts> list = thread_scriptDAO.getAllThread_scripts();
+        list.stream().filter(th -> th.getDate() != null).forEach(th -> th.setDate(null));
+        for (int i = 0; i<list.size(); i++){
+            thread_scriptDAO.addThread_script(list.get(i));
+        }
+    }
 }

@@ -222,8 +222,8 @@
                         <td th:utext="${jrl.date_time}"></td>
                         <td th:utext="${jrl.type}"></td>
                         <td>
-                            <form th:method="PATCH"
-                                  th:action="@{/management/recovery/show-journal/{id}(id=${jrl.journal_id})}">
+                            <form th:method="GET"
+                                  th:action="@{/management/main/show-journal/{id}(id=${jrl.journal_id})}">
                                 <input type="submit" value="Посмотреть" class="btn btn-success custom-width">
                             </form>
                         </td>

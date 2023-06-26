@@ -292,6 +292,7 @@
     </style>
 
 </head>
+
 <body class="d-flex flex-column h-100">
 <header class="border-bottom" style="background-color: #0053bc">
     <div class="container">
@@ -335,7 +336,7 @@
     </div>
 </header>
 
-
+<p>Здесь расположены коды скриптов, которые используются для построения других скриптов</p>
 <div class="wrapper">
     <div class="content">
         <div class="tabs_1">
@@ -347,7 +348,7 @@
             <div id="content-1">
                 <div class="generic-container m-5 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список рабочих скриптов:</span></div>
+                        <div class="panel-heading"><span class="lead">Список рабочих базовых скриптов:</span></div>
                         <input class="form-control" type="text"
                                placeholder="Введите название или текст скрипта"
                                id="scripts-worked-search-text" onkeyup="tableSearchScriptsWorked()">
@@ -381,7 +382,7 @@
             <div id="content-2">
                 <div class="generic-container m-5 ">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><span class="lead">Список неиспользуемых скриптов:</span></div>
+                        <div class="panel-heading"><span class="lead">Список неиспользуемых базовых скриптов:</span></div>
                         <input class="form-control" type="text"
                                placeholder="Введите название или текст скрипта"
                                id="scripts-stashed-search-text" onkeyup="tableSearchScriptsStashed()">
@@ -416,11 +417,12 @@
     </div>
 </div>
 <div class="well ms-5 mt-3">
-    <a th:href="@{/monitoring/scripts/add-script}">Добавить скрипт</a>
+    <a th:href="@{/monitoring/scripts/add-script}">Добавить базовый скрипт</a>
 </div>
 
 <br><br><br><br>
 
+<p>Здесь расположены сгенерированные скрипты. Вы можете скопировать их и выполнить в терминале</p>
 <div class="wrapper_2">
     <div class="content_2">
         <div class="tabs_2">
