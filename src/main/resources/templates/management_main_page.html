@@ -596,6 +596,7 @@
                     <th>Изменение</th>
                     <th>Скрипт добавления</th>
                     <th>Скрипт удаления</th>
+                    <th>Генерация логинов и паролей</th>
                 </tr>
                 </thead>
             </table>
@@ -620,6 +621,8 @@
                                 <input type="submit" value="Удалить" class="btn btn-danger custom-width">
                             </form>
                         </td>
+                        <td><a th:href="@{/management/main/group-info/{id}(id=${grp.group_id})}" th:method="get"
+                               class="btn btn-success custom-width">Сгенерировать</a></td>
                     </tr>
                     </tbody>
                 </table>

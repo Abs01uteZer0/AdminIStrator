@@ -1,10 +1,12 @@
 package com.andreypshenichnyj.iate.administrator.controller.management.main;
 
+import com.andreypshenichnyj.iate.administrator.entity.Groups;
 import com.andreypshenichnyj.iate.administrator.entity.Journals;
 import com.andreypshenichnyj.iate.administrator.entity.students.State;
 import com.andreypshenichnyj.iate.administrator.entity.students.Students;
 import com.andreypshenichnyj.iate.administrator.service.MasterService;
 import com.andreypshenichnyj.iate.administrator.service.StudentService;
+import com.andreypshenichnyj.iate.administrator.service.info.LogPassInfo;
 import com.andreypshenichnyj.iate.administrator.service.scripts.ManagementScriptBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -135,5 +137,17 @@ public class ManagementMainController {
         model.addAttribute("journal", journal);
 
         return "raw_pages/journal";
+    }
+
+    @GetMapping("/group-info/{id}")
+    public String groupInfo(@PathVariable("id") int id, Model model){
+        LogPassInfo logPassInfo = new LogPassInfo();
+        Groups group = studentService.getGroupById(id);
+        logPassInfo.setList(group.getStudents().stream().filter(st -> st.getState().equals(State.IN_WORK)).collect(Collectors.toList()));
+        logPassInfo.doInfo();
+        model.addAttribute("log_pass_info", logPassInfo);
+        model.addAttribute("group", group);
+
+        return "raw_pages/login_password_info";
     }
 }

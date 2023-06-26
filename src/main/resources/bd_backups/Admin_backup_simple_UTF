@@ -1,0 +1,1073 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.1
+-- Dumped by pg_dump version 15.1
+
+-- Started on 2023-06-26 15:53:23
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 229 (class 1259 OID 33027)
+-- Name: archives; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.archives (
+    archive_id integer NOT NULL,
+    label text NOT NULL,
+    script_id integer NOT NULL,
+    work_room_id integer NOT NULL,
+    generated_script text NOT NULL,
+    status boolean NOT NULL
+);
+
+
+ALTER TABLE public.archives OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 33026)
+-- Name: archive_archive_id _seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."archive_archive_id _seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."archive_archive_id _seq" OWNER TO postgres;
+
+--
+-- TOC entry 3437 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: archive_archive_id _seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."archive_archive_id _seq" OWNED BY public.archives.archive_id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 16446)
+-- Name: departments; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.departments (
+    department_id integer NOT NULL,
+    department_name text NOT NULL
+);
+
+
+ALTER TABLE public.departments OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16445)
+-- Name: departments_department_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.departments_department_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.departments_department_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3438 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: departments_department_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.departments_department_id_seq OWNED BY public.departments.department_id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16418)
+-- Name: groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.groups (
+    group_id integer NOT NULL,
+    group_name text NOT NULL,
+    department_id integer NOT NULL,
+    group_code text NOT NULL
+);
+
+
+ALTER TABLE public.groups OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16417)
+-- Name: groups_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.groups_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.groups_group_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3439 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: groups_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.groups_group_id_seq OWNED BY public.groups.group_id;
+
+
+--
+-- TOC entry 234 (class 1259 OID 33083)
+-- Name: journal; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.journal (
+    journal_id integer NOT NULL,
+    script text NOT NULL,
+    date_time timestamp without time zone NOT NULL,
+    type text NOT NULL
+);
+
+
+ALTER TABLE public.journal OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 33086)
+-- Name: journal_journal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.journal_journal_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.journal_journal_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3440 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: journal_journal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.journal_journal_id_seq OWNED BY public.journal.journal_id;
+
+
+--
+-- TOC entry 233 (class 1259 OID 33045)
+-- Name: logs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.logs (
+    log_id integer NOT NULL,
+    work_room_id integer NOT NULL,
+    thread_script_id integer NOT NULL,
+    launch_time timestamp without time zone NOT NULL,
+    log_text text NOT NULL
+);
+
+
+ALTER TABLE public.logs OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 33044)
+-- Name: logs_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.logs_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.logs_log_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3441 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: logs_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.logs_log_id_seq OWNED BY public.logs.log_id;
+
+
+--
+-- TOC entry 217 (class 1259 OID 16409)
+-- Name: masters; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.masters (
+    master_id integer NOT NULL,
+    surname text NOT NULL,
+    name text NOT NULL,
+    middle_name text,
+    login text NOT NULL,
+    password text NOT NULL,
+    role text DEFAULT 'TEACHER'::text NOT NULL,
+    status text DEFAULT 'ACTIVE'::text NOT NULL
+);
+
+
+ALTER TABLE public.masters OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 16408)
+-- Name: masters_master_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.masters_master_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.masters_master_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3442 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: masters_master_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.masters_master_id_seq OWNED BY public.masters.master_id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 33018)
+-- Name: scripts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.scripts (
+    script_id integer NOT NULL,
+    label text NOT NULL,
+    script_code text NOT NULL,
+    status boolean NOT NULL
+);
+
+
+ALTER TABLE public.scripts OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 33017)
+-- Name: scripts_scritp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.scripts_scritp_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scripts_scritp_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3443 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: scripts_scritp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.scripts_scritp_id_seq OWNED BY public.scripts.script_id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 16400)
+-- Name: students; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.students (
+    student_id integer NOT NULL,
+    surname text NOT NULL,
+    name text NOT NULL,
+    middle_name text NOT NULL,
+    group_id integer NOT NULL,
+    login text NOT NULL,
+    password text NOT NULL,
+    work_room_id integer NOT NULL,
+    state text NOT NULL
+);
+
+
+ALTER TABLE public.students OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 16399)
+-- Name: students_student_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.students_student_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.students_student_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3444 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: students_student_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.students_student_id_seq OWNED BY public.students.student_id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 32947)
+-- Name: sub_pcs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sub_pcs (
+    sub_pc_id integer NOT NULL,
+    sub_pc_ip text NOT NULL,
+    work_room_id integer NOT NULL
+);
+
+
+ALTER TABLE public.sub_pcs OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 32946)
+-- Name: sub_pcs_sub_pc_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.sub_pcs_sub_pc_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sub_pcs_sub_pc_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3445 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: sub_pcs_sub_pc_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.sub_pcs_sub_pc_id_seq OWNED BY public.sub_pcs.sub_pc_id;
+
+
+--
+-- TOC entry 231 (class 1259 OID 33036)
+-- Name: thread_scripts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.thread_scripts (
+    thread_script_id integer NOT NULL,
+    label text NOT NULL,
+    script_id integer NOT NULL,
+    work_room_id integer NOT NULL,
+    time_minutes integer NOT NULL,
+    launch_time timestamp without time zone,
+    status boolean NOT NULL,
+    generated_script text NOT NULL
+);
+
+
+ALTER TABLE public.thread_scripts OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 33035)
+-- Name: thread_scripts_thread_script_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.thread_scripts_thread_script_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.thread_scripts_thread_script_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3446 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: thread_scripts_thread_script_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.thread_scripts_thread_script_id_seq OWNED BY public.thread_scripts.thread_script_id;
+
+
+--
+-- TOC entry 223 (class 1259 OID 32940)
+-- Name: work_rooms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.work_rooms (
+    work_room_id integer NOT NULL,
+    name text NOT NULL,
+    main_pc_ip text NOT NULL
+);
+
+
+ALTER TABLE public.work_rooms OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 32939)
+-- Name: work_rooms_work_room_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.work_rooms_work_room_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.work_rooms_work_room_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3447 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: work_rooms_work_room_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.work_rooms_work_room_id_seq OWNED BY public.work_rooms.work_room_id;
+
+
+--
+-- TOC entry 3232 (class 2604 OID 33030)
+-- Name: archives archive_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.archives ALTER COLUMN archive_id SET DEFAULT nextval('public."archive_archive_id _seq"'::regclass);
+
+
+--
+-- TOC entry 3228 (class 2604 OID 16449)
+-- Name: departments department_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departments ALTER COLUMN department_id SET DEFAULT nextval('public.departments_department_id_seq'::regclass);
+
+
+--
+-- TOC entry 3227 (class 2604 OID 16421)
+-- Name: groups group_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.groups ALTER COLUMN group_id SET DEFAULT nextval('public.groups_group_id_seq'::regclass);
+
+
+--
+-- TOC entry 3235 (class 2604 OID 33087)
+-- Name: journal journal_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.journal ALTER COLUMN journal_id SET DEFAULT nextval('public.journal_journal_id_seq'::regclass);
+
+
+--
+-- TOC entry 3234 (class 2604 OID 33048)
+-- Name: logs log_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.logs ALTER COLUMN log_id SET DEFAULT nextval('public.logs_log_id_seq'::regclass);
+
+
+--
+-- TOC entry 3224 (class 2604 OID 16412)
+-- Name: masters master_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.masters ALTER COLUMN master_id SET DEFAULT nextval('public.masters_master_id_seq'::regclass);
+
+
+--
+-- TOC entry 3231 (class 2604 OID 33021)
+-- Name: scripts script_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.scripts ALTER COLUMN script_id SET DEFAULT nextval('public.scripts_scritp_id_seq'::regclass);
+
+
+--
+-- TOC entry 3223 (class 2604 OID 16403)
+-- Name: students student_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.students ALTER COLUMN student_id SET DEFAULT nextval('public.students_student_id_seq'::regclass);
+
+
+--
+-- TOC entry 3230 (class 2604 OID 32950)
+-- Name: sub_pcs sub_pc_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sub_pcs ALTER COLUMN sub_pc_id SET DEFAULT nextval('public.sub_pcs_sub_pc_id_seq'::regclass);
+
+
+--
+-- TOC entry 3233 (class 2604 OID 33039)
+-- Name: thread_scripts thread_script_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.thread_scripts ALTER COLUMN thread_script_id SET DEFAULT nextval('public.thread_scripts_thread_script_id_seq'::regclass);
+
+
+--
+-- TOC entry 3229 (class 2604 OID 32943)
+-- Name: work_rooms work_room_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work_rooms ALTER COLUMN work_room_id SET DEFAULT nextval('public.work_rooms_work_room_id_seq'::regclass);
+
+
+--
+-- TOC entry 3425 (class 0 OID 33027)
+-- Dependencies: 229
+-- Data for Name: archives; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.archives (archive_id, label, script_id, work_room_id, generated_script, status) FROM stdin;
+2	zz	1	6	ping	t
+4	test	1	1	pdsh ping -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 uptime	t
+5	name	1	1	ping wfeuhweug\r\nbiugre	t
+7	Script_Test_Validation	1	1	ping	t
+8	Test_1_1	3	1	pdsh zypper -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 sdhiushdguihsg	t
+9	название_1_1	1	1	pdsh -w vk.com google.com 255.255.192.64 1.1.1.1 ping uptime	t
+10	sdonbiwbgfn	3	1	pdsh zypper -w 192.168.0.1 vk.com google.com 255.255.192.64 uptime	f
+\.
+
+
+--
+-- TOC entry 3417 (class 0 OID 16446)
+-- Dependencies: 221
+-- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.departments (department_id, department_name) FROM stdin;
+1	ОИКС
+4	ФЭФ
+6	МЕН
+5	ААА
+7	ЯФИТ
+\.
+
+
+--
+-- TOC entry 3415 (class 0 OID 16418)
+-- Dependencies: 219
+-- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.groups (group_id, group_name, department_id, group_code) FROM stdin;
+1	ИС_Б19	1	ISb19
+2	ИС-Б18	1	ISb18
+4	ИВТ_Б19	1	IVTb19
+3	ИС_Б15	1	ISb15
+6	АБВ_Б17	4	ABVb17
+7	МЕН_Б19	6	MENb19
+5	БИЗ_Б19	6	BISb19
+8	НОВ_Б22	4	NOVb22
+9	БР_С22	1	BRs22
+\.
+
+
+--
+-- TOC entry 3430 (class 0 OID 33083)
+-- Dependencies: 234
+-- Data for Name: journal; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.journal (journal_id, script, date_time, type) FROM stdin;
+1	useradd -m -g NOVb22 -N Edik\necho Edik:Edik|chpasswd\n	2023-06-23 02:30:50.04	Скрипт добавления
+2	useradd -m -g ABVb17 -N Логин\necho Логин:Пароль|chpasswd\nuseradd -m -g ABVb17 -N polovoyvs\necho polovoyvs:vovka228|chpasswd\n	2023-06-23 02:32:23.704	Скрипт добавления
+3	useradd -m -g ABVb17 -N familiyaio\necho familiyaio:Wbc9b|chpasswd\nuseradd -m -g ABVb17 -N polovojvs\necho polovojvs:zPMmtB|chpasswd\n	2023-06-23 02:34:43.735	Скрипт добавления
+4	useradd -m -g ISb19 -N andreaa\necho andreaa:6RrzpP3|chpasswd\n	2023-06-23 02:35:43.1	Скрипт добавления
+5	useradd -m -g NOVb22 -N eduardovee\necho eduardovee:dYC3vFs|chpasswd\n	2023-06-23 02:36:46.102	Скрипт добавления
+6	useradd -m -g ABVb17 -N familiyaio\necho familiyaio:6Ww|chpasswd\nuseradd -m -g ABVb17 -N polovojvs\necho polovojvs:42JrBdV|chpasswd\n	2023-06-23 02:49:06.11	Скрипт добавления
+7	useradd -m -g ISb19 -N andreaa\necho andreaa:cu5|chpasswd\n	2023-06-23 02:50:24.776	Скрипт добавления
+8	userdel -r andreaa\nuserdel -r danilapa\nuserdel -r familiyaio\n	2023-06-23 03:06:19.381	Скрипт удаления
+9	useradd -m -g ISb19 -N pyrovtg\necho pyrovtg:9ntzBD|chpasswd\nuseradd -m -g ISb19 -N studentovss\necho studentovss:btvHL|chpasswd\nuseradd -m -g ISb19 -N gruppagg\necho gruppagg:HKxv3|chpasswd\n	2023-06-23 03:41:14.234	Скрипт добавления
+10	userdel -r aipshenichnyj\n	2023-06-23 03:41:48.421	Скрипт удаления
+11	userdel -r polovojvs\n	2023-06-23 04:06:17.138	Скрипт удаления
+12	useradd -m -g NOVb22 -N eduardovee\necho eduardovee:fvm|chpasswd\n	2023-06-23 10:06:20.173	Скрипт добавления
+\.
+
+
+--
+-- TOC entry 3429 (class 0 OID 33045)
+-- Dependencies: 233
+-- Data for Name: logs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.logs (log_id, work_room_id, thread_script_id, launch_time, log_text) FROM stdin;
+1	1	28	2023-06-25 21:27:33	����ன�� ��⮪��� IP ��� Windows������ Ethernet Ethernet:   DNS-���䨪� ������祭�� . . . . . : l69lan.iate.obninsk.ru   ������� IPv6-���� ������ . . . : fe80::9245:af8b:9b3:14e7%13   IPv4-����. . . . . . . . . . . . : 10.1.14.69   ��᪠ ����� . . . . . . . . . . : 255.255.252.0   �᭮���� ��. . . . . . . . . : 10.1.12.1
+2	1	28	2023-06-25 21:28:33	����ன�� ��⮪��� IP ��� Windows������ Ethernet Ethernet:   DNS-���䨪� ������祭�� . . . . . : l69lan.iate.obninsk.ru   ������� IPv6-���� ������ . . . : fe80::9245:af8b:9b3:14e7%13   IPv4-����. . . . . . . . . . . . : 10.1.14.69   ��᪠ ����� . . . . . . . . . . : 255.255.252.0   �᭮���� ��. . . . . . . . . : 10.1.12.1
+3	1	28	2023-06-25 21:29:34	����ன�� ��⮪��� IP ��� Windows������ Ethernet Ethernet:   DNS-���䨪� ������祭�� . . . . . : l69lan.iate.obninsk.ru   ������� IPv6-���� ������ . . . : fe80::9245:af8b:9b3:14e7%13   IPv4-����. . . . . . . . . . . . : 10.1.14.69   ��᪠ ����� . . . . . . . . . . : 255.255.252.0   �᭮���� ��. . . . . . . . . : 10.1.12.1
+4	1	28	2023-06-25 21:30:34	����ன�� ��⮪��� IP ��� Windows������ Ethernet Ethernet:   DNS-���䨪� ������祭�� . . . . . : l69lan.iate.obninsk.ru   ������� IPv6-���� ������ . . . : fe80::9245:af8b:9b3:14e7%13   IPv4-����. . . . . . . . . . . . : 10.1.14.69   ��᪠ ����� . . . . . . . . . . : 255.255.252.0   �᭮���� ��. . . . . . . . . : 10.1.12.1
+5	1	28	2023-06-25 21:31:34	����ன�� ��⮪��� IP ��� Windows������ Ethernet Ethernet:   DNS-���䨪� ������祭�� . . . . . : l69lan.iate.obninsk.ru   ������� IPv6-���� ������ . . . : fe80::9245:af8b:9b3:14e7%13   IPv4-����. . . . . . . . . . . . : 10.1.14.69   ��᪠ ����� . . . . . . . . . . : 255.255.252.0   �᭮���� ��. . . . . . . . . : 10.1.12.1
+\.
+
+
+--
+-- TOC entry 3413 (class 0 OID 16409)
+-- Dependencies: 217
+-- Data for Name: masters; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.masters (master_id, surname, name, middle_name, login, password, role, status) FROM stdin;
+1	Админов	Админ	Админович	Admin	$2a$12$Va96MnfwtpficB1JIA15.uwxZnhoCZCCOfHEMJrM5FRG/EjkQgqd.	ADMIN	ACTIVE
+3	Тестеров	Тест	Тестерович	Tester	$2a$12$txWh72IeTZhbw7tz3piuCu2US7m5SvEfJgbeHewcqOogZteKC00ra	ADMIN	ACTIVE
+-1	Суперов	Супер	Суперович	Super	$2a$12$0T//D/k3JsLlA.R1ZRbT3OrXdaBAWWp.4FuzzkAs6b5niAeIvjtUG	SUPERUSER	ACTIVE
+2	Учителев	Учитель	Учителевич	Teacher	$2a$12$zSs.FKy9mnFlbBPrSnLy1.BBpVN9dDYkoCCcyc2SRpB6x5rg5pNLm	TEACHER	ACTIVE
+4	Новиков	Новый	Новикович	Login	$2a$12$XGylinhE6FO16U5KP4lThefoITSEimcvnq9knB9h3eT8U4ynH.BUy	TEACHER	ACTIVE
+5	Тест	Тест	Тест	Test	$2a$12$1DRhqmG1APfV7fmZB3O8e.Fj4./qPmPerNRmdVyw/CLdmsWOQajPK	TEACHER	ACTIVE
+6	ТестТест	ТестТест	ТестТест	TestTest	$2a$12$yv5KZ6qyAsxwOXtmydJFgeA9KkXXevq9zjipF..NuJ9dBvoLsx9wq	ADMIN	ACTIVE
+\.
+
+
+--
+-- TOC entry 3423 (class 0 OID 33018)
+-- Dependencies: 227
+-- Data for Name: scripts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.scripts (script_id, label, script_code, status) FROM stdin;
+1	Скрипт 1	ping	t
+3	Test_1	zypper	t
+\.
+
+
+--
+-- TOC entry 3411 (class 0 OID 16400)
+-- Dependencies: 215
+-- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.students (student_id, surname, name, middle_name, group_id, login, password, work_room_id, state) FROM stdin;
+22	Проверкин	Проверка	Проверкинович	8	Проверка	Proverka	4	CREATED
+18	Александр	Шаров	Дмитриевич	4	sharovad	SashkaDurak	1	CREATED
+38	Группа	Группа	Группа	1	gruppagg	GpaX	1	R_TO_WORK
+25	Качанов	Борис	Владимирович	7	kachanovbv	пароль	1	CREATED
+8	Вадимов	Вадя	Вадимович	3	VadyaKrutoy	vvvwww	1	CREATED
+9	Петин	Петя	Петрович	4	Петька	22222	1	CREATED
+26	Викторов	Вадя	Владимирович	9	viktorovvv	EZDRpkX	5	CREATED
+39	Пупкин	Вася	Валентинович	9	pupkinvv	DNkVRjWj	4	CREATED
+30	Тыров	Пыры	Вася	2	tyrovpv	YAAA4CK6	1	CREATED
+7	Данила	Потапкин	Александрович	1	danilapa	fS73	1	CREATED
+6	Васин	ВасяTest	Васильевич	3	vasinvv	SvD	1	CREATED
+5	Федин	Федя	Федорович	3	fedinff	KWCSmBS	1	CREATED
+20	Фамилия	Имя	Отчество	6	familiyaio	kDFP	1	CREATED
+27	Андре	Андр	Андрей	1	andreaa	Srxb	1	CREATED
+1	Пшеничный	Андрей	Игоревич	1	pshenichnyjai	wnd8XdS	1	CREATED
+19	Половой	Владимир	Сергеевич	4	polovojvs	k4LNT	1	CREATED
+37	Студентов	Студентов	Студентов	1	studentovss	NzrM3	1	IN_WORK
+29	Пыров	Тыры	Геннадий	1	pyrovtg	EAe	1	IN_WORK
+21	Эдуардов	Эдуард	Эдуардович	8	eduardovee	HxF	1	IN_WORK
+\.
+
+
+--
+-- TOC entry 3421 (class 0 OID 32947)
+-- Dependencies: 225
+-- Data for Name: sub_pcs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sub_pcs (sub_pc_id, sub_pc_ip, work_room_id) FROM stdin;
+1	192.168.0.1	1
+2	vk.com	1
+3	google.com	1
+4	255.255.192.64	1
+5	1.1.1.1	1
+\.
+
+
+--
+-- TOC entry 3427 (class 0 OID 33036)
+-- Dependencies: 231
+-- Data for Name: thread_scripts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.thread_scripts (thread_script_id, label, script_id, work_room_id, time_minutes, launch_time, status, generated_script) FROM stdin;
+7	aaaa	1	1	1	\N	t	ssh -l root IP_1 " ping"
+8	1111	1	1	1	\N	t	ssh -l root IP_1 " ping"
+11	Test_2	1	1	1	\N	t	ipconfig
+1	Test_1	1	1	3	\N	t	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+2	test	1	1	1	\N	t	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+9	sdfsd	1	1	1	\N	t	ssh -l root IP_1 " ping"
+10	Test_ipconfig	1	1	1	\N	t	ipconfig
+12	1111	1	1	1	\N	t	ipconfig
+13	TestTest	1	1	1	\N	t	ipconfig
+14	Script_Log	1	1	1	\N	t	ipconfig
+15	safeprob_0	1	1	1	\N	t	ipconfig
+16	safeprob_1	1	1	1	\N	t	ipconfig
+17	withoutsave	1	1	1	\N	t	ipconfig
+18	testestes	1	1	1	\N	t	ipconfig
+19	ipconfig_999	1	1	1	\N	t	ipconfig
+20	testtttesst	1	1	1	\N	t	ipconfig
+21	11111	1	1	1	\N	t	ipconfig
+22	TetSt	1	1	1	\N	t	ipconfig
+23	teeeeeeeeeest	1	1	1	\N	t	ipconfig
+24	new_test	1	1	1	\N	t	ipconfig
+25	jdbc_test	1	1	1	\N	t	ipconfig
+26	final_test	1	1	1	\N	t	ipconfig
+27	final_2_test	1	1	1	\N	t	ipconfig
+28	final_3_test	1	1	1	\N	t	ipconfig
+3	111	1	1	1	\N	f	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+4	111	1	1	1	\N	f	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+5	111	1	1	1	\N	f	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+6	2222	1	1	2	\N	f	ssh -l root IP_1 "pdsh -w 192.168.0.1 vk.com google.com 255.255.192.64 1.1.1.1 ping uptime"
+\.
+
+
+--
+-- TOC entry 3419 (class 0 OID 32940)
+-- Dependencies: 223
+-- Data for Name: work_rooms; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.work_rooms (work_room_id, name, main_pc_ip) FROM stdin;
+1	2-612	IP_1
+2	2-610	IP_2
+3	2-609	IP_3
+4	2-608	IP_4
+5	2-607	IP_5
+6	2-606	IP_6
+\.
+
+
+--
+-- TOC entry 3448 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: archive_archive_id _seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."archive_archive_id _seq"', 10, true);
+
+
+--
+-- TOC entry 3449 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: departments_department_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.departments_department_id_seq', 7, true);
+
+
+--
+-- TOC entry 3450 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: groups_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.groups_group_id_seq', 9, true);
+
+
+--
+-- TOC entry 3451 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: journal_journal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.journal_journal_id_seq', 12, true);
+
+
+--
+-- TOC entry 3452 (class 0 OID 0)
+-- Dependencies: 232
+-- Name: logs_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.logs_log_id_seq', 5, true);
+
+
+--
+-- TOC entry 3453 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: masters_master_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.masters_master_id_seq', 6, true);
+
+
+--
+-- TOC entry 3454 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: scripts_scritp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.scripts_scritp_id_seq', 3, true);
+
+
+--
+-- TOC entry 3455 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: students_student_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.students_student_id_seq', 39, true);
+
+
+--
+-- TOC entry 3456 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: sub_pcs_sub_pc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.sub_pcs_sub_pc_id_seq', 1, false);
+
+
+--
+-- TOC entry 3457 (class 0 OID 0)
+-- Dependencies: 230
+-- Name: thread_scripts_thread_script_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.thread_scripts_thread_script_id_seq', 28, true);
+
+
+--
+-- TOC entry 3458 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: work_rooms_work_room_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.work_rooms_work_room_id_seq', 1, false);
+
+
+--
+-- TOC entry 3251 (class 2606 OID 33034)
+-- Name: archives archive_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.archives
+    ADD CONSTRAINT archive_pkey PRIMARY KEY (archive_id);
+
+
+--
+-- TOC entry 3243 (class 2606 OID 16453)
+-- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_pkey PRIMARY KEY (department_id);
+
+
+--
+-- TOC entry 3241 (class 2606 OID 16425)
+-- Name: groups groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.groups
+    ADD CONSTRAINT groups_pkey PRIMARY KEY (group_id);
+
+
+--
+-- TOC entry 3257 (class 2606 OID 33094)
+-- Name: journal journal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.journal
+    ADD CONSTRAINT journal_pkey PRIMARY KEY (journal_id);
+
+
+--
+-- TOC entry 3255 (class 2606 OID 33052)
+-- Name: logs logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.logs
+    ADD CONSTRAINT logs_pkey PRIMARY KEY (log_id);
+
+
+--
+-- TOC entry 3239 (class 2606 OID 16416)
+-- Name: masters masters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.masters
+    ADD CONSTRAINT masters_pkey PRIMARY KEY (master_id);
+
+
+--
+-- TOC entry 3249 (class 2606 OID 33025)
+-- Name: scripts scripts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.scripts
+    ADD CONSTRAINT scripts_pkey PRIMARY KEY (script_id);
+
+
+--
+-- TOC entry 3237 (class 2606 OID 16407)
+-- Name: students students_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.students
+    ADD CONSTRAINT students_pkey PRIMARY KEY (student_id);
+
+
+--
+-- TOC entry 3247 (class 2606 OID 32961)
+-- Name: sub_pcs sub_pcs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sub_pcs
+    ADD CONSTRAINT sub_pcs_pkey PRIMARY KEY (sub_pc_id);
+
+
+--
+-- TOC entry 3253 (class 2606 OID 33043)
+-- Name: thread_scripts thread_scripts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.thread_scripts
+    ADD CONSTRAINT thread_scripts_pkey PRIMARY KEY (thread_script_id);
+
+
+--
+-- TOC entry 3245 (class 2606 OID 32954)
+-- Name: work_rooms work_rooms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.work_rooms
+    ADD CONSTRAINT work_rooms_pkey PRIMARY KEY (work_room_id);
+
+
+--
+-- TOC entry 3260 (class 2606 OID 32925)
+-- Name: groups departments_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.groups
+    ADD CONSTRAINT departments_fkey FOREIGN KEY (department_id) REFERENCES public.departments(department_id) NOT VALID;
+
+
+--
+-- TOC entry 3258 (class 2606 OID 16440)
+-- Name: students groups_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.students
+    ADD CONSTRAINT groups_fkey FOREIGN KEY (group_id) REFERENCES public.groups(group_id) NOT VALID;
+
+
+--
+-- TOC entry 3262 (class 2606 OID 33063)
+-- Name: archives scripts_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.archives
+    ADD CONSTRAINT scripts_fkey FOREIGN KEY (script_id) REFERENCES public.scripts(script_id) NOT VALID;
+
+
+--
+-- TOC entry 3264 (class 2606 OID 33073)
+-- Name: thread_scripts scripts_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.thread_scripts
+    ADD CONSTRAINT scripts_fkey FOREIGN KEY (script_id) REFERENCES public.scripts(script_id) NOT VALID;
+
+
+--
+-- TOC entry 3266 (class 2606 OID 33058)
+-- Name: logs thread_scripts_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.logs
+    ADD CONSTRAINT thread_scripts_fkey FOREIGN KEY (thread_script_id) REFERENCES public.thread_scripts(thread_script_id) NOT VALID;
+
+
+--
+-- TOC entry 3259 (class 2606 OID 32955)
+-- Name: students work_rooms_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.students
+    ADD CONSTRAINT work_rooms_fkey FOREIGN KEY (work_room_id) REFERENCES public.work_rooms(work_room_id) NOT VALID;
+
+
+--
+-- TOC entry 3261 (class 2606 OID 32962)
+-- Name: sub_pcs work_rooms_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sub_pcs
+    ADD CONSTRAINT work_rooms_fkey FOREIGN KEY (work_room_id) REFERENCES public.work_rooms(work_room_id) NOT VALID;
+
+
+--
+-- TOC entry 3267 (class 2606 OID 33053)
+-- Name: logs work_rooms_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.logs
+    ADD CONSTRAINT work_rooms_fkey FOREIGN KEY (work_room_id) REFERENCES public.work_rooms(work_room_id) NOT VALID;
+
+
+--
+-- TOC entry 3263 (class 2606 OID 33068)
+-- Name: archives work_rooms_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.archives
+    ADD CONSTRAINT work_rooms_fkey FOREIGN KEY (work_room_id) REFERENCES public.work_rooms(work_room_id) NOT VALID;
+
+
+--
+-- TOC entry 3265 (class 2606 OID 33078)
+-- Name: thread_scripts work_rooms_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.thread_scripts
+    ADD CONSTRAINT work_rooms_fkey FOREIGN KEY (work_room_id) REFERENCES public.work_rooms(work_room_id) NOT VALID;
+
+
+-- Completed on 2023-06-26 15:53:23
+
+--
+-- PostgreSQL database dump complete
+--
+
