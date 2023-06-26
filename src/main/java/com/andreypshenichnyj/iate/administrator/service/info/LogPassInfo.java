@@ -18,7 +18,6 @@ public class LogPassInfo {
                     .append(" ").append(list.get(i).getMiddle_name()).append(" : ").append(list.get(i).getLogin())
                     .append("|").append(list.get(i).getPassword()).append("\n");
         }
-        System.out.println(sb.toString());
 
         info = sb.toString();
     }
